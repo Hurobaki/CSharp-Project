@@ -80,15 +80,34 @@ namespace Project_CSharp.Authentification
 
             public void authentify(String login, String password)
             {
-                if(true)
+
+                // throw new UserExistsException("Authentify method flag, UserExistsException raised", login);
+                // Si l'utilisateur est déjà connecté ??
+
+                bool flag = false;
+                
+                foreach(User u in _users)
                 {
-                    throw new UserExistsException("Authentify method flag, UserExistsException raised", login);
-                    throw new WrongPasswordException("Authentify method flag, WrongPasswordException", login);
+                    if(u.login.Equals(login))
+                    {
+                        flag = true;
+
+                        if(u.password.Equals(password))
+                        {
+                            Console.WriteLine("Authentification OK !");
+                        }
+                        else
+                        {
+                            throw new WrongPasswordException("Invalid Password for :", login);
+                        }
+                    }           
                 }
-                else
+                
+                if(!flag)
                 {
-                    //Authentify
+                    throw new UserUnknowException("was not found.", login);
                 }
+
             }
 
             public static AuthentificationManager load(String path)

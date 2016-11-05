@@ -74,6 +74,23 @@ namespace Project_CSharp.Chat
 
                 test.checkRegistredUsers();
 
+
+
+
+                try
+                {
+                    test.authentify("Alexandre", "456");
+                }
+                catch(WrongPasswordException e)
+                {
+                    e.DisplayLogReportShow();
+                }
+                catch(UserUnknowException e)
+                {
+                    e.DisplayLogReportShow();
+                }
+
+
                 Console.ReadLine();
             }
         }
