@@ -44,6 +44,12 @@ namespace Project_CSharp.Authentification
                     _password = value;
                 }
             }
+
+
+            public override string ToString()
+            {
+                return "Login = " + this.login + ".";
+            }
         }
     }
 }

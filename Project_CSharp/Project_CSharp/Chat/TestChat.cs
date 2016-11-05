@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Project_CSharp.Exceptions.PersException;
-using Project_CSharp.Authentification;
+using Project_CSharp.Authentification.Authentification;
 
 namespace Project_CSharp.Chat
 {
@@ -47,13 +47,34 @@ namespace Project_CSharp.Chat
                 try
                 {
                     test.addUser("Manuelle", "Léna");
+                    test.addUser("Théo", "123");
+                    test.addUser("Alexandre", "456");
+
+                    
                 }
                 catch (UserExistsException e)
                 {
                     e.DisplayLogReportShow();
                 }
+                Console.WriteLine();
 
 
+                test.checkRegistredUsers();
+
+                try
+                {
+                    test.removeUser("Théo");
+                }
+                catch (UserUnknowException e)
+                {
+                    e.DisplayLogReportShow();
+                }
+
+
+
+                test.checkRegistredUsers();
+
+                Console.ReadLine();
             }
         }
     }

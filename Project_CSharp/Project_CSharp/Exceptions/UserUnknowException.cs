@@ -16,8 +16,7 @@ namespace Project_CSharp.Exceptions
 
             public void DisplayLogReportShow()
             {
-                Console.WriteLine(this.Message);
-                Console.WriteLine(this.login);
+                Console.WriteLine(this.login + " " + this.Message);
             }
         }
     }
