@@ -12,7 +12,8 @@ namespace Project_CSharp.Authentification
     {
         class AuthentificationManager
         {
-
+            // Si on créé une classe User, il suffit de passer en paramètre un User
+            // Du coup est-ce qu'il faut créer une classe User ?
             public void addUser(String login, String password)
             {
                 if (true)//user exists
@@ -50,11 +51,18 @@ namespace Project_CSharp.Authentification
                 }
             }
 
-            /*public static AuthentificationManagement load(String path)
+            public static AuthentificationManager load(String path)
             {
-                throws IOException
+                if(true)
+                {
+                    throw new IOException();
+                }
+                else
+                {
+                    //On charge
+                }
 
-            }*/
+            }
 
             public void save(String path)
             {

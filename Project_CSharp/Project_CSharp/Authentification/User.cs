@@ -1,0 +1,49 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Project_CSharp.Authentification
+{
+    namespace Authentification
+    {
+        class User
+        {
+            String _login;
+            String _password;
+
+            public User(String login, String password)
+            {
+                _login = login;
+                _password = password;
+            }
+
+            public String login
+            {
+                get
+                {
+                    return _login;
+                }
+
+                set
+                {
+                    _login = value;
+                }
+            }
+
+            public String password
+            {
+                get
+                {
+                    return _password;
+                }
+
+                set
+                {
+                    _password = value;
+                }
+            }
+        }
+    }
+}
