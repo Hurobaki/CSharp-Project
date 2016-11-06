@@ -49,11 +49,13 @@
     <Compile Include="Chat\Chatter.cs" />
     <Compile Include="Chat\TestChat.cs" />
     <Compile Include="Chat\TopicsManager.cs" />
+    <Compile Include="Client\ChatClient.cs" />
     <Compile Include="Exceptions\AuthentificationException.cs" />
     <Compile Include="Exceptions\UserExistsException.cs" />
     <Compile Include="Exceptions\UserUnknowException.cs" />
     <Compile Include="Exceptions\WrongPasswordException.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Server\ChatServer.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

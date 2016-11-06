@@ -16,7 +16,7 @@ namespace Project_CSharp.Chat
             private const string PATH = "Test.xml";
 
 
-            static void Main(string[] args)
+            /*static void Main(string[] args)
             {
                 Chatter Manuelle = new Chatter("Manuelle"),Léna = new Chatter("Léna");
                 TopicsManager tm = new TopicsManager();
@@ -45,7 +45,7 @@ namespace Project_CSharp.Chat
                 Console.ReadLine();
 
 
-                /*AuthentificationManager test = new AuthentificationManager();
+                AuthentificationManager test = new AuthentificationManager();
 
                 try
                 {
@@ -90,8 +90,8 @@ namespace Project_CSharp.Chat
                 catch(UserUnknowException e)
                 {
                     e.DisplayLogReportShow();
-                }*/
-
+                }
+                
                 AuthentificationManager aut = null;
 
                 if(File.Exists(PATH))
@@ -106,7 +106,8 @@ namespace Project_CSharp.Chat
 
 
                 Console.ReadLine();
-            }
+            }*/
+
         }
     }
 }
