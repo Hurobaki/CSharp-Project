@@ -20,7 +20,7 @@ namespace Project_CSharp.Authentification
                 _login = login;
                 _password = password;
             }
-
+             
             public String login
             {
                 get
