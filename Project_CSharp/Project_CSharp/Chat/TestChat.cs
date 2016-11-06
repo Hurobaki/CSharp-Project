@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.IO;
 using System.Threading.Tasks;
 using Project_CSharp.Exceptions.PersException;
 using Project_CSharp.Authentification.Authentification;
@@ -12,6 +13,9 @@ namespace Project_CSharp.Chat
     {
         class TestChat
         {
+            private const string PATH = "Test.xml";
+
+
             static void Main(string[] args)
             {
                 Chatter Manuelle = new Chatter("Manuelle"),Léna = new Chatter("Léna");
@@ -41,20 +45,23 @@ namespace Project_CSharp.Chat
                 Console.ReadLine();
 
 
+                /*AuthentificationManager test = new AuthentificationManager();
 
-
-                AuthentificationManager test = new AuthentificationManager();
                 try
                 {
                     test.addUser("Manuelle", "Léna");
                     test.addUser("Théo", "123");
                     test.addUser("Alexandre", "456");
 
-                    
+                    test.save("Test.xml");
                 }
                 catch (UserExistsException e)
                 {
                     e.DisplayLogReportShow();
+                }
+                catch (IOException e)
+                {
+                    Console.WriteLine(e.Message);
                 }
                 Console.WriteLine();
 
@@ -70,12 +77,7 @@ namespace Project_CSharp.Chat
                     e.DisplayLogReportShow();
                 }
 
-
-
                 test.checkRegistredUsers();
-
-
-
 
                 try
                 {
@@ -88,6 +90,18 @@ namespace Project_CSharp.Chat
                 catch(UserUnknowException e)
                 {
                     e.DisplayLogReportShow();
+                }*/
+
+                AuthentificationManager aut = null;
+
+                if(File.Exists(PATH))
+                {
+                    aut = AuthentificationManager.load(PATH);
+                    aut.checkRegistredUsers();
+                }
+                else
+                {
+                    aut = new AuthentificationManager();
                 }
 
 

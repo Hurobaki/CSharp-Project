@@ -8,10 +8,12 @@ namespace Project_CSharp.Authentification
 {
     namespace Authentification
     {
-        class User
+        public class User
         {
             String _login;
             String _password;
+            
+            public User() { }
 
             public User(String login, String password)
             {

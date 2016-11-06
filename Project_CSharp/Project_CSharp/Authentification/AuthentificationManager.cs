@@ -1,23 +1,38 @@
-﻿using System;
-using System.IO;
+﻿using Project_CSharp.Exceptions.PersException;
+using System;
 using System.Collections.Generic;
+using System.Globalization;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Globalization;
-using Project_CSharp.Exceptions.PersException;
+using System.Xml.Serialization;
 
 namespace Project_CSharp.Authentification
 {
     namespace Authentification
     {
-        class AuthentificationManager
+        [Serializable()]
+        public class AuthentificationManager
         {
             // Si on créé une classe User, il suffit de passer en paramètre un User
             // Du coup est-ce qu'il faut créer une classe User ?
             //Ou du coup on créé une instance de User ici et ensuite on fait une liste d'User ? 
 
+            
             private static List<User> _users = new List<User>();
+
+
+            [XmlArray("Users_Registered")]
+            public List<User> Users
+            {
+                get
+                {
+                    return _users;
+                }
+            }
+
+
 
             
             public void addUser(String login, String password)
@@ -112,27 +127,24 @@ namespace Project_CSharp.Authentification
 
             public static AuthentificationManager load(String path)
             {
-                if(true)
-                {
-                    throw new IOException();
-                }
-                else
-                {
-                    //On charge
-                }
+                XmlSerializer deserializer = new XmlSerializer(typeof(AuthentificationManager));
+                StreamReader reader = new StreamReader(path);
+                AuthentificationManager aut = (AuthentificationManager)deserializer.Deserialize(reader);
+                reader.Close();
 
+                return aut;
             }
 
             public void save(String path)
             {
-                if(true)
-                {
-                    throw new IOException();
-                }
-                else
-                {
-                    //Save inside txt file
-                }
+                // Utiliser la sérialisation
+                // En binaire ou en XML ? 
+                //Binaire mieux pour du réseau car moins de paquets
+
+                XmlSerializer serializer = new XmlSerializer(typeof(AuthentificationManager));
+                StreamWriter writer = new StreamWriter(path);
+                serializer.Serialize(writer, this);
+                writer.Close();
             }
         }
     }
