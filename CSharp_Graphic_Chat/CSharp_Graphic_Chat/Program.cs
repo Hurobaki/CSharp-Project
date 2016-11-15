@@ -1,28 +1,32 @@
-﻿using System;
+﻿using Project_CSharp.Authentification.Authentification;
+using Project_CSharp.Chat.Chat;
+using Project_CSharp.Exceptions.PersException;
+using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using Project_CSharp.Exceptions.PersException;
-using Project_CSharp.Authentification.Authentification;
 
 namespace CSharp_Graphic_Chat
 {
     static class Program
     {
+        private const string PATH = "Test.xml";
+
         /// <summary>
         /// The main entry point for the application.
         /// </summary>
         [STAThread]
         static void Main()
-        {
+        { 
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new Form1());
-            private const string PATH = "Test.xml";
 
-        /*
-       {
+              
+
+       
            Chatter Manuelle = new Chatter("Manuelle"),Léna = new Chatter("Léna");
            TopicsManager tm = new TopicsManager();
            tm.createTopic("Mon corps tout nu");
@@ -111,11 +115,7 @@ namespace CSharp_Graphic_Chat
 
 
            Console.ReadLine();
-       }*/
-
-
+       }
     }
-
-}
 }
 

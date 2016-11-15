@@ -8,57 +8,76 @@ using Project_CSharp.Client;
 using System.Threading;
 using Project_CSharp.Chat.Chat;
 using System.Net;
-using System.IO;
 
 namespace Project_CSharp.Server
 {
     class ChatServer
     {
-        static void Main(string[] args)
+        Socket server;
+
+        public void startServer()
         {
-            TcpListener ServerSocket = new TcpListener(IPAddress.Any, 25565);
-            ServerSocket.Start();
-            Console.WriteLine("Server started");
+            IPEndPoint ipep = new IPEndPoint(IPAddress.Parse("127.0.0.1"), 8000);
+            server = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+            Console.WriteLine("Starting server");
+            server.Connect(ipep);
+            
+        }
+
+        public void stopServer()
+        {
+            Console.WriteLine("Stopping server");
+            server.Dispose();
+        }
+
+        public void run()
+        {
+            Console.WriteLine("Running server");
             while (true)
             {
-                TcpClient clientSocket = ServerSocket.AcceptTcpClient();
-                Console.WriteLine("New client");
-                handleClient client = new handleClient();
-                client.startClient(clientSocket);
+                Console.WriteLine("In the while");
+                Socket client = server.Accept();
+                
+                Console.WriteLine("New Client");
+                HandleClient hclient = new HandleClient();
+                hclient.startClient(client);
             }
         }
+       /* public static void Main(String[] args)
+        {
+            ChatServer cs = new ChatServer();
+            cs.startServer();
+            cs.run();
+        }*/
     }
-
-    public class handleClient
+    public class HandleClient
     {
-        TcpClient clientSocket;
-        TopicsManager tm = new TopicsManager();
-        public void startClient(TcpClient inClientSocket)
+        private Socket clientSocket;
+        private byte[] bytesFrom = new byte[10000];
+
+        public void startClient(Socket c)
         {
-            this.clientSocket = inClientSocket;
-            Thread ctThread = new Thread(Chat);
-            ctThread.Start();
+            clientSocket = c;
+            Thread clientThread = new Thread(gereClient);
+            clientThread.Start();
         }
-        private void Chat()
+
+        public void gereClient()
         {
-            try
+         
+
+            while ((true))
             {
-                while (true)
+                try
                 {
-                    BinaryReader reader = new BinaryReader(clientSocket.GetStream());
-                    String line = reader.ReadString();
-                    if (line.Equals("2"))
-                    {
-                        
-                    }
-                    Console.WriteLine(reader.ReadString());
+                    clientSocket.Bind(new IPEndPoint(IPAddress.Parse("127.0.0.1"), 8000));
+                    clientSocket.Listen(200);
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(" >> " + ex.ToString());
                 }
             }
-            catch(IOException e)
-            {
-                Console.WriteLine("Un client a déconnecté");
-            }
-            
         }
     }
 }
