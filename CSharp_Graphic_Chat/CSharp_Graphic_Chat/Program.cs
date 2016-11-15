@@ -11,8 +11,7 @@ namespace CSharp_Graphic_Chat
 {
     static class Program
     {
-        private const string PATH = "Test.xml";
-
+        
         /// <summary>
         /// The main entry point for the application.
         /// </summary>
@@ -25,14 +24,19 @@ namespace CSharp_Graphic_Chat
             Application.Run(new Form1());
             */
             AuthentificationManager test = new AuthentificationManager();
+            String PATH = "Test.xml";
 
             try
             {
-                test.addUser("Manuelle", "Léna");
-                test.addUser("Théo", "123");
-                test.addUser("Alexandre", "456");
-
-                test.save("Test.xml");
+                if (File.Exists(PATH))
+                {
+                    test = AuthentificationManager.load(PATH);
+                    test.checkRegistredUsers();
+                }
+                else
+                {
+                    test = new AuthentificationManager();
+                }
             }
             catch (UserExistsException e)
             {
@@ -43,16 +47,11 @@ namespace CSharp_Graphic_Chat
                 Console.WriteLine(e.Message);
             }
             Console.WriteLine();
-            TcpListener ServerSocket = new TcpListener(IPAddress.Any, 1337);
-            ServerSocket.Start();
-            Console.WriteLine("Server started");
-            while (true)
-            {
-                TcpClient clientSocket = ServerSocket.AcceptTcpClient();
-                Console.WriteLine("New client");
-                handleClient client = new handleClient();
-                client.startClient(clientSocket);
-            }
+
+
+            ChatServer.StartServer();
+            ChatServer.StartListening();
+
             TopicsManager tm = new TopicsManager();
 
             /*Chatter Manuelle = new Chatter("Manuelle"), Léna = new Chatter("Léna");

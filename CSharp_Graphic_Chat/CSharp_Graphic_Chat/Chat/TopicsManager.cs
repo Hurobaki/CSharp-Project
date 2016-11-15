@@ -45,6 +45,16 @@ namespace CSharp_Graphic_Chat.Chat
                 else
                     _topics.Add(topic,new Chatroom(topic));
             }
+
+            public List<string> getRooms()
+            {
+                List<string> res = new List<string>();
+                foreach (string s in _topics.Keys)
+                {
+                    res.Add(s);
+                }
+                return res;
+            }
         }
     }
 }

@@ -18,7 +18,7 @@ namespace CSharp_Graphic_Chat.Authentification
 
             
             private static List<User> _users = new List<User>();
-
+            private const string PATH = "Test.xml";
 
             [XmlArray("Users_Registered")]
             public List<User> Users
@@ -28,9 +28,6 @@ namespace CSharp_Graphic_Chat.Authentification
                     return _users;
                 }
             }
-
-
-
             
             public bool addUser(String login, String password)
             {
@@ -51,6 +48,7 @@ namespace CSharp_Graphic_Chat.Authentification
 
                     TextInfo ti = CultureInfo.CurrentCulture.TextInfo;
                     Console.WriteLine("{1} has been added !", temp.login, ti.ToTitleCase(temp.login));
+                this.save(PATH);
                 return true;
             }
 
@@ -71,6 +69,7 @@ namespace CSharp_Graphic_Chat.Authentification
                         Console.WriteLine("{1} has been removed !", _users[i].login, ti.ToTitleCase(_users[i].login));
 
                         _users.Remove(_users[i]);
+                        this.save(PATH);
                         flag = true; 
                     }
                 }

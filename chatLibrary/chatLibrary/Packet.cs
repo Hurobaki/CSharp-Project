@@ -7,9 +7,10 @@ namespace chatLibrary
     public enum TypePacket
     {
         Authentification,
+        Login,
         Subscribe,
         SubscribeValidation,
-        Login
+        Topics
     }
 
     [Serializable()] // Pour que la classe soit sérialisable
