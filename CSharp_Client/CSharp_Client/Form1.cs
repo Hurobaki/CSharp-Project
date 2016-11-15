@@ -44,17 +44,17 @@ namespace CSharp_Client
         private void button1_Click(object sender, EventArgs e)
         {
 
-            AuthPaquet ap = new AuthPaquet(textBox1.Text, textBox2.Text);
+            AuthPacket ap = new AuthPacket(textBox1.Text, textBox2.Text);
 
-            Paquet.Send(ap, stream);
+            Packet.Send(ap, stream);
 
-            //Thread.Sleep(100);
+            Thread.Sleep(100);
 
-            Paquet paquet = Paquet.Receive(stream);
+            Packet paquet = Packet.Receive(stream);
 
-            if(paquet is loginPaquet)
+            if(paquet is LoginPacket)
             {
-                loginPaquet bp = (loginPaquet)paquet;
+                LoginPacket bp = (LoginPacket)paquet;
 
                 if (bp.value == 1)
                     MessageBox.Show("Welcome "+textBox1.Text, "Connexion successful !", MessageBoxButtons.OK);
@@ -67,9 +67,32 @@ namespace CSharp_Client
             
         }
 
+        private void button2_Click(object sender, EventArgs e)
+        {
+            SubscribePacket sb = new SubscribePacket(textBox1.Text, textBox2.Text);
+            Packet.Send(sb, stream);
+
+            Thread.Sleep(100);
+
+            Packet paquet = Packet.Receive(stream);
+
+            if(paquet is SubscribeValidation)
+            {
+                SubscribeValidation sv = (SubscribeValidation)paquet;
+
+                if(sv.value)
+                    MessageBox.Show("New user created !", "Registration completed", MessageBoxButtons.OK);
+                else
+                    MessageBox.Show("Wrong informations", "Registration failed", MessageBoxButtons.OK);
+            }
+
+        }
+
         private void backgroundWorker1_DoWork(object sender, DoWorkEventArgs e)
         {
 
         }
+
+        
     }
 }
