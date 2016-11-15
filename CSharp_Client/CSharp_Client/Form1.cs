@@ -17,8 +17,8 @@ namespace CSharp_Client
     public partial class Form1 : Form
     {
 
-        public NetworkStream stream;
-        public TcpClient client;
+        public static NetworkStream stream;
+        public static TcpClient client;
 
         public Form1()
         {
@@ -41,7 +41,7 @@ namespace CSharp_Client
             stream = client.GetStream();
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void connect_Click(object sender, EventArgs e)
         {
 
             AuthPacket ap = new AuthPacket(textBox1.Text, textBox2.Text);
@@ -52,19 +52,31 @@ namespace CSharp_Client
 
             Packet paquet = Packet.Receive(stream);
 
+            bool flag = false;
+
             if(paquet is LoginPacket)
             {
                 LoginPacket bp = (LoginPacket)paquet;
 
                 if (bp.value == 1)
-                    MessageBox.Show("Welcome "+textBox1.Text, "Connexion successful !", MessageBoxButtons.OK);
+                {
+                    MessageBox.Show("Welcome " + textBox1.Text, "Connexion successful !", MessageBoxButtons.OK);
+                    flag = true;
+                }
                 else if(bp.value == 2)
                     MessageBox.Show("Wrong password ", "Connexion failed !", MessageBoxButtons.OK);
                 else
                     MessageBox.Show("USer Unknown", "Connexion failed !", MessageBoxButtons.OK);
             }
 
-            
+            if(flag)
+            {
+                //Application.Run(new Form2());
+                this.Visible = false;
+                Form2 fr2 = new Form2();
+                fr2.ShowDialog();
+               
+            }
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -93,6 +105,11 @@ namespace CSharp_Client
 
         }
 
-        
+        private void Form1_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            Application.Exit();
+            this.Close();
+        }
+
     }
 }
