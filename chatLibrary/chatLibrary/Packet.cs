@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Net.Sockets;
 using System.Runtime.Serialization.Formatters.Binary;
 
@@ -38,8 +39,21 @@ namespace chatLibrary
 
             BinaryFormatter bf = new BinaryFormatter();
             p = (Packet)bf.Deserialize(stream);
+            
 
             return p;
         }
+        public static Packet ReceiveList(NetworkStream stream)
+        {
+            Packet p = null;
+
+            BinaryFormatter bf = new BinaryFormatter();
+            p = (Packet)bf.Deserialize(stream);
+            TopicsPacket tp = (TopicsPacket) p;
+            List<string> objects = tp.topics as List<string>;
+
+            return tp;
+        }
+
     }
 }

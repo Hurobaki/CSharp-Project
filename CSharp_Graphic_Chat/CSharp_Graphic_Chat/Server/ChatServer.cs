@@ -37,21 +37,6 @@ namespace CSharp_Graphic_Chat.Server
         {
             /*connectedUsers.Add(u);*/
         }
-        /*
-        static void Main(string[] args)
-        {
-            TcpListener ServerSocket = new TcpListener(IPAddress.Any, 25565);
-            ServerSocket.Start();
-            Console.WriteLine("Server started");
-            while (true)
-            {
-                TcpClient clientSocket = ServerSocket.AcceptTcpClient();
-                Console.WriteLine("New client");
-                handleClient client = new handleClient();
-                client.startClient(clientSocket);
-            }
-        }
-        */
     }
 
     public class handleClient
@@ -91,8 +76,12 @@ namespace CSharp_Graphic_Chat.Server
                             ChatServer.addUser(u);
                             Packet.Send(bp, ns);
 
+                            foreach (String s in tm.getRooms())
+                                Console.WriteLine(s);
+                            Console.WriteLine("Sending topics");
                             TopicsPacket tp = new TopicsPacket(tm.getRooms());
                             Packet.Send(tp, ns);
+                            
                         }
                         else
                         {
@@ -104,7 +93,6 @@ namespace CSharp_Graphic_Chat.Server
                     if (packet is SubscribePacket)
                     {
                         SubscribePacket sb = (SubscribePacket)packet;
-
                         SubscribeValidation sv = new SubscribeValidation(am.addUser(sb.login, sb.password));
                         Console.WriteLine("Sending subscribe validation packet");
                         Packet.Send(sv, ns);

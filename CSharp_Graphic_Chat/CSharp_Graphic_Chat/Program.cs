@@ -25,7 +25,10 @@ namespace CSharp_Graphic_Chat
             */
             AuthentificationManager test = new AuthentificationManager();
             String PATH = "Test.xml";
-
+            TopicsManager tm = new TopicsManager();
+            tm.createTopic("Manuelle");
+            tm.createTopic("PA8");
+            tm.createTopic("Slack");
             try
             {
                 if (File.Exists(PATH))
@@ -46,13 +49,13 @@ namespace CSharp_Graphic_Chat
             {
                 Console.WriteLine(e.Message);
             }
-            Console.WriteLine();
+            
 
 
             ChatServer.StartServer();
             ChatServer.StartListening();
 
-            TopicsManager tm = new TopicsManager();
+            
 
             /*Chatter Manuelle = new Chatter("Manuelle"), Léna = new Chatter("Léna");
             tm.createTopic("Mon corps tout nu");
