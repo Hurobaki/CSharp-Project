@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Project_CSharp.Authentification
+namespace CSharp_Graphic_Chat.Authentification
 {
     namespace Authentification
     {

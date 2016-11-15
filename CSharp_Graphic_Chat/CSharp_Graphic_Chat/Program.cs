@@ -1,12 +1,9 @@
-﻿using Project_CSharp.Authentification.Authentification;
-using Project_CSharp.Chat.Chat;
-using Project_CSharp.Exceptions.PersException;
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
 using System.Windows.Forms;
+using CSharp_Graphic_Chat.Chat.Chat;
+using CSharp_Graphic_Chat.Authentification.Authentification;
+using CSharp_Graphic_Chat.Exceptions.PersException;
 
 namespace CSharp_Graphic_Chat
 {

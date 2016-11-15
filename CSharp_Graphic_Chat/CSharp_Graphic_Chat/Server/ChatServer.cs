@@ -4,12 +4,12 @@ using System.Linq;
 using System.Net.Sockets;
 using System.Text;
 using System.Threading.Tasks;
-using Project_CSharp.Client;
+using CSharp_Graphic_Chat.Client;
 using System.Threading;
-using Project_CSharp.Chat.Chat;
+using CSharp_Graphic_Chat.Chat.Chat;
 using System.Net;
 
-namespace Project_CSharp.Server
+namespace CSharp_Graphic_Chat.Server
 {
     class ChatServer
     {

@@ -5,7 +5,7 @@ using System.Net.Sockets;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Project_CSharp.Client
+namespace CSharp_Graphic_Chat.Client
 {
     class ChatClient
     {

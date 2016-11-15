@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Project_CSharp.Chat
+namespace CSharp_Graphic_Chat.Chat
 {
     namespace Chat
     {
