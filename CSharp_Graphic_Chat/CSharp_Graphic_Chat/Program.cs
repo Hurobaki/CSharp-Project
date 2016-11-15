@@ -4,6 +4,9 @@ using System.Windows.Forms;
 using CSharp_Graphic_Chat.Chat.Chat;
 using CSharp_Graphic_Chat.Authentification.Authentification;
 using CSharp_Graphic_Chat.Exceptions.PersException;
+using System.Net.Sockets;
+using System.Net;
+using CSharp_Graphic_Chat.Server;
 
 namespace CSharp_Graphic_Chat
 {
@@ -17,37 +20,11 @@ namespace CSharp_Graphic_Chat
         [STAThread]
         static void Main()
         {
+            /*
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new Form1());
-
-            Chatter Manuelle = new Chatter("Manuelle"), Léna = new Chatter("Léna");
-            TopicsManager tm = new TopicsManager();
-            tm.createTopic("Mon corps tout nu");
-            tm.createTopic("La pls, mon histoire");
-            Console.WriteLine("The openned topics are : ");
-
-            foreach (String s in tm.topics.Keys)
-            {
-                Console.WriteLine(s);
-            }
-
-            Chatroom cr = tm.joinTopic("La pls, mon histoire");
-            cr.join(Manuelle);
-            cr.join(Léna);
-            cr.post("Coucou ma chérie, comment s'est passé ta journée ? Je veux tout savoir ;) <3 <3 <3", Manuelle);
-            Console.ReadKey();
-            cr.post("J'ai passé le balai toute la journée et toi mon coeur ? :$ <3 <3", Léna);
-            Console.ReadKey();
-            cr.post("Oh trop bien ! Moi j'ai passé l'aspirateur, j'ai retrouvé une chips derrière mon pc (encore) :@ ", Manuelle);
-            Console.ReadKey();
-            cr.post("C'est encore tes connards de potes ! De toute façon je peux pas les blairer, surtout Théo ! Il est méchant mais le pire c'est qu'il a raison ! :(", Léna);
-            Console.ReadKey();
-            cr.quit(Manuelle);
-            cr.post("Oh non je suis toute seule ! Manu mon amour reviens moi ! Bon tant pis je vais allé voir un de ses potes comme j'ai l'habitude ! Je suis une coquine hihihi", Léna);
-            Console.ReadLine();
-
-
+            */
             AuthentificationManager test = new AuthentificationManager();
 
             try
@@ -67,8 +44,46 @@ namespace CSharp_Graphic_Chat
                 Console.WriteLine(e.Message);
             }
             Console.WriteLine();
+            TcpListener ServerSocket = new TcpListener(IPAddress.Any, 25565);
+            ServerSocket.Start();
+            Console.WriteLine("Server started");
+            while (true)
+            {
+                TcpClient clientSocket = ServerSocket.AcceptTcpClient();
+                handleClient client = new handleClient();
+                client.startClient(clientSocket);
+            }
+            TopicsManager tm = new TopicsManager();
+
+            /*Chatter Manuelle = new Chatter("Manuelle"), Léna = new Chatter("Léna");
+            tm.createTopic("Mon corps tout nu");
+            tm.createTopic("La pls, mon histoire");
+            Console.WriteLine("The openned topics are : ");
+
+            
+            foreach (String s in tm.topics.Keys)
+            {
+                Console.WriteLine(s);
+            }
+
+            Chatroom cr = tm.joinTopic("La pls, mon histoire");
+            cr.join(Manuelle);
+            cr.join(Léna);
+            cr.post("Coucou ma chérie, comment s'est passé ta journée ? Je veux tout savoir ;) <3 <3 <3", Manuelle);
+            Console.ReadKey();
+            cr.post("J'ai passé le balai toute la journée et toi mon coeur ? :$ <3 <3", Léna);
+            Console.ReadKey();
+            cr.post("Oh trop bien ! Moi j'ai passé l'aspirateur, j'ai retrouvé une chips derrière mon pc (encore) :@ ", Manuelle);
+            Console.ReadKey();
+            cr.post("C'est encore tes connards de potes ! De toute façon je peux pas les blairer, surtout Théo ! Il est méchant mais le pire c'est qu'il a raison ! :(", Léna);
+            Console.ReadKey();
+            cr.quit(Manuelle);
+            cr.post("Oh non je suis toute seule ! Manu mon amour reviens moi ! Bon tant pis je vais allé voir un de ses potes comme j'ai l'habitude ! Je suis une coquine hihihi", Léna);
+            Console.ReadLine();*/
 
 
+
+            /*
             test.checkRegistredUsers();
 
             try
@@ -108,7 +123,7 @@ namespace CSharp_Graphic_Chat
             }
 
 
-            Console.ReadLine();
+            Console.ReadLine();*/
         }
     }
 }

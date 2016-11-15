@@ -29,5 +29,10 @@ namespace CSharp_Graphic_Chat
         {
 
         }
+
+        private void textBox1_TextChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }

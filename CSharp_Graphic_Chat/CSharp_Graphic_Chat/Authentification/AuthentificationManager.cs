@@ -93,7 +93,7 @@ namespace CSharp_Graphic_Chat.Authentification
                 }
             }
 
-            public void authentify(String login, String password)
+            public int authentify(String login, String password)
             {
 
                 // throw new UserExistsException("Authentify method flag, UserExistsException raised", login);
@@ -110,19 +110,17 @@ namespace CSharp_Graphic_Chat.Authentification
                         if(u.password.Equals(password))
                         {
                             Console.WriteLine("Authentification OK !");
+                            return 1;
                         }
                         else
                         {
-                            throw new WrongPasswordException("Invalid Password for :", login);
+                            Console.WriteLine("Wrong password");
+                            return 2;
                         }
                     }           
                 }
-                
-                if(!flag)
-                {
-                    throw new UserUnknowException("was not found.", login);
-                }
-
+                Console.WriteLine("User not found");
+                return 3;
             }
 
             public static AuthentificationManager load(String path)

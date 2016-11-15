@@ -11,6 +11,7 @@ namespace chatLibrary
     public enum TypePaquet
     {
         Authentification,
+        Bool,
         Login
     }
 

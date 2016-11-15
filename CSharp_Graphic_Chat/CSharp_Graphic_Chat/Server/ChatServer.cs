@@ -4,17 +4,23 @@ using System.Linq;
 using System.Net.Sockets;
 using System.Text;
 using System.Threading.Tasks;
-using CSharp_Graphic_Chat.Client;
 using System.Threading;
 using CSharp_Graphic_Chat.Chat.Chat;
 using System.Net;
 using System.IO;
 using chatLibrary;
+using CSharp_Graphic_Chat.Authentification.Authentification;
 
 namespace CSharp_Graphic_Chat.Server
 {
     class ChatServer
     {
+        private List<User> connectedUsers = new List<User>();
+
+        public static void addUser(User u)
+        {
+            connectedUsers.Add(u);
+        }
         /*
         static void Main(string[] args)
         {
@@ -35,6 +41,7 @@ namespace CSharp_Graphic_Chat.Server
     public class handleClient
     {
         TcpClient clientSocket;
+        NetworkStream ns;
         public void startClient(TcpClient inClientSocket)
         {
             this.clientSocket = inClientSocket;
@@ -45,8 +52,9 @@ namespace CSharp_Graphic_Chat.Server
         {
             try
             {
-                
-                Paquet paquet = Paquet.Receive(clientSocket.GetStream());
+                Console.WriteLine("New client");
+                ns = clientSocket.GetStream();
+                Paquet paquet = Paquet.Receive(ns);
 
                 if (paquet is AuthPaquet)
                 {
@@ -54,6 +62,17 @@ namespace CSharp_Graphic_Chat.Server
 
                     Console.WriteLine(ap.Id);
                     Console.WriteLine(ap.MotDePasse);
+                    AuthentificationManager am = new AuthentificationManager();
+                    int flag = am.authentify(ap.Id, ap.MotDePasse);
+                    if (flag < 4 && flag > 0)
+                        this.Auth();
+                    else
+                    {
+                        User u = new User(ap.Id, ap.MotDePasse);
+                        ChatServer.addUser(u);
+                        boolPaquet bp = new boolPaquet(true);
+                        Paquet.Send(bp, ns);
+                    } 
                 }
 
                 /*while (true)
