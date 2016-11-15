@@ -24,9 +24,12 @@ namespace CSharp_Graphic_Chat
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new Form1());
 
-              
 
-       
+
+            private const string PATH = "Test.xml";
+
+        /*
+       {
            Chatter Manuelle = new Chatter("Manuelle"),Léna = new Chatter("Léna");
            TopicsManager tm = new TopicsManager();
            tm.createTopic("Mon corps tout nu");

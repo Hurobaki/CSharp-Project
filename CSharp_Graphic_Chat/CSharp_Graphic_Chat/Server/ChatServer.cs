@@ -8,26 +8,36 @@ using Project_CSharp.Client;
 using System.Threading;
 using Project_CSharp.Chat.Chat;
 using System.Net;
+using System.IO;
 
 namespace Project_CSharp.Server
 {
     class ChatServer
     {
-        Socket server;
-
-        public void startServer()
+        static void Main(string[] args)
         {
-            IPEndPoint ipep = new IPEndPoint(IPAddress.Parse("127.0.0.1"), 8000);
-            server = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
-            Console.WriteLine("Starting server");
-            server.Connect(ipep);
-            
+            TcpListener ServerSocket = new TcpListener(IPAddress.Any, 25565);
+            ServerSocket.Start();
+            Console.WriteLine("Server started");
+            while (true)
+            {
+                TcpClient clientSocket = ServerSocket.AcceptTcpClient();
+                Console.WriteLine("New client");
+                handleClient client = new handleClient();
+                client.startClient(clientSocket);
+            }
         }
+    }
 
-        public void stopServer()
+    public class handleClient
+    {
+        TcpClient clientSocket;
+        TopicsManager tm = new TopicsManager();
+        public void startClient(TcpClient inClientSocket)
         {
-            Console.WriteLine("Stopping server");
-            server.Dispose();
+            this.clientSocket = inClientSocket;
+            Thread ctThread = new Thread(Chat);
+            ctThread.Start();
         }
 
         public void run()
@@ -43,12 +53,12 @@ namespace Project_CSharp.Server
                 hclient.startClient(client);
             }
         }
-       /* public static void Main(String[] args)
+        public static void Main(String[] args)
         {
             ChatServer cs = new ChatServer();
             cs.startServer();
             cs.run();
-        }*/
+        }
     }
     public class HandleClient
     {
