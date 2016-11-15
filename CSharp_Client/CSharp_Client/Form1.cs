@@ -10,6 +10,7 @@ using System.Windows.Forms;
 
 using chatLibrary;
 using System.Threading;
+using System.Diagnostics;
 
 namespace CSharp_Client
 {
@@ -28,7 +29,7 @@ namespace CSharp_Client
         {
             try
             {
-                client = new TcpClient("192.168.137.129", 25565);
+                client = new TcpClient("192.168.43.95", 1337);
             }
             catch(Exception ex)
             {
@@ -47,7 +48,28 @@ namespace CSharp_Client
 
             Paquet.Send(ap, stream);
 
-            Thread.Sleep(100);
+            //Thread.Sleep(100);
+
+            Paquet paquet = Paquet.Receive(stream);
+
+            if(paquet is loginPaquet)
+            {
+                loginPaquet bp = (loginPaquet)paquet;
+
+                if (bp.value == 1)
+                    MessageBox.Show("Welcome "+textBox1.Text, "Connexion successful !", MessageBoxButtons.OK);
+                else if(bp.value == 2)
+                    MessageBox.Show("Wrong password ", "Connexion failed !", MessageBoxButtons.OK);
+                else
+                    MessageBox.Show("USer Unknown", "Connexion failed !", MessageBoxButtons.OK);
+            }
+
+            
+        }
+
+        private void backgroundWorker1_DoWork(object sender, DoWorkEventArgs e)
+        {
+
         }
     }
 }

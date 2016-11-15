@@ -36,7 +36,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="chatLibrary">
-      <HintPath>Libraries\chatLibrary.dll</HintPath>
+      <HintPath>..\..\CSharp_Graphic_Chat\CSharp_Graphic_Chat\Libraries\chatLibrary.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
