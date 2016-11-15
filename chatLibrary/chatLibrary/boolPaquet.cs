@@ -7,11 +7,11 @@ using System.Threading.Tasks;
 namespace chatLibrary
 {
     [Serializable()]
-    public class boolPaquet : Paquet
+    public class loginPaquet : Paquet
     {
-        public bool value { get; private set; }
+        public int value { get; private set; }
 
-        public boolPaquet(bool e) : base(TypePaquet.Bool)
+        public loginPaquet(int e) : base(TypePaquet.Login)
         {
             this.value = e;
         }

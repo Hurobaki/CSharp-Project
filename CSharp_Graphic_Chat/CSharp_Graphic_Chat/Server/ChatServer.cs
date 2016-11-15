@@ -1,12 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Net.Sockets;
-using System.Text;
-using System.Threading.Tasks;
 using System.Threading;
-using CSharp_Graphic_Chat.Chat.Chat;
-using System.Net;
 using System.IO;
 using chatLibrary;
 using CSharp_Graphic_Chat.Authentification.Authentification;
@@ -19,7 +14,7 @@ namespace CSharp_Graphic_Chat.Server
 
         public static void addUser(User u)
         {
-            connectedUsers.Add(u);
+            /*connectedUsers.Add(u);*/
         }
         /*
         static void Main(string[] args)
@@ -52,7 +47,6 @@ namespace CSharp_Graphic_Chat.Server
         {
             try
             {
-                Console.WriteLine("New client");
                 ns = clientSocket.GetStream();
                 Paquet paquet = Paquet.Receive(ns);
 

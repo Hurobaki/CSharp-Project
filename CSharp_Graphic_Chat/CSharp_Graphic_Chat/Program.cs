@@ -1,6 +1,5 @@
 ﻿using System;
 using System.IO;
-using System.Windows.Forms;
 using CSharp_Graphic_Chat.Chat.Chat;
 using CSharp_Graphic_Chat.Authentification.Authentification;
 using CSharp_Graphic_Chat.Exceptions.PersException;
@@ -44,12 +43,13 @@ namespace CSharp_Graphic_Chat
                 Console.WriteLine(e.Message);
             }
             Console.WriteLine();
-            TcpListener ServerSocket = new TcpListener(IPAddress.Any, 25565);
+            TcpListener ServerSocket = new TcpListener(IPAddress.Any, 1337);
             ServerSocket.Start();
             Console.WriteLine("Server started");
             while (true)
             {
                 TcpClient clientSocket = ServerSocket.AcceptTcpClient();
+                Console.WriteLine("New client");
                 handleClient client = new handleClient();
                 client.startClient(clientSocket);
             }
