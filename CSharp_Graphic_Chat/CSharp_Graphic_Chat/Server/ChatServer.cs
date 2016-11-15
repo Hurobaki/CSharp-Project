@@ -43,12 +43,12 @@ namespace Project_CSharp.Server
                 hclient.startClient(client);
             }
         }
-        public static void Main(String[] args)
+       /* public static void Main(String[] args)
         {
             ChatServer cs = new ChatServer();
             cs.startServer();
             cs.run();
-        }
+        }*/
     }
     public class HandleClient
     {
