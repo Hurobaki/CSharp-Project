@@ -11,7 +11,11 @@ namespace chatLibrary
         Login,
         Subscribe,
         SubscribeValidation,
-        Topics
+        Topics,
+        JoinChatRoom,
+        JoinChatRoomValidation,
+        CreateChatRoom,
+        CreateChatRoomValidation
     }
 
     [Serializable()] // Pour que la classe soit sérialisable

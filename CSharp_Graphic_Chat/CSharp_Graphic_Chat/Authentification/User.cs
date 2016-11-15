@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CSharp_Graphic_Chat.Chat.Chat;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,6 +13,8 @@ namespace CSharp_Graphic_Chat.Authentification
         {
             String _login;
             String _password;
+            // à implémenter
+            Chatter chatter;
             
             public User() { }
 
@@ -46,8 +49,6 @@ namespace CSharp_Graphic_Chat.Authentification
                     _password = value;
                 }
             }
-
-
             public override string ToString()
             {
                 return "Login = " + this.login + ".";

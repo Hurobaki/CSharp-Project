@@ -30,20 +30,24 @@ namespace CSharp_Graphic_Chat.Chat
                 }
             }
 
-            public Chatroom joinTopic(String topic)
+            public bool joinTopic(String topic,Chatter chatter)
             {
                 if (_topics.Contains(topic))
-                    return (Chatroom)_topics[topic];
+                {
+                    Chatroom t = (Chatroom)_topics[topic];
+                    return t.join(chatter);
+                }
                 else
-                    return null;
+                    return false;
             }
 
-            public void createTopic(String topic)
+            public bool createTopic(String topic)
             {
                 if (_topics.Contains(topic))
-                    return;
+                    return false;
                 else
                     _topics.Add(topic,new Chatroom(topic));
+                return true;
             }
 
             public List<string> getRooms()

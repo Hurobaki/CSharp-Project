@@ -41,6 +41,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AuthPacket.cs" />
+    <Compile Include="CreateChatRoomPacket.cs" />
+    <Compile Include="CreateChatRoomValidation.cs" />
+    <Compile Include="JoinChatRoomPacket.cs" />
+    <Compile Include="JoinChatRoomValidationPacket.cs" />
     <Compile Include="LoginPacket.cs" />
     <Compile Include="Packet.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -23,10 +23,14 @@ namespace CSharp_Graphic_Chat.Chat
                 get;
                 set;
             }
-
+            public List<Chatter> chatters
+            {
+                get;
+                set;
+            }
             public void post(String msg, Chatter c)
             {
-                Console.WriteLine(c.alias+" : "+msg);
+                Console.WriteLine(c.alias + " : " + msg);
             }
 
             public void quit(Chatter c)
@@ -35,13 +39,20 @@ namespace CSharp_Graphic_Chat.Chat
                 Console.WriteLine("(Message from Chatroom : " + _topic + ") " + c.alias + " left the chat");
             }
 
-            public void join(Chatter c)
+            public bool join(Chatter c)
             {
-                _chatters.Add(c);
-                Console.WriteLine("(Message from Chatroom : " + _topic + ") " + c.alias + " joined the chat");
+                if (_chatters.Contains(c))
+                {
+                    Console.WriteLine("Chatter already in this chatroom");
+                    return false;
+                }
+                else
+                {
+                    _chatters.Add(c);
+                    Console.WriteLine("(Message from Chatroom : " + _topic + ") " + c.alias + " joined the chat");
+                    return true;
+                }
             }
-
-           
         }
     }
 }
