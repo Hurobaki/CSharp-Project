@@ -7,6 +7,7 @@ using System.Net.Sockets;
 using System.Text;
 using System.Threading;
 
+
 namespace ServerSide
 {
     class ChatServer
@@ -14,6 +15,7 @@ namespace ServerSide
         static void Main(string[] args)
         {
             TcpListener ServerSocket = new TcpListener(IPAddress.Any, 25565);
+            TopicsManager tm = new TopicsManager();
             ServerSocket.Start();
             Console.WriteLine("Server started");
             while (true)
@@ -21,16 +23,18 @@ namespace ServerSide
                 TcpClient clientSocket = ServerSocket.AcceptTcpClient();
                 Console.WriteLine("New client");
                 handleClient client = new handleClient();
-                client.startClient(clientSocket);
+                client.startClient(clientSocket, tm);
             }
         }
     }
 
     public class handleClient
     {
+        TopicsManager tm;
         TcpClient clientSocket;
-        public void startClient(TcpClient inClientSocket)
+        public void startClient(TcpClient inClientSocket, TopicsManager tm)
         {
+            this.tm = tm;
             this.clientSocket = inClientSocket;
             Thread ctThread = new Thread(Chat);
             ctThread.Start();
@@ -39,10 +43,14 @@ namespace ServerSide
         {
             try
             {
-                byte[] buffer = new byte[10];
                 while (true)
                 {
                     BinaryReader reader = new BinaryReader(clientSocket.GetStream());
+                    String line = reader.ReadString();
+                    if (line.Equals("2"))
+                    {
+                        
+                    }
                     Console.WriteLine(reader.ReadString());
                 }
             }
