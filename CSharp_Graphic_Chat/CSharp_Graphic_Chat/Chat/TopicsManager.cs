@@ -12,7 +12,7 @@ namespace Project_CSharp.Chat
     {
         class TopicsManager
         {
-            private Hashtable _topics = new Hashtable();
+            private static Hashtable _topics = new Hashtable();
 
             public TopicsManager()
             {

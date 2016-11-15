@@ -4,3 +4,4 @@ c:\users\20150199\documents\visual studio 2012\Projects\Project_CSharp_1.2\Proje
 c:\users\20150199\documents\visual studio 2012\Projects\Project_CSharp_1.2\Project_CSharp_1.2\obj\Debug\Project_CSharp_1.2.exe
 c:\users\20150199\documents\visual studio 2012\Projects\Project_CSharp_1.2\Project_CSharp_1.2\obj\Debug\Project_CSharp_1.2.pdb
 c:\users\20150199\documents\visual studio 2012\Projects\Project_CSharp_1.2\Project_CSharp_1.2\obj\Debug\Project_CSharp_1.2.csprojResolveAssemblyReference.cache
+C:\Users\IDXCEL\Source\Repos\CSharp-Project\Project_CSharp_1.2\Project_CSharp_1.2\bin\Debug\Project_CSharp_1.2.exe.config
