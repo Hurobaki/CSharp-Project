@@ -45,28 +45,42 @@ namespace CSharp_Graphic_Chat.Server
         }
         private void Auth()
         {
+            AuthentificationManager am = new AuthentificationManager();
             try
             {
                 ns = clientSocket.GetStream();
-                Paquet paquet = Paquet.Receive(ns);
+                Packet packet = Packet.Receive(ns);
 
-                if (paquet is AuthPaquet)
+                if (packet is AuthPacket)
                 {
-                    AuthPaquet ap = (AuthPaquet)paquet;
+                    AuthPacket ap = (AuthPacket)packet;
 
-                    Console.WriteLine(ap.Id);
-                    Console.WriteLine(ap.MotDePasse);
-                    AuthentificationManager am = new AuthentificationManager();
-                    int flag = am.authentify(ap.Id, ap.MotDePasse);
-                    if (flag < 4 && flag > 0)
-                        this.Auth();
+                    Console.WriteLine(ap.login);
+                    Console.WriteLine(ap.password);
+                    int flag = am.authentify(ap.login, ap.password);
+                    LoginPacket bp = new LoginPacket(flag);
+                    if (flag == 1)
+                    {
+                        Console.WriteLine("Sending good paquet " + flag);
+                        User u = new User(ap.login, ap.password);
+                        ChatServer.addUser(u);
+                        Packet.Send(bp, ns);
+                    }
                     else
                     {
-                        User u = new User(ap.Id, ap.MotDePasse);
-                        ChatServer.addUser(u);
-                        boolPaquet bp = new boolPaquet(true);
-                        Paquet.Send(bp, ns);
-                    } 
+                        Console.WriteLine("Sending error paquet " + flag);
+                        Packet.Send(bp, ns);
+                        this.Auth();
+                    }
+                }
+                if (packet is SubscribePacket)
+                {
+                    SubscribePacket sb = (SubscribePacket)packet;
+
+                    SubscribeValidation sv = new SubscribeValidation(am.addUser(sb.login, sb.password));
+
+                    Packet.Send(sv, ns);
+                    
                 }
 
                 /*while (true)

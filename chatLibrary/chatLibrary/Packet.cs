@@ -1,32 +1,29 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net.Sockets;
 using System.Runtime.Serialization.Formatters.Binary;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace chatLibrary
 {
-    public enum TypePaquet
+    public enum TypePacket
     {
         Authentification,
-        Bool,
+        Subscribe,
+        SubscribeValidation,
         Login
     }
 
     [Serializable()] // Pour que la classe soit sérialisable
-    public class Paquet //Une superclasse pour les paquets
+    public class Packet //Une superclasse pour les paquets
     {
-        public TypePaquet Type { get; protected set; }
+        public TypePacket Type { get; protected set; }
 
-        public Paquet(TypePaquet Type)
+        public Packet(TypePacket Type)
         {
             this.Type = Type;
         }
 
         //Méthode statique pour l'envoi et la réception
-        public static void Send(Paquet paquet, NetworkStream stream)
+        public static void Send(Packet paquet, NetworkStream stream)
         {
             BinaryFormatter bf = new BinaryFormatter();
 
@@ -34,12 +31,12 @@ namespace chatLibrary
             stream.Flush();
         }
 
-        public static Paquet Receive(NetworkStream stream)
+        public static Packet Receive(NetworkStream stream)
         {
-            Paquet p = null;
+            Packet p = null;
 
             BinaryFormatter bf = new BinaryFormatter();
-            p = (Paquet)bf.Deserialize(stream);
+            p = (Packet)bf.Deserialize(stream);
 
             return p;
         }

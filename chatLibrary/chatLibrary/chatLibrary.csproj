@@ -40,10 +40,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AuthPaquet.cs" />
-    <Compile Include="boolPaquet.cs" />
-    <Compile Include="Paquet.cs" />
+    <Compile Include="AuthPacket.cs" />
+    <Compile Include="LoginPacket.cs" />
+    <Compile Include="Packet.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SubscribePacket.cs" />
+    <Compile Include="SubscribeValidation.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

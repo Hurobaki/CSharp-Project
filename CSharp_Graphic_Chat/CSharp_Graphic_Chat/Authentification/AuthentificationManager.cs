@@ -32,7 +32,7 @@ namespace CSharp_Graphic_Chat.Authentification
 
 
             
-            public void addUser(String login, String password)
+            public bool addUser(String login, String password)
             {
                     foreach (User u in _users)
                     {
@@ -42,7 +42,7 @@ namespace CSharp_Graphic_Chat.Authentification
 
                         if (u.login.Equals(login) && u.password.Equals(password) || u.login.Equals(login))
                         {
-                            throw new UserExistsException("already exists !", login);
+                        return false;
                         }
                     }
 
@@ -51,6 +51,7 @@ namespace CSharp_Graphic_Chat.Authentification
 
                     TextInfo ti = CultureInfo.CurrentCulture.TextInfo;
                     Console.WriteLine("{1} has been added !", temp.login, ti.ToTitleCase(temp.login));
+                return true;
             }
 
             public void removeUser(String login)
@@ -92,10 +93,8 @@ namespace CSharp_Graphic_Chat.Authentification
 
             public int authentify(String login, String password)
             {
-
                 // throw new UserExistsException("Authentify method flag, UserExistsException raised", login);
                 // Si l'utilisateur est déjà connecté ??
-
                 bool flag = false;
                 
                 foreach(User u in _users)
