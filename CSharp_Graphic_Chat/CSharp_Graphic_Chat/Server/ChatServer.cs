@@ -20,7 +20,6 @@ namespace CSharp_Graphic_Chat.Server
             Console.WriteLine("Server started");
         }
 
-
         public static void StartListening()
         {
             while (true)
@@ -88,7 +87,7 @@ namespace CSharp_Graphic_Chat.Server
                         }
                         else
                         {
-                            Console.WriteLine("Error, unable to connect the user, error code : " + flag);
+                            Console.WriteLine("Error, unable to connect the user "+ap.login+", error code : " + flag);
                             Packet.Send(bp, ns);
                             this.Auth();
                         }
@@ -97,6 +96,7 @@ namespace CSharp_Graphic_Chat.Server
                     {
                         /* sending the subscribe packet */
                         SubscribePacket sb = (SubscribePacket)packet;
+                        Console.WriteLine("Trying to create user "+sb.login+" subscribe validation packet ...");
                         SubscribeValidation sv = new SubscribeValidation(am.addUser(sb.login, sb.password));
                         Console.WriteLine("Sending subscribe validation packet : " +sv.value);
                         Packet.Send(sv, ns);
@@ -110,9 +110,9 @@ namespace CSharp_Graphic_Chat.Server
                             bool flag = tm.joinTopic(jcp.chatRoom, new Chatter("oups"));
                             /* Stockage du chatter dans le user ? */
                             if (flag)
-                                Console.WriteLine("User joined chatroom : " + jcp.chatRoom);
+                                Console.WriteLine("User " + jcp.user + " joined chatroom : " + jcp.chatRoom);
                             else
-                                Console.WriteLine("Error, user already in the chatroom : " + jcp.chatRoom);
+                                Console.WriteLine("Error, user " + jcp.user + " already in the chatroom : " + jcp.chatRoom);
                             JoinChatRoomValidationPacket jcvp = new JoinChatRoomValidationPacket(flag);
                         }
                     }
@@ -124,11 +124,21 @@ namespace CSharp_Graphic_Chat.Server
                         {
                             bool flag = tm.createTopic(ccp.chatRoom);
                             if (flag)
-                                Console.WriteLine("User created chatroom : " + ccp.chatRoom);
+                                Console.WriteLine("User "+ ccp.user +" created chatroom : " + ccp.chatRoom);
+                            /* Broadcast la création de room avec affichage de message */
                             else
-                                Console.WriteLine("Error, chatroom :" + ccp.chatRoom+" already exists");
+                                Console.WriteLine("Error, chatroom :" + ccp.chatRoom +" already exists");
                             CreateChatRoomValidationPacket ccvp = new CreateChatRoomValidationPacket(flag);
                         }
+                    }
+                    if(packet is MessagePacket)
+                    {
+                        MessagePacket mp = (MessagePacket)packet;
+                        /* Voir chatroom / topicsManager*/
+                        /*foreach(Chatter c in (Chatroom)tm.topics[mp.chatroom])
+                        {
+
+                        }*/
                     }
                 }
             }

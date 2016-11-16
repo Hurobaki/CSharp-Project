@@ -94,14 +94,10 @@ namespace CSharp_Graphic_Chat.Authentification
             {
                 // throw new UserExistsException("Authentify method flag, UserExistsException raised", login);
                 // Si l'utilisateur est déjà connecté ??
-                bool flag = false;
-                
                 foreach(User u in _users)
                 {
                     if(u.login.Equals(login))
                     {
-                        flag = true;
-
                         if(u.password.Equals(password))
                         {
                             Console.WriteLine("Authentification OK !");

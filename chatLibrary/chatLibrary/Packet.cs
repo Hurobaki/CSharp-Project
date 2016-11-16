@@ -22,6 +22,7 @@ namespace chatLibrary
     public class Packet //Une superclasse pour les paquets
     {
         public TypePacket Type { get; protected set; }
+        public string user { get; protected set; }
 
         public Packet(TypePacket Type)
         {
