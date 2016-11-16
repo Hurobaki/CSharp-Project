@@ -14,7 +14,6 @@ namespace CSharp_Graphic_Chat.Server
     class ChatServer
     {
         public static List<User> chattingUsers = new List<User>();
-        public static Hashtable connectedUsers = new Hashtable();
         public static TcpListener ServerSocket = new TcpListener(IPAddress.Any, 1337);
         public static void StartServer()
         {
@@ -119,13 +118,10 @@ namespace CSharp_Graphic_Chat.Server
                         JoinChatRoomPacket jcp = (JoinChatRoomPacket)packet;
                         if (tm.getRooms().Contains(jcp.chatRoom))
                         {
-                            /* Besoin d'un username ou alias dans le packet */
-                            bool flag = tm.joinTopic(jcp.chatRoom, new Chatter("oups"));
-                            /* Stockage du chatter dans le user ? */
+                            bool flag = tm.joinTopic(jcp.chatRoom, ChatServer.getUser(jcp.user));
                             if (flag)
                             {
                                 Console.WriteLine("User " + jcp.user + " joined chatroom : " + jcp.chatRoom);
-                                ChatServer.connectedUsers.Add(jcp.user, ns);
                             }
                             else
                                 Console.WriteLine("Error, user " + jcp.user + " already in the chatroom : " + jcp.chatRoom);
@@ -150,7 +146,7 @@ namespace CSharp_Graphic_Chat.Server
                     if (packet is MessagePacket)
                     {
                         MessagePacket mp = (MessagePacket)packet;
-                        /* Voir chatroom / topicsManager*/
+                        Console.WriteLine("Posting message : [" +mp.message+ "] in chatroom "+ mp.chatroom);
                         Chatroom cible = (Chatroom)tm.topics[mp.chatroom];
                         cible.post(mp.message, ChatServer.getUser(mp.user));
                     }

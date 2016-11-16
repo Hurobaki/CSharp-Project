@@ -4,7 +4,7 @@ using System.Collections;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+using CSharp_Graphic_Chat.Authentification.Authentification;
 
 namespace CSharp_Graphic_Chat.Chat
 {
@@ -30,12 +30,12 @@ namespace CSharp_Graphic_Chat.Chat
                 }
             }
 
-            public bool joinTopic(String topic,Chatter chatter)
+            public bool joinTopic(String topic, User u)
             {
                 if (_topics.Contains(topic))
                 {
                     Chatroom t = (Chatroom)_topics[topic];
-                    return t.join(chatter);
+                    return t.join(u);
                 }
                 else
                     return false;
