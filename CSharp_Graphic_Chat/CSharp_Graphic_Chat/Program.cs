@@ -34,7 +34,6 @@ namespace CSharp_Graphic_Chat
                 if (File.Exists(PATH))
                 {
                     test = AuthentificationManager.load(PATH);
-                    test.checkRegistredUsers();
                 }
                 else
                 {

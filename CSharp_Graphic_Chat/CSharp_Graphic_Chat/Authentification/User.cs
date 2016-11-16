@@ -27,6 +27,12 @@ namespace CSharp_Graphic_Chat.Authentification
                 _ns = ns;
             }
 
+            public User(String login, String password)
+            {
+                _login = login;
+                _password = password;
+            }
+
             public String login
             {
                 get
