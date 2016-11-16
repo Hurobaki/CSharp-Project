@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Sockets;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -14,14 +15,16 @@ namespace CSharp_Graphic_Chat.Authentification
             String _login;
             String _password;
             // à implémenter
-            Chatter chatter;
+            Chatter _chatter;
+            NetworkStream _ns;
             
             public User() { }
 
-            public User(String login, String password)
+            public User(String login, String password, NetworkStream ns)
             {
                 _login = login;
                 _password = password;
+                _ns = ns;
             }
 
             public String login
@@ -49,6 +52,33 @@ namespace CSharp_Graphic_Chat.Authentification
                     _password = value;
                 }
             }
+
+            public NetworkStream ns
+            {
+                get
+                {
+                    return _ns;
+                }
+
+                set
+                {
+                    _ns = value;
+                }
+            }
+
+            public Chatter chatter
+            {
+                get
+                {
+                    return _chatter;
+                }
+
+                set
+                {
+                    _chatter = value;
+                }
+            }
+
             public override string ToString()
             {
                 return "Login = " + this.login + ".";

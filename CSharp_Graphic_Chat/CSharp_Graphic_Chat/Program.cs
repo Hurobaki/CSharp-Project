@@ -49,13 +49,9 @@ namespace CSharp_Graphic_Chat
             {
                 Console.WriteLine(e.Message);
             }
-            
-
 
             ChatServer.StartServer();
             ChatServer.StartListening();
-
-            
 
             /*Chatter Manuelle = new Chatter("Manuelle"), Léna = new Chatter("Léna");
             tm.createTopic("Mon corps tout nu");

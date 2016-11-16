@@ -1,4 +1,5 @@
-﻿using System;
+﻿using chatLibrary;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,7 +9,7 @@ namespace CSharp_Graphic_Chat.Chat
 {
     namespace Chat
     {
-        class Chatter
+        public class Chatter
         {
             private String _alias;
 
@@ -23,11 +24,9 @@ namespace CSharp_Graphic_Chat.Chat
                 set{_alias=value;}
             }
 
-            public void ReceiveAMessage(String msg, Chatter c)
+            public void receiveAMessage(String msg, Chatter c)
             {
             }
-
-            
         }
     }
 }

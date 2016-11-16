@@ -7,15 +7,14 @@ using System.Threading.Tasks;
 namespace chatLibrary
 {
     [Serializable()]
-    public class MessagePacket : Packet
+    public class MessageBroadcastPacket : Packet
     {
-        public string chatroom { get; private set; }
+        public string user { get; private set; }
         public string message { get; private set; }
 
-        public MessagePacket(string u, string c, string m) : base(TypePacket.Message)
+        public MessageBroadcastPacket(string u, string m) : base(TypePacket.MessageBroadcast)
         {
             this.user = u;
-            this.chatroom = c;
             this.message = m;
         }
     }

@@ -7,12 +7,14 @@ using chatLibrary;
 using CSharp_Graphic_Chat.Authentification.Authentification;
 using CSharp_Graphic_Chat.Chat.Chat;
 using System.Net;
+using System.Collections;
 
 namespace CSharp_Graphic_Chat.Server
 {
     class ChatServer
     {
-        private static List<User> connectedUsers = new List<User>();
+        public static List<User> chattingUsers = new List<User>();
+        public static Hashtable connectedUsers = new Hashtable();
         public static TcpListener ServerSocket = new TcpListener(IPAddress.Any, 1337);
         public static void StartServer()
         {
@@ -31,9 +33,19 @@ namespace CSharp_Graphic_Chat.Server
             }
         }
 
+        public static User getUser(string login)
+        {
+            foreach(User u in chattingUsers)
+            {
+                if (u.login.Equals(login))
+                    return u;
+            }
+            return null;
+        }
+
         public static void addUser(User u)
         {
-            connectedUsers.Add(u);
+            chattingUsers.Add(u);
         }
     }
 
@@ -73,13 +85,14 @@ namespace CSharp_Graphic_Chat.Server
                         {
                             /*User logged in*/
                             Console.WriteLine("Connecting user");
-                            User u = new User(ap.login, ap.password);
+                            User u = new User(ap.login, ap.password, ns);
+                            u.chatter = new Chatter(ap.login);
                             ChatServer.addUser(u);
                             Packet.Send(bp, ns);
                             /*Displaying topics to user*/
                             Console.Write("[");
                             foreach (String s in tm.getRooms())
-                                Console.Write(s+", ");
+                                Console.Write(s + ", ");
                             Console.Write("]");
                             Console.WriteLine("Sending topics ... ");
                             TopicsPacket tp = new TopicsPacket(tm.getRooms());
@@ -87,7 +100,7 @@ namespace CSharp_Graphic_Chat.Server
                         }
                         else
                         {
-                            Console.WriteLine("Error, unable to connect the user "+ap.login+", error code : " + flag);
+                            Console.WriteLine("Error, unable to connect the user " + ap.login + ", error code : " + flag);
                             Packet.Send(bp, ns);
                             this.Auth();
                         }
@@ -96,9 +109,9 @@ namespace CSharp_Graphic_Chat.Server
                     {
                         /* sending the subscribe packet */
                         SubscribePacket sb = (SubscribePacket)packet;
-                        Console.WriteLine("Trying to create user "+sb.login+" subscribe validation packet ...");
+                        Console.WriteLine("Trying to create user " + sb.login + " subscribe validation packet ...");
                         SubscribeValidation sv = new SubscribeValidation(am.addUser(sb.login, sb.password));
-                        Console.WriteLine("Sending subscribe validation packet : " +sv.value);
+                        Console.WriteLine("Sending subscribe validation packet : " + sv.value);
                         Packet.Send(sv, ns);
                     }
                     if (packet is JoinChatRoomPacket)
@@ -110,35 +123,36 @@ namespace CSharp_Graphic_Chat.Server
                             bool flag = tm.joinTopic(jcp.chatRoom, new Chatter("oups"));
                             /* Stockage du chatter dans le user ? */
                             if (flag)
+                            {
                                 Console.WriteLine("User " + jcp.user + " joined chatroom : " + jcp.chatRoom);
+                                ChatServer.connectedUsers.Add(jcp.user, ns);
+                            }
                             else
                                 Console.WriteLine("Error, user " + jcp.user + " already in the chatroom : " + jcp.chatRoom);
                             JoinChatRoomValidationPacket jcvp = new JoinChatRoomValidationPacket(flag);
                         }
                     }
 
-                    if(packet is CreateChatRoomPacket)
+                    if (packet is CreateChatRoomPacket)
                     {
                         CreateChatRoomPacket ccp = (CreateChatRoomPacket)packet;
                         if (tm.topics.ContainsKey(ccp.chatRoom))
                         {
                             bool flag = tm.createTopic(ccp.chatRoom);
                             if (flag)
-                                Console.WriteLine("User "+ ccp.user +" created chatroom : " + ccp.chatRoom);
+                                Console.WriteLine("User " + ccp.user + " created chatroom : " + ccp.chatRoom);
                             /* Broadcast la création de room avec affichage de message */
                             else
-                                Console.WriteLine("Error, chatroom :" + ccp.chatRoom +" already exists");
+                                Console.WriteLine("Error, chatroom :" + ccp.chatRoom + " already exists");
                             CreateChatRoomValidationPacket ccvp = new CreateChatRoomValidationPacket(flag);
                         }
                     }
-                    if(packet is MessagePacket)
+                    if (packet is MessagePacket)
                     {
                         MessagePacket mp = (MessagePacket)packet;
                         /* Voir chatroom / topicsManager*/
-                        /*foreach(Chatter c in (Chatroom)tm.topics[mp.chatroom])
-                        {
-
-                        }*/
+                        Chatroom cible = (Chatroom)tm.topics[mp.chatroom];
+                        cible.post(mp.message, ChatServer.getUser(mp.user));
                     }
                 }
             }

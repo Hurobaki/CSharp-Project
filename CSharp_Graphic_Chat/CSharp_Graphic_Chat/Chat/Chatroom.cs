@@ -1,4 +1,7 @@
-﻿using System;
+﻿using chatLibrary;
+using CSharp_Graphic_Chat.Authentification.Authentification;
+using CSharp_Graphic_Chat.Server;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,7 +14,7 @@ namespace CSharp_Graphic_Chat.Chat
         class Chatroom
         {
             private String _topic;
-            private List<Chatter> _chatters = new List<Chatter>();
+            private List<User> _chatters = new List<User>();
 
             public Chatroom(String topic)
             {
@@ -23,23 +26,29 @@ namespace CSharp_Graphic_Chat.Chat
                 get;
                 set;
             }
-            public List<Chatter> chatters
+            public List<User> chatters
             {
                 get;
                 set;
             }
-            public void post(String msg, Chatter c)
+            public void post(String msg, User u)
             {
-                Console.WriteLine(c.alias + " : " + msg);
+                Console.WriteLine(this.topic +" : "+ u.chatter.alias + " : " + msg);
+                foreach (User user in this.chatters)
+                {
+                    Console.WriteLine("Sending message : " + msg + " from user : " + u.chatter.alias + " in chatroom : " + this.topic + " to user : " + user.chatter.alias);
+                    MessageBroadcastPacket mbp = new MessageBroadcastPacket(u.chatter.alias, msg);
+                    Packet.Send(mbp, u.ns);
+                }
             }
 
-            public void quit(Chatter c)
+            public void quit(User c)
             {
                 _chatters.Remove(c);
-                Console.WriteLine("(Message from Chatroom : " + _topic + ") " + c.alias + " left the chat");
+                Console.WriteLine("(Message from Chatroom : " + _topic + ") " + c.chatter.alias + " left the chat");
             }
 
-            public bool join(Chatter c)
+            public bool join(User c)
             {
                 if (_chatters.Contains(c))
                 {
@@ -49,7 +58,7 @@ namespace CSharp_Graphic_Chat.Chat
                 else
                 {
                     _chatters.Add(c);
-                    Console.WriteLine("(Message from Chatroom : " + _topic + ") " + c.alias + " joined the chat");
+                    Console.WriteLine("(Message from Chatroom : " + _topic + ") " + c.chatter.alias + " joined the chat");
                     return true;
                 }
             }

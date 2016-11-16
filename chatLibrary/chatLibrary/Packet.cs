@@ -15,7 +15,9 @@ namespace chatLibrary
         JoinChatRoom,
         JoinChatRoomValidation,
         CreateChatRoom,
-        CreateChatRoomValidation
+        CreateChatRoomValidation,
+        Message,
+        MessageBroadcast
     }
 
     [Serializable()] // Pour que la classe soit sérialisable
@@ -41,7 +43,6 @@ namespace chatLibrary
         public static Packet Receive(NetworkStream stream)
         {
             Packet p = null;
-
             BinaryFormatter bf = new BinaryFormatter();
             p = (Packet)bf.Deserialize(stream);
             

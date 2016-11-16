@@ -46,6 +46,7 @@
     <Compile Include="JoinChatRoomPacket.cs" />
     <Compile Include="JoinChatRoomValidationPacket.cs" />
     <Compile Include="LoginPacket.cs" />
+    <Compile Include="MessageBroadcastPacket.cs" />
     <Compile Include="MessagePacket.cs" />
     <Compile Include="Packet.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
