@@ -19,6 +19,7 @@ namespace CSharp_Client
 
         public static NetworkStream stream;
         public static TcpClient client;
+        public static string login;
 
         public Form1()
         {
@@ -29,7 +30,7 @@ namespace CSharp_Client
         {
             try
             {
-                client = new TcpClient("192.168.43.95", 1337);
+                client = new TcpClient("192.168.0.15", 1337);
             }
             catch(Exception ex)
             {
@@ -61,6 +62,7 @@ namespace CSharp_Client
                 if (bp.value == 1)
                 {
                     MessageBox.Show("Welcome " + textBox1.Text, "Connexion successful !", MessageBoxButtons.OK);
+                    login = textBox1.Text;
                     flag = true;
                 }
                 else if(bp.value == 2)
@@ -72,10 +74,9 @@ namespace CSharp_Client
             if(flag)
             {
                 //Application.Run(new Form2());
-                this.Visible = false;
-                Form2 fr2 = new Form2();
-                fr2.ShowDialog();
-               
+
+                Form2 f2 = new Form2();
+                f2.ShowDialog();
             }
         }
 
@@ -105,10 +106,9 @@ namespace CSharp_Client
 
         }
 
-        private void Form1_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
             Application.Exit();
-            this.Close();
         }
 
     }

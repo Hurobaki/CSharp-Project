@@ -18,6 +18,9 @@ namespace CSharp_Graphic_Chat.Chat
                 _alias = alias;
             }
 
+            public Chatter()
+            { }
+
             public String alias
             {
                 get{return _alias;}

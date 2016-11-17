@@ -11,9 +11,10 @@ namespace chatLibrary
     {
         public string chatRoom { get; private set; }
 
-        public JoinChatRoomPacket(string e) : base(TypePacket.JoinChatRoom)
+        public JoinChatRoomPacket(string e, string user) : base(TypePacket.JoinChatRoom)
         {
             this.chatRoom = e;
+            this.user = user;
         }
     }
 }
