@@ -75,8 +75,21 @@ namespace CSharp_Client
             {
                 //Application.Run(new Form2());
 
-                Form2 f2 = new Form2();
-                f2.ShowDialog();
+                //Form2 f2 = new Form2();
+                //f2.ShowDialog();
+
+                this.Invoke(new MethodInvoker(delegate ()
+                {
+                    Form form2 = new Form2();
+
+
+                    form2.TopMost = true;
+                    form2.Show();
+
+                    
+                }));
+                
+
             }
         }
 

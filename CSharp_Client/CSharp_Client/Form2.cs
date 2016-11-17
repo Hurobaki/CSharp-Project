@@ -22,6 +22,7 @@ namespace CSharp_Client
         {
             InitializeComponent();
 
+
             Packet paquet = Packet.ReceiveList(Form1.stream);
 
             if(paquet is TopicsPacket)
@@ -42,8 +43,9 @@ namespace CSharp_Client
 
         private void Form2_FormClosing(object sender, FormClosingEventArgs e)
         {
-            Application.Exit();
+            MessageBox.Show("Wrong informations", "Registration failed", MessageBoxButtons.OK);
         }
+    
 
         private void Form2_Load(object sender, EventArgs e)
         {
