@@ -17,7 +17,9 @@ namespace chatLibrary
         CreateChatRoom,
         CreateChatRoomValidation,
         Message,
-        MessageBroadcast
+        MessageBroadcast,
+        QuitChatRoom,
+        QuitChatRoomValidation
     }
 
     [Serializable()] // Pour que la classe soit sérialisable
