@@ -150,6 +150,22 @@ namespace CSharp_Graphic_Chat.Server
                         Chatroom cible = (Chatroom)tm.topics[mp.chatroom];
                         cible.post(mp.message, ChatServer.getUser(mp.user));
                     }
+
+                    if (packet is LeaveChatRoomPacket)
+                    {
+                        LeaveChatRoomPacket lcrp = (LeaveChatRoomPacket) packet;
+                        Chatroom cible = (Chatroom)tm.topics[lcrp.chatRoom];
+                        Console.WriteLine("User : " + lcrp.user + "is leaving chatroom : " + lcrp.chatRoom);
+                        cible.quit(ChatServer.getUser(lcrp.user));
+                        bool flag = true;
+                        if (cible.chatters.Contains(ChatServer.getUser(lcrp.user)))
+                        {
+                            flag = false;
+                        }
+                        LeaveChatRoomValidationPacket lcrvp = new LeaveChatRoomValidationPacket(flag);
+                        Packet.Send(lcrvp, ns);
+                        //Verif si dans aucune chatrrom => quitte l'application ? ou lors d'une erreur de IOE verifier si déco ou pas et enlever de la iste chatterUsers
+                    }
                 }
             }
             catch (IOException e)
