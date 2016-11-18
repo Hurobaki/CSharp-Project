@@ -30,11 +30,11 @@
         {
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.textBox2 = new System.Windows.Forms.TextBox();
+            this.login_input = new System.Windows.Forms.TextBox();
+            this.password_input = new System.Windows.Forms.TextBox();
             this.connect = new System.Windows.Forms.Button();
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
-            this.button2 = new System.Windows.Forms.Button();
+            this.register = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // label1
@@ -55,19 +55,19 @@
             this.label2.TabIndex = 1;
             this.label2.Text = "Password :";
             // 
-            // textBox1
+            // login_input
             // 
-            this.textBox1.Location = new System.Drawing.Point(158, 30);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(100, 20);
-            this.textBox1.TabIndex = 2;
+            this.login_input.Location = new System.Drawing.Point(158, 30);
+            this.login_input.Name = "login_input";
+            this.login_input.Size = new System.Drawing.Size(100, 20);
+            this.login_input.TabIndex = 2;
             // 
-            // textBox2
+            // password_input
             // 
-            this.textBox2.Location = new System.Drawing.Point(158, 70);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(100, 20);
-            this.textBox2.TabIndex = 3;
+            this.password_input.Location = new System.Drawing.Point(158, 70);
+            this.password_input.Name = "password_input";
+            this.password_input.Size = new System.Drawing.Size(100, 20);
+            this.password_input.TabIndex = 3;
             // 
             // connect
             // 
@@ -83,25 +83,25 @@
             // 
             this.backgroundWorker1.DoWork += new System.ComponentModel.DoWorkEventHandler(this.backgroundWorker1_DoWork);
             // 
-            // button2
+            // register
             // 
-            this.button2.Location = new System.Drawing.Point(181, 122);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(75, 23);
-            this.button2.TabIndex = 5;
-            this.button2.Text = "Register";
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
+            this.register.Location = new System.Drawing.Point(181, 122);
+            this.register.Name = "register";
+            this.register.Size = new System.Drawing.Size(75, 23);
+            this.register.TabIndex = 5;
+            this.register.Text = "Register";
+            this.register.UseVisualStyleBackColor = true;
+            this.register.Click += new System.EventHandler(this.register_Click);
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(343, 175);
-            this.Controls.Add(this.button2);
+            this.Controls.Add(this.register);
             this.Controls.Add(this.connect);
-            this.Controls.Add(this.textBox2);
-            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.password_input);
+            this.Controls.Add(this.login_input);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Name = "Form1";
@@ -116,11 +116,11 @@
 
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.TextBox textBox2;
+        private System.Windows.Forms.TextBox login_input;
+        private System.Windows.Forms.TextBox password_input;
         private System.Windows.Forms.Button connect;
         private System.ComponentModel.BackgroundWorker backgroundWorker1;
-        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button register;
     }
 }
 

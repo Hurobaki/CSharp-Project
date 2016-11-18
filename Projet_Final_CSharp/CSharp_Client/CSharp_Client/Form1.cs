@@ -1,16 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
 using System.Net.Sockets;
-using System.Text;
 using System.Windows.Forms;
 
 using chatLibrary;
 using System.Threading;
-using System.Diagnostics;
 
 namespace CSharp_Client
 {
@@ -35,17 +29,17 @@ namespace CSharp_Client
             catch(Exception ex)
             {
                 Console.WriteLine("Le serveur distant n'est pas connecté");
+                Console.WriteLine(ex.Message);
                 Console.ReadLine();
             }
-            
-
+           
             stream = client.GetStream();
         }
 
         private void connect_Click(object sender, EventArgs e)
         {
 
-            AuthPacket ap = new AuthPacket(textBox1.Text, textBox2.Text);
+            AuthPacket ap = new AuthPacket(login_input.Text, password_input.Text);
 
             Packet.Send(ap, stream);
 
@@ -61,8 +55,8 @@ namespace CSharp_Client
 
                 if (bp.value == 1)
                 {
-                    MessageBox.Show("Welcome " + textBox1.Text, "Connexion successful !", MessageBoxButtons.OK);
-                    login = textBox1.Text;
+                    MessageBox.Show("Welcome " + login_input.Text, "Connexion successful !", MessageBoxButtons.OK);
+                    login = login_input.Text;
                     flag = true;
                 }
                 else if(bp.value == 2)
@@ -93,9 +87,9 @@ namespace CSharp_Client
             }
         }
 
-        private void button2_Click(object sender, EventArgs e)
+        private void register_Click(object sender, EventArgs e)
         {
-            SubscribePacket sb = new SubscribePacket(textBox1.Text, textBox2.Text);
+            SubscribePacket sb = new SubscribePacket(login_input.Text, password_input.Text);
             Packet.Send(sb, stream);
 
             Thread.Sleep(100);
