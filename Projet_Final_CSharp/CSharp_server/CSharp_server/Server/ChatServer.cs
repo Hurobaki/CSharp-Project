@@ -8,6 +8,7 @@ using CSharp_server.Authentification.Authentification;
 using CSharp_server.Chat.Chat;
 using System.Net;
 using System.Collections;
+using System.Runtime.Serialization;
 
 namespace CSharp_server.Server
 {
@@ -31,7 +32,13 @@ namespace CSharp_server.Server
                 client.startClient(clientSocket);
             }
         }
-
+        public static void removeUser(User u)
+        {
+            if (chattingUsers.Contains(u))
+                chattingUsers.Remove(u);
+            else
+                Console.WriteLine("Not in there");
+        }
         public static User getUser(string login)
         {
             foreach(User u in chattingUsers)
@@ -44,7 +51,10 @@ namespace CSharp_server.Server
 
         public static void addUser(User u)
         {
-            chattingUsers.Add(u);
+            if (!chattingUsers.Contains(u))
+                chattingUsers.Add(u);
+            else
+                Console.WriteLine("Already logged");
         }
     }
 
@@ -56,12 +66,14 @@ namespace CSharp_server.Server
         {
             this.clientSocket = inClientSocket;
             Thread ctThread = new Thread(Auth);
+            ns = clientSocket.GetStream();
             ctThread.Start();
         }
         private void Auth()
         {
             AuthentificationManager am = new AuthentificationManager();
             TopicsManager tm = new TopicsManager();
+
             try
             {
                 while (true)
@@ -69,8 +81,15 @@ namespace CSharp_server.Server
                     /*
                      * PENSER A FAIRE UN PACKET UNIQUE AVEC UN ATTRIBUT DE TYPE (TROP SALE/PAS ASSEZ CLAIRE ?)
                      */
-                    ns = clientSocket.GetStream();
-                    Packet packet = Packet.Receive(ns);
+                    Packet packet = null;
+                    try
+                    {
+                        packet = Packet.Receive(ns);
+                    }
+                    catch(SerializationException e)
+                    {
+                        Console.WriteLine(e);
+                    }
 
                     if (packet is AuthPacket)
                     {
@@ -157,13 +176,6 @@ namespace CSharp_server.Server
                         Chatroom cible = (Chatroom)tm.topics[lcrp.chatRoom];
                         Console.WriteLine("User : " + lcrp.user + "is leaving chatroom : " + lcrp.chatRoom);
                         cible.quit(ChatServer.getUser(lcrp.user));
-                        bool flag = true;
-                        if (cible.chatters.Contains(ChatServer.getUser(lcrp.user)))
-                        {
-                            flag = false;
-                        }
-                        LeaveChatRoomValidationPacket lcrvp = new LeaveChatRoomValidationPacket(flag);
-                        Packet.Send(lcrvp, ns);
                         //Verif si dans aucune chatrrom => quitte l'application ? ou lors d'une erreur de IOE verifier si déco ou pas et enlever de la iste chatterUsers
                     }
                 }
@@ -171,6 +183,8 @@ namespace CSharp_server.Server
             catch (IOException e)
             {
                 Console.WriteLine("Un client a déconnecté");
+
+                
                 ChatServer.StartListening();
             }
         }
