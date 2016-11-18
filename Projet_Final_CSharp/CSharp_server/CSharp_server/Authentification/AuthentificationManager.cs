@@ -4,7 +4,7 @@ using System.Globalization;
 using System.IO;
 using System.Xml.Serialization;
 
-namespace CSharp_Graphic_Chat.Authentification
+namespace CSharp_server.Authentification
 {
     namespace Authentification
     {

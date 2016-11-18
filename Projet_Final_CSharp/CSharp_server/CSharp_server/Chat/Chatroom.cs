@@ -1,13 +1,13 @@
 ﻿using chatLibrary;
-using CSharp_Graphic_Chat.Authentification.Authentification;
-using CSharp_Graphic_Chat.Server;
+using CSharp_server.Authentification.Authentification;
+using CSharp_server.Server;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CSharp_Graphic_Chat.Chat
+namespace CSharp_server.Chat
 {
     namespace Chat
     {
@@ -37,7 +37,7 @@ namespace CSharp_Graphic_Chat.Chat
                 foreach (User user in this.chatters)
                 {
                     Console.WriteLine("Sending message : " + msg + " from user : " + u.chatter.alias + " in chatroom : " + this.topic + " to user : " + user.chatter.alias);
-                    MessageBroadcastPacket mbp = new MessageBroadcastPacket(u.chatter.alias, msg);
+                    MessageBroadcastPacket mbp = new MessageBroadcastPacket(u.chatter.alias, msg, this.topic);
                     Packet.Send(mbp, u.ns);
                 }
             }

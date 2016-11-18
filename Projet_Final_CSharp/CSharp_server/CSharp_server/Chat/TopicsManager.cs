@@ -4,9 +4,9 @@ using System.Collections;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using CSharp_Graphic_Chat.Authentification.Authentification;
+using CSharp_server.Authentification.Authentification;
 
-namespace CSharp_Graphic_Chat.Chat
+namespace CSharp_server.Chat
 {
     namespace Chat
     {

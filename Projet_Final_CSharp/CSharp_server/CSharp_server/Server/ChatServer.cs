@@ -4,17 +4,17 @@ using System.Net.Sockets;
 using System.Threading;
 using System.IO;
 using chatLibrary;
-using CSharp_Graphic_Chat.Authentification.Authentification;
-using CSharp_Graphic_Chat.Chat.Chat;
+using CSharp_server.Authentification.Authentification;
+using CSharp_server.Chat.Chat;
 using System.Net;
 using System.Collections;
 
-namespace CSharp_Graphic_Chat.Server
+namespace CSharp_server.Server
 {
     class ChatServer
     {
         public static List<User> chattingUsers = new List<User>();
-        public static TcpListener ServerSocket = new TcpListener(IPAddress.Any, 1337);
+        public static TcpListener ServerSocket = new TcpListener(IPAddress.Any, 25565);
         public static void StartServer()
         {
             ServerSocket.Start();

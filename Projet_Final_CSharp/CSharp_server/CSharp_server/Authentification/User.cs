@@ -1,4 +1,4 @@
-﻿using CSharp_Graphic_Chat.Chat.Chat;
+﻿using CSharp_server.Chat.Chat;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -6,7 +6,7 @@ using System.Net.Sockets;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CSharp_Graphic_Chat.Authentification
+namespace CSharp_server.Authentification
 {
     namespace Authentification
     {

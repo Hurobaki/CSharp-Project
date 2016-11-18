@@ -1,12 +1,12 @@
 ﻿using System;
 using System.IO;
-using CSharp_Graphic_Chat.Chat.Chat;
-using CSharp_Graphic_Chat.Authentification.Authentification;
+using CSharp_server.Chat.Chat;
+using CSharp_server.Authentification.Authentification;
 using System.Net.Sockets;
 using System.Net;
-using CSharp_Graphic_Chat.Server;
+using CSharp_server.Server;
 
-namespace CSharp_Graphic_Chat
+namespace CSharp_server
 {
     static class Program
     {
