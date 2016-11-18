@@ -35,8 +35,9 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="chatLibrary">
-      <HintPath>..\..\CSharp_Graphic_Chat\CSharp_Graphic_Chat\Libraries\chatLibrary.dll</HintPath>
+    <Reference Include="chatLibrary, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\chatLibrary\chatLibrary\bin\Debug\chatLibrary.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
