@@ -55,10 +55,10 @@ namespace CSharp_Client
         private void button1_Click(object sender, EventArgs e)
         {
 
-            JoinChatRoomPacket jc = new JoinChatRoomPacket(comboBox1.SelectedItem.ToString(), Form1.login);
+           /* JoinChatRoomPacket jc = new JoinChatRoomPacket(comboBox1.SelectedItem.ToString(), Form1.login);
             Packet.Send(jc, Form1.stream);
 
-            Thread.Sleep(100);
+            Thread.Sleep(100);*/
         }
     }
 }

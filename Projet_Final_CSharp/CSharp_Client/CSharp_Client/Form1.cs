@@ -30,7 +30,7 @@ namespace CSharp_Client
         {
             try
             {
-                client = new TcpClient("192.168.0.15", 1337);
+                client = new TcpClient("192.168.58.100", 1337);
             }
             catch(Exception ex)
             {
@@ -75,10 +75,10 @@ namespace CSharp_Client
             {
                 //Application.Run(new Form2());
 
-                //Form2 f2 = new Form2();
-                //f2.ShowDialog();
+                Form2 f2 = new Form2();
+                f2.ShowDialog();
 
-                this.Invoke(new MethodInvoker(delegate ()
+               /* this.Invoke(new MethodInvoker(delegate ()
                 {
                     Form form2 = new Form2();
 
@@ -87,7 +87,7 @@ namespace CSharp_Client
                     form2.Show();
 
                     
-                }));
+                }));*/
                 
 
             }
