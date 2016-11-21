@@ -13,7 +13,7 @@ namespace CSharp_server.Chat
     {
         class Chatroom
         {
-            private String _topic;
+            private string _topic;
             private List<User> _chatters = new List<User>();
 
             public Chatroom(String topic)
@@ -33,12 +33,12 @@ namespace CSharp_server.Chat
             }
             public void post(String msg, User u)
             {
-                Console.WriteLine(this.topic +" : "+ u.chatter.alias + " : " + msg);
-                foreach (User user in this.chatters)
+                Console.WriteLine(this._topic +" : "+ u.chatter.alias + " : " + msg);
+                foreach (User user in this._chatters)
                 {
-                    Console.WriteLine("Sending message : " + msg + " from user : " + u.chatter.alias + " in chatroom : " + this.topic + " to user : " + user.chatter.alias);
-                    MessageBroadcastPacket mbp = new MessageBroadcastPacket(u.chatter.alias, msg, this.topic);
-                    Packet.Send(mbp, u.ns);
+                    Console.WriteLine("Sending message : " + msg + " from user : " + u.chatter.alias + " in chatroom : " + this._topic + " to user : " + user.chatter.alias);
+                    MessageBroadcastPacket mbp = new MessageBroadcastPacket(u.login, msg, this._topic);
+                    Packet.Send(mbp, user.ns);
                 }
             }
 
