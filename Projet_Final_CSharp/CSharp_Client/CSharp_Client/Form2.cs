@@ -41,11 +41,6 @@ namespace CSharp_Client
             
         }
 
-        private void Form2_FormClosing(object sender, FormClosingEventArgs e)
-        {
-            MessageBox.Show("Wrong informations", "Registration failed", MessageBoxButtons.OK);
-        }
-    
 
         private void Form2_Load(object sender, EventArgs e)
         {
@@ -55,10 +50,19 @@ namespace CSharp_Client
         private void button1_Click(object sender, EventArgs e)
         {
 
-           /* JoinChatRoomPacket jc = new JoinChatRoomPacket(comboBox1.SelectedItem.ToString(), Form1.login);
+            JoinChatRoomPacket jc = new JoinChatRoomPacket(comboBox1.SelectedItem.ToString(), Form1.login);
             Packet.Send(jc, Form1.stream);
 
-            Thread.Sleep(100);*/
+            Thread.Sleep(100);
+
+            Form3 f3 = new Form3();
+            f3.Text = comboBox1.SelectedItem.ToString();
+            f3.Show();
+        }
+
+        private void Form2_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            //Application.Exit();
         }
     }
 }
