@@ -25,16 +25,16 @@ namespace CSharp_Client
         {
             try
             {
-                client = new TcpClient("192.168.43.95", 25565);
+                client = new TcpClient("192.168.63.77", 25565);
+                stream = client.GetStream();
             }
             catch(Exception ex)
             {
-                Console.WriteLine("Le serveur distant n'est pas connecté");
-                Console.WriteLine(ex.Message);
-                Console.ReadLine();
+                MessageBox.Show("Le serveur distant n'est pas connecté. \n\rVeuillez réessayer dans quelques instants.","Error", MessageBoxButtons.OK);
+                Application.Exit();
             }
            
-            stream = client.GetStream();
+            
         }
 
         private void connect_Click(object sender, EventArgs e)
@@ -104,7 +104,7 @@ namespace CSharp_Client
 
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
-            //Application.Exit();
+            Application.Exit();
         }
     }
 }
