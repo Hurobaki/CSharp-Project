@@ -199,7 +199,7 @@ namespace CSharp_server.Server
             catch (IOException e)
             {
                 Console.WriteLine("Un client a déconnecté");
-                Console.WriteLine(e);
+                //Closing thread
                 ctThread.Join();
 
             }
