@@ -16,6 +16,7 @@ namespace CSharp_server.Server
     {
         public static List<User> chattingUsers = new List<User>();
         public static TcpListener ServerSocket = new TcpListener(IPAddress.Any, 25565);
+
         public static void StartServer()
         {
             ServerSocket.Start();
@@ -32,6 +33,7 @@ namespace CSharp_server.Server
                 client.startClient(clientSocket);
             }
         }
+
         public static void removeUser(User u)
         {
             if (chattingUsers.Contains(u))
@@ -62,6 +64,7 @@ namespace CSharp_server.Server
     {
         TcpClient clientSocket;
         NetworkStream ns;
+
         public void startClient(TcpClient inClientSocket)
         {
             this.clientSocket = inClientSocket;
@@ -107,6 +110,7 @@ namespace CSharp_server.Server
                             u.chatter = new Chatter(ap.login);
                             ChatServer.addUser(u);
                             Packet.Send(bp, ns);
+
                             /*Displaying topics to user*/
                             Console.Write("[");
                             foreach (String s in tm.getRooms())
@@ -135,17 +139,22 @@ namespace CSharp_server.Server
                     if (packet is JoinChatRoomPacket)
                     {
                         JoinChatRoomPacket jcp = (JoinChatRoomPacket)packet;
+                        
                         if (tm.getRooms().Contains(jcp.chatRoom))
                         {
                             bool flag = tm.joinTopic(jcp.chatRoom, ChatServer.getUser(jcp.user));
                             if (flag)
                             {
                                 Console.WriteLine("User " + jcp.user + " joined chatroom : " + jcp.chatRoom);
+                                
                             }
                             else
                                 Console.WriteLine("Error, user " + jcp.user + " already in the chatroom : " + jcp.chatRoom);
                             JoinChatRoomValidationPacket jcvp = new JoinChatRoomValidationPacket(flag);
                         }
+
+                        Console.WriteLine(jcp.chatRoom);
+                        Console.WriteLine(jcp.user);
                     }
 
                     if (packet is CreateChatRoomPacket)
@@ -172,12 +181,11 @@ namespace CSharp_server.Server
 
                     if (packet is LeaveChatRoomPacket)
                     {
-                        Object thisLock = new Object();
                         LeaveChatRoomPacket lcrp = (LeaveChatRoomPacket) packet;
                         Chatroom cible = (Chatroom)tm.topics[lcrp.chatRoom];
-                        Console.WriteLine("User : " + lcrp.user + "is leaving chatroom : " + lcrp.chatRoom);
-                        lock(thisLock)
-                            cible.quit(ChatServer.getUser(lcrp.user));
+                        Console.WriteLine("User : " + lcrp.user + " is leaving chatroom : " + lcrp.chatRoom);
+             
+                        cible.quit(ChatServer.getUser(lcrp.user));
                         //Verif si dans aucune chatrrom => quitte l'application ? ou lors d'une erreur de IOE verifier si déco ou pas et enlever de la iste chatterUsers
                     }
                 }
@@ -185,9 +193,11 @@ namespace CSharp_server.Server
             catch (IOException e)
             {
                 Console.WriteLine("Un client a déconnecté");
-
-                
                 ChatServer.StartListening();
+            }
+            catch (NullReferenceException ex)
+            {
+                Console.WriteLine("Impossible de retirer le client, celui-ci n'existe pas dans la chatroom");
             }
         }
     }

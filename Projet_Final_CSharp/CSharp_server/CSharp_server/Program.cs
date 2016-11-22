@@ -10,7 +10,7 @@ namespace CSharp_server
 {
     static class Program
     {
-        
+        private static String PATH = "SaveUsers.xml";
         /// <summary>
         /// The main entry point for the application.
         /// </summary>
@@ -22,12 +22,17 @@ namespace CSharp_server
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new Form1());
             */
+
             AuthentificationManager test = new AuthentificationManager();
-            String PATH = "Test.xml";
             TopicsManager tm = new TopicsManager();
-            tm.createTopic("Manuelle");
+
+
+            tm.createTopic("C#");
             tm.createTopic("PA8");
             tm.createTopic("Slack");
+            tm.createTopic("Audio Visuel");
+            tm.createTopic("XML_");
+
             try
             {
                 if (File.Exists(PATH))

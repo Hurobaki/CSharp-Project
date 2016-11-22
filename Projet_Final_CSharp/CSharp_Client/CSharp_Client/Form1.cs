@@ -5,6 +5,7 @@ using System.Windows.Forms;
 
 using chatLibrary;
 using System.Threading;
+using System.Diagnostics;
 
 namespace CSharp_Client
 {
@@ -24,16 +25,16 @@ namespace CSharp_Client
         {
             try
             {
-                client = new TcpClient("192.168.58.100", 1337);
+                client = new TcpClient("192.168.63.77", 25565);
+                stream = client.GetStream();
             }
             catch(Exception ex)
             {
-                Console.WriteLine("Le serveur distant n'est pas connecté");
-                Console.WriteLine(ex.Message);
-                Console.ReadLine();
+                MessageBox.Show("Le serveur distant n'est pas connecté. \n\rVeuillez réessayer dans quelques instants.","Error", MessageBoxButtons.OK);
+                Application.Exit();
             }
            
-            stream = client.GetStream();
+            
         }
 
         private void connect_Click(object sender, EventArgs e)
@@ -67,23 +68,9 @@ namespace CSharp_Client
 
             if(flag)
             {
-                //Application.Run(new Form2());
-
                 Form2 f2 = new Form2();
-                f2.ShowDialog();
-
-               /* this.Invoke(new MethodInvoker(delegate ()
-                {
-                    Form form2 = new Form2();
-
-
-                    form2.TopMost = true;
-                    form2.Show();
-
-                    
-                }));*/
-                
-
+                f2.Show();
+                this.Hide();
             }
         }
 
@@ -113,10 +100,11 @@ namespace CSharp_Client
 
         }
 
+
+
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
             Application.Exit();
         }
-
     }
 }
