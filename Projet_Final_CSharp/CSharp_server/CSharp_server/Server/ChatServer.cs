@@ -152,7 +152,7 @@ namespace CSharp_server.Server
                             else
                                 Console.WriteLine("Error, user " + jcp.user + " already in the chatroom : " + jcp.chatRoom);
                             JoinChatRoomValidationPacket jcvp = new JoinChatRoomValidationPacket(flag);
-                            Packet.Send(jcvp, ns);
+                            //Packet.Send(jcvp, ns);
                         }
 
                         Console.WriteLine(jcp.chatRoom);
@@ -161,18 +161,30 @@ namespace CSharp_server.Server
 
                     if (packet is CreateChatRoomPacket)
                     {
+                        bool flag;
+                        CreateChatRoomValidationPacket ccvp;
                         CreateChatRoomPacket ccp = (CreateChatRoomPacket)packet;
-                        if (tm.topics.ContainsKey(ccp.chatRoom))
+                        if (!tm.topics.ContainsKey(ccp.chatRoom))
                         {
-                            bool flag = tm.createTopic(ccp.chatRoom);
+                            flag = tm.createTopic(ccp.chatRoom);
                             if (flag)
+                            {
                                 Console.WriteLine("User " + ccp.user + " created chatroom : " + ccp.chatRoom);
+                                TopicsPacket tp = new TopicsPacket(tm.getRooms());
+                                foreach (User u in ChatServer.chattingUsers)
+                                    Packet.Send(tp, u.ns);
+                            }
                             /* Broadcast la création de room avec affichage de message */
-                            else
-                                Console.WriteLine("Error, chatroom :" + ccp.chatRoom + " already exists");
-                            CreateChatRoomValidationPacket ccvp = new CreateChatRoomValidationPacket(flag, ccp.chatRoom);
-                            Packet.Send(ccvp, ns);
+
+                            ccvp = new CreateChatRoomValidationPacket(flag, ccp.chatRoom);
                         }
+                        else
+                        {
+                            flag = false;
+                            Console.WriteLine("Error, chatroom :" + ccp.chatRoom + " already exists");
+                            ccvp = new CreateChatRoomValidationPacket(flag, ccp.chatRoom);
+                        }
+                        Packet.Send(ccvp, ns);
                     }
                     if (packet is MessagePacket)
                     {
