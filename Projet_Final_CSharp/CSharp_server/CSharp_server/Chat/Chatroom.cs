@@ -39,7 +39,7 @@ namespace CSharp_server.Chat
                     Console.WriteLine("Sending message : " + msg + " from user : " + u.chatter.alias + " in chatroom : " + this._topic + " to user : " + user.chatter.alias);
                     MessageBroadcastPacket mbp = new MessageBroadcastPacket(u.login, msg, this._topic);
                     Packet.Send(mbp, user.ns);
-                    Console.WriteLine(user.login + user.ns.ToString());
+                    Console.WriteLine("sending messageboradcatstpacket :"+u.login+" "+msg+" "+this._topic);
                 }
             }
 
