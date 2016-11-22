@@ -152,7 +152,7 @@ namespace CSharp_server.Server
                             else
                                 Console.WriteLine("Error, user " + jcp.user + " already in the chatroom : " + jcp.chatRoom);
                             JoinChatRoomValidationPacket jcvp = new JoinChatRoomValidationPacket(flag);
-                            Packet.Send(jcvp, ns);
+                            //Packet.Send(jcvp, ns);
                         }
 
                         Console.WriteLine(jcp.chatRoom);
@@ -171,7 +171,7 @@ namespace CSharp_server.Server
                             else
                                 Console.WriteLine("Error, chatroom :" + ccp.chatRoom + " already exists");
                             CreateChatRoomValidationPacket ccvp = new CreateChatRoomValidationPacket(flag, ccp.chatRoom);
-                            Packet.Send(ccvp, ns);
+                            //Packet.Send(ccvp, ns);
                         }
                     }
                     if (packet is MessagePacket)

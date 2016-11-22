@@ -13,6 +13,8 @@ namespace CSharp_Client
         {
             InitializeComponent();
 
+            CreateTopicWorker.RunWorkerAsync();
+
             Packet paquet = Packet.ReceiveList(Form1.stream);
 
             if(paquet is TopicsPacket)
@@ -58,7 +60,16 @@ namespace CSharp_Client
                 if (paquet is CreateChatRoomValidationPacket)
                 {
                     CreateChatRoomValidationPacket cc = (CreateChatRoomValidationPacket)paquet;
-                    //comboBox1.Items.Add(cc.chatroom);
+
+                    if(cc.value)
+                    {
+                        comboBox1.Items.Add(cc.chatRoom);
+                    }
+                    else
+                    {
+                        MessageBox.Show("Failed to create new chatromm. Name is already taken", "Error", MessageBoxButtons.OK);
+                    }
+                    
                 }
             }
         }
