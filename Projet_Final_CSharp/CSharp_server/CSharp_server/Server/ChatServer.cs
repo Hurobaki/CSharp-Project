@@ -172,10 +172,12 @@ namespace CSharp_server.Server
 
                     if (packet is LeaveChatRoomPacket)
                     {
+                        Object thisLock = new Object();
                         LeaveChatRoomPacket lcrp = (LeaveChatRoomPacket) packet;
                         Chatroom cible = (Chatroom)tm.topics[lcrp.chatRoom];
                         Console.WriteLine("User : " + lcrp.user + "is leaving chatroom : " + lcrp.chatRoom);
-                        cible.quit(ChatServer.getUser(lcrp.user));
+                        lock(thisLock)
+                            cible.quit(ChatServer.getUser(lcrp.user));
                         //Verif si dans aucune chatrrom => quitte l'application ? ou lors d'une erreur de IOE verifier si déco ou pas et enlever de la iste chatterUsers
                     }
                 }
