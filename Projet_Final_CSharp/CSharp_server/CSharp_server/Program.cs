@@ -10,7 +10,7 @@ namespace CSharp_server
 {
     static class Program
     {
-        private static String PATH = "Test.xml";
+        private static String PATH = "SaveUsers.xml";
         /// <summary>
         /// The main entry point for the application.
         /// </summary>

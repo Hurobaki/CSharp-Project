@@ -19,6 +19,7 @@ namespace CSharp_Client
         public Form3()
         {
             InitializeComponent();
+            backgroundWorker1.RunWorkerAsync();
         }
 
         private void Form3_FormClosing(object sender, FormClosingEventArgs e)
@@ -38,9 +39,26 @@ namespace CSharp_Client
             Thread.Sleep(100);
 
 
-            output_text.Text += "\r\n" + Form1.login + " : " + input_text.Text;
+            /*output_text.Text += "\r\n" + Form1.login + " : " + input_text.Text;*/
 
             input_text.Text = "";
+
+        }
+
+        private void backgroundWorker1_DoWork(object sender, DoWorkEventArgs e)
+        {
+            while (true)
+            {
+                Packet paquet = Packet.Receive(Form1.stream);
+
+                if (paquet is MessageBroadcastPacket)
+                {
+                    MessageBroadcastPacket mb = (MessageBroadcastPacket)paquet;
+                    output_text.Text += Form1.login + " says : " + mb.message + "\r";
+                    Debug.WriteLine(mb.message);
+                    
+                }
+            }
         }
     }
 }

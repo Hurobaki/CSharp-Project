@@ -31,6 +31,7 @@
             this.output_text = new System.Windows.Forms.TextBox();
             this.input_text = new System.Windows.Forms.TextBox();
             this.Send = new System.Windows.Forms.Button();
+            this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
             this.SuspendLayout();
             // 
             // output_text
@@ -60,6 +61,10 @@
             this.Send.UseVisualStyleBackColor = true;
             this.Send.Click += new System.EventHandler(this.Send_Click);
             // 
+            // backgroundWorker1
+            // 
+            this.backgroundWorker1.DoWork += new System.ComponentModel.DoWorkEventHandler(this.backgroundWorker1_DoWork);
+            // 
             // Form3
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -81,5 +86,6 @@
         private System.Windows.Forms.TextBox output_text;
         private System.Windows.Forms.TextBox input_text;
         private System.Windows.Forms.Button Send;
+        private System.ComponentModel.BackgroundWorker backgroundWorker1;
     }
 }

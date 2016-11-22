@@ -38,7 +38,7 @@ namespace CSharp_Client
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            label1.Text = comboBox1.SelectedItem.ToString() + " selected.";
+            label1.Text = comboBox1.SelectedItem.ToString();
             button1.Enabled = true;
         }
 

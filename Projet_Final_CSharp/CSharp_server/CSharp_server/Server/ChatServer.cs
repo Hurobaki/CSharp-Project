@@ -139,17 +139,22 @@ namespace CSharp_server.Server
                     if (packet is JoinChatRoomPacket)
                     {
                         JoinChatRoomPacket jcp = (JoinChatRoomPacket)packet;
+                        
                         if (tm.getRooms().Contains(jcp.chatRoom))
                         {
                             bool flag = tm.joinTopic(jcp.chatRoom, ChatServer.getUser(jcp.user));
                             if (flag)
                             {
                                 Console.WriteLine("User " + jcp.user + " joined chatroom : " + jcp.chatRoom);
+                                
                             }
                             else
                                 Console.WriteLine("Error, user " + jcp.user + " already in the chatroom : " + jcp.chatRoom);
                             JoinChatRoomValidationPacket jcvp = new JoinChatRoomValidationPacket(flag);
                         }
+
+                        Console.WriteLine(jcp.chatRoom);
+                        Console.WriteLine(jcp.user);
                     }
 
                     if (packet is CreateChatRoomPacket)
@@ -179,6 +184,7 @@ namespace CSharp_server.Server
                         LeaveChatRoomPacket lcrp = (LeaveChatRoomPacket) packet;
                         Chatroom cible = (Chatroom)tm.topics[lcrp.chatRoom];
                         Console.WriteLine("User : " + lcrp.user + " is leaving chatroom : " + lcrp.chatRoom);
+             
                         cible.quit(ChatServer.getUser(lcrp.user));
                         //Verif si dans aucune chatrrom => quitte l'application ? ou lors d'une erreur de IOE verifier si déco ou pas et enlever de la iste chatterUsers
                     }
@@ -188,6 +194,10 @@ namespace CSharp_server.Server
             {
                 Console.WriteLine("Un client a déconnecté");
                 ChatServer.StartListening();
+            }
+            catch (NullReferenceException ex)
+            {
+                Console.WriteLine("Impossible de retirer le client, celui-ci n'existe pas dans la chatroom");
             }
         }
     }

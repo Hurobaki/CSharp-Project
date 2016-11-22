@@ -17,7 +17,7 @@ namespace CSharp_server.Authentification
 
             
             private static List<User> _users = new List<User>();
-            private const string PATH = "Test.xml";
+            private const string PATH = "SaveUsers.xml";
 
             [XmlArray("Users_Registered")]
             public List<User> Users
