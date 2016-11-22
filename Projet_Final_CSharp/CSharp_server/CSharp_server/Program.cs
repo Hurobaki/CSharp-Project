@@ -31,7 +31,7 @@ namespace CSharp_server
             tm.createTopic("PA8");
             tm.createTopic("Slack");
             tm.createTopic("Audio Visuel");
-            tm.createTopic("XML_");
+            tm.createTopic("XML");
 
             try
             {

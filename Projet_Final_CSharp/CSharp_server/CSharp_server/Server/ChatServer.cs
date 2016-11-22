@@ -221,6 +221,7 @@ namespace CSharp_server.Server
             {
                 Console.WriteLine("Impossible de retirer le client, celui-ci n'existe pas dans la chatroom");
             }
+
         }
     }
 }

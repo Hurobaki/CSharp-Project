@@ -70,5 +70,10 @@ namespace CSharp_Client
 
             Thread.Sleep(100);
         }
+
+        private void Form2_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

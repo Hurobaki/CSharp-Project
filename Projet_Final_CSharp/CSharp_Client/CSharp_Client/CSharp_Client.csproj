@@ -35,8 +35,7 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="chatLibrary, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
+    <Reference Include="chatLibrary">
       <HintPath>..\..\chatLibrary\chatLibrary\bin\Debug\chatLibrary.dll</HintPath>
     </Reference>
     <Reference Include="System" />
