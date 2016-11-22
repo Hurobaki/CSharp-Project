@@ -189,6 +189,7 @@ namespace CSharp_server.Server
                 Console.WriteLine("Un client a déconnecté");
                 ChatServer.StartListening();
             }
+
         }
     }
 }

@@ -25,7 +25,8 @@ namespace CSharp_Client
         {
             try
             {
-                client = new TcpClient("192.168.63.77", 25565);
+                
+                client = new TcpClient("192.168.0.15", 25565);
                 stream = client.GetStream();
             }
             catch(Exception ex)

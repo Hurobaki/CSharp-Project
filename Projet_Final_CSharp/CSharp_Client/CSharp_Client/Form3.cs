@@ -42,5 +42,10 @@ namespace CSharp_Client
 
             input_text.Text = "";
         }
+
+        private void Form3_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

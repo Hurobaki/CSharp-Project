@@ -64,5 +64,10 @@ namespace CSharp_Client
         {
 
         }
+
+        private void Form2_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }
