@@ -31,6 +31,8 @@
             this.output_text = new System.Windows.Forms.TextBox();
             this.input_text = new System.Windows.Forms.TextBox();
             this.Send = new System.Windows.Forms.Button();
+            this.OutputDisplay = new System.ComponentModel.BackgroundWorker();
+            this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // output_text
@@ -60,18 +62,34 @@
             this.Send.UseVisualStyleBackColor = true;
             this.Send.Click += new System.EventHandler(this.Send_Click);
             // 
+            // OutputDisplay
+            // 
+            this.OutputDisplay.DoWork += new System.ComponentModel.DoWorkEventHandler(this.OutputDisplay_DoWork);
+            // 
+            // checkBox1
+            // 
+            this.checkBox1.AutoSize = true;
+            this.checkBox1.Location = new System.Drawing.Point(57, 343);
+            this.checkBox1.Name = "checkBox1";
+            this.checkBox1.Size = new System.Drawing.Size(117, 17);
+            this.checkBox1.TabIndex = 3;
+            this.checkBox1.Text = "Press enter to send";
+            this.checkBox1.UseVisualStyleBackColor = true;
+            this.checkBox1.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
+            // 
             // Form3
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(880, 348);
+            this.ClientSize = new System.Drawing.Size(886, 376);
+            this.Controls.Add(this.checkBox1);
             this.Controls.Add(this.Send);
             this.Controls.Add(this.input_text);
             this.Controls.Add(this.output_text);
             this.Name = "Form3";
             this.Text = "Form3";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form3_FormClosing);
-            this.Load += new System.EventHandler(this.Form3_Load);
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Form3_KeyDown);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -82,5 +100,7 @@
         private System.Windows.Forms.TextBox output_text;
         private System.Windows.Forms.TextBox input_text;
         private System.Windows.Forms.Button Send;
+        private System.ComponentModel.BackgroundWorker OutputDisplay;
+        private System.Windows.Forms.CheckBox checkBox1;
     }
 }

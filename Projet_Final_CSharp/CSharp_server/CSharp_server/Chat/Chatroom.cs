@@ -39,13 +39,17 @@ namespace CSharp_server.Chat
                     Console.WriteLine("Sending message : " + msg + " from user : " + u.chatter.alias + " in chatroom : " + this._topic + " to user : " + user.chatter.alias);
                     MessageBroadcastPacket mbp = new MessageBroadcastPacket(u.login, msg, this._topic);
                     Packet.Send(mbp, user.ns);
+                    Console.WriteLine(user.login + user.ns.ToString());
                 }
             }
 
             public void quit(User c)
             {
+                c.ns.Flush();
                 _chatters.Remove(c);
                 Console.WriteLine("(Message from Chatroom : " + _topic + ") " + c.chatter.alias + " left the chat");
+                foreach (User u in _chatters)
+                    Console.WriteLine(u.login);
             }
 
             public bool join(User c)
@@ -59,6 +63,8 @@ namespace CSharp_server.Chat
                 {
                     _chatters.Add(c);
                     Console.WriteLine("(Message from Chatroom : " + _topic + ") " + c.chatter.alias + " joined the chat");
+                    foreach(User u in _chatters)
+                        Console.WriteLine(u.login);
                     return true;
                 }
             }

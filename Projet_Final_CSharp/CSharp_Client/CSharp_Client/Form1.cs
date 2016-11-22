@@ -25,8 +25,10 @@ namespace CSharp_Client
         {
             try
             {
-                
-                client = new TcpClient("192.168.0.15", 25565);
+                /* Alex IPv4 */
+                client = new TcpClient("192.168.43.95", 25565);
+                /* Théo IPv4 */
+                //client = new TcpClient("192.168.63.77", 25565);
                 stream = client.GetStream();
             }
             catch(Exception ex)
@@ -64,7 +66,7 @@ namespace CSharp_Client
                 else if(bp.value == 2)
                     MessageBox.Show("Wrong password ", "Connexion failed !", MessageBoxButtons.OK);
                 else
-                    MessageBox.Show("USer Unknown", "Connexion failed !", MessageBoxButtons.OK);
+                    MessageBox.Show("User Unknown", "Connexion failed !", MessageBoxButtons.OK);
             }
 
             if(flag)
@@ -100,8 +102,6 @@ namespace CSharp_Client
         {
 
         }
-
-
 
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {

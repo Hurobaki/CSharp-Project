@@ -10,10 +10,12 @@ namespace chatLibrary
     public class CreateChatRoomValidationPacket : Packet
     {
         public bool value { get; private set; }
+        public string chatRoom { get; private set; }
 
-        public CreateChatRoomValidationPacket(bool e) : base(TypePacket.CreateChatRoomValidation)
+        public CreateChatRoomValidationPacket(bool e, string c) : base(TypePacket.CreateChatRoomValidation)
         {
             this.value = e;
+            this.chatRoom = c;
         }
     }
 }
