@@ -64,11 +64,12 @@ namespace CSharp_server.Server
     {
         TcpClient clientSocket;
         NetworkStream ns;
+        Thread ctThread;
 
         public void startClient(TcpClient inClientSocket)
         {
             this.clientSocket = inClientSocket;
-            Thread ctThread = new Thread(Auth);
+            ctThread = new Thread(Auth);
             ns = clientSocket.GetStream();
             ctThread.Start();
         }
@@ -181,12 +182,16 @@ namespace CSharp_server.Server
 
                     if (packet is LeaveChatRoomPacket)
                     {
-                        Object thislock = new Object();
+                        Object thisLock = new Object();
                         LeaveChatRoomPacket lcrp = (LeaveChatRoomPacket) packet;
                         Chatroom cible = (Chatroom)tm.topics[lcrp.chatRoom];
                         Console.WriteLine("User : " + lcrp.user + " is leaving chatroom : " + lcrp.chatRoom);
-                        lock(thislock)
-                        cible.quit(ChatServer.getUser(lcrp.user));
+                        lock (thisLock)
+                        {
+                            cible.quit(ChatServer.getUser(lcrp.user));
+                            ChatServer.removeUser(ChatServer.getUser(lcrp.user));
+                        }
+
                         //Verif si dans aucune chatrrom => quitte l'application ? ou lors d'une erreur de IOE verifier si déco ou pas et enlever de la iste chatterUsers
                     }
                 }
@@ -194,7 +199,9 @@ namespace CSharp_server.Server
             catch (IOException e)
             {
                 Console.WriteLine("Un client a déconnecté");
-                ChatServer.StartListening();
+                Console.WriteLine(e);
+                ctThread.Join();
+
             }
             catch (NullReferenceException ex)
             {
