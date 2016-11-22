@@ -12,13 +12,25 @@ namespace CSharp_Client
         public Form3()
         {
             InitializeComponent();
-            backgroundWorker1.RunWorkerAsync();
+            OutputDisplay.RunWorkerAsync();
         }
 
         private void Form3_FormClosing(object sender, FormClosingEventArgs e)
         {
             LeaveChatRoomPacket lc = new LeaveChatRoomPacket(this.Text, Form1.login);
-            Packet.Send(lc, Form1.stream);
+
+            try
+            {
+                Packet.Send(lc, Form1.stream);
+            }
+            catch(Exception ex)
+            {
+                DialogResult result = MessageBox.Show("Server is disconnected, application is going to close", "Error", MessageBoxButtons.OK);
+                if (result == DialogResult.OK)
+                {
+                    Application.Exit();
+                }
+            }
 
             Thread.Sleep(100);
         }
@@ -31,14 +43,11 @@ namespace CSharp_Client
 
             Thread.Sleep(100);
 
-
-            /*output_text.Text += "\r\n" + Form1.login + " : " + input_text.Text;*/
-
             input_text.Text = "";
 
         }
 
-        private void backgroundWorker1_DoWork(object sender, DoWorkEventArgs e)
+        private void OutputDisplay_DoWork(object sender, DoWorkEventArgs e)
         {
             while (true)
             {
@@ -51,5 +60,31 @@ namespace CSharp_Client
                 }
             }
         }
+
+        private void checkBox1_CheckedChanged(object sender, EventArgs e)
+        {
+            if(checkBox1.Checked)
+            {
+                this.KeyPreview = true;
+            }
+            else
+            {
+                this.KeyPreview = false;
+            }
+        }
+
+        private void Form3_KeyDown(object sender, KeyEventArgs e)
+        {
+            switch (e.KeyCode)
+            {
+                case Keys.Enter:
+                    e.Handled = true;
+                    e.SuppressKeyPress = true;
+                    Send.PerformClick();
+                    break;
+            }
+        }
+
+        
     }
 }
