@@ -169,7 +169,7 @@ namespace CSharp_server.Server
                             /* Broadcast la création de room avec affichage de message */
                             else
                                 Console.WriteLine("Error, chatroom :" + ccp.chatRoom + " already exists");
-                            CreateChatRoomValidationPacket ccvp = new CreateChatRoomValidationPacket(flag);
+                            CreateChatRoomValidationPacket ccvp = new CreateChatRoomValidationPacket(flag, ccp.chatRoom);
                         }
                     }
                     if (packet is MessagePacket)
