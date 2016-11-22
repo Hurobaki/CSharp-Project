@@ -33,7 +33,6 @@
             this.login_input = new System.Windows.Forms.TextBox();
             this.password_input = new System.Windows.Forms.TextBox();
             this.connect = new System.Windows.Forms.Button();
-            this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
             this.register = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
@@ -79,10 +78,6 @@
             this.connect.UseVisualStyleBackColor = true;
             this.connect.Click += new System.EventHandler(this.connect_Click);
             // 
-            // backgroundWorker1
-            // 
-            this.backgroundWorker1.DoWork += new System.ComponentModel.DoWorkEventHandler(this.backgroundWorker1_DoWork);
-            // 
             // register
             // 
             this.register.Location = new System.Drawing.Point(181, 122);
@@ -120,7 +115,6 @@
         private System.Windows.Forms.TextBox login_input;
         private System.Windows.Forms.TextBox password_input;
         private System.Windows.Forms.Button connect;
-        private System.ComponentModel.BackgroundWorker backgroundWorker1;
         private System.Windows.Forms.Button register;
     }
 }

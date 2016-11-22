@@ -1,16 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 using chatLibrary;
 using System.Threading;
-using System.Diagnostics;
 
 namespace CSharp_Client
 {
@@ -54,9 +47,7 @@ namespace CSharp_Client
                 if (paquet is MessageBroadcastPacket)
                 {
                     MessageBroadcastPacket mb = (MessageBroadcastPacket)paquet;
-                    output_text.Text += Form1.login + " says : " + mb.message + "\r";
-                    Debug.WriteLine(mb.message);
-                    
+                    output_text.Text += mb.user + " says : " + mb.message + "\r\n";
                 }
             }
         }
