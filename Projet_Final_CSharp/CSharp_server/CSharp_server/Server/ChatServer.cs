@@ -203,7 +203,7 @@ namespace CSharp_server.Server
                         lock (thisLock)
                         {
                             cible.quit(ChatServer.getUser(lcrp.user));
-                            ChatServer.removeUser(ChatServer.getUser(lcrp.user));
+                            //ChatServer.removeUser(ChatServer.getUser(lcrp.user));
                         }
 
                         //Verif si dans aucune chatrrom => quitte l'application ? ou lors d'une erreur de IOE verifier si déco ou pas et enlever de la iste chatterUsers
