@@ -17,7 +17,6 @@ namespace chatLibrary
             this.user = u;
             this.chatroom = c;
             this.message = m;
-
         }
     }
 }

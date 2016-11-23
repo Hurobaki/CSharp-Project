@@ -34,8 +34,8 @@
             this.label2 = new System.Windows.Forms.Label();
             this.createTopic_textbox = new System.Windows.Forms.TextBox();
             this.createTopic_button = new System.Windows.Forms.Button();
-            this.CreateTopicWorker = new System.ComponentModel.BackgroundWorker();
             this.label3 = new System.Windows.Forms.Label();
+            this.CreateTopicWorker = new System.ComponentModel.BackgroundWorker();
             this.SuspendLayout();
             // 
             // button1
@@ -63,6 +63,7 @@
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(100, 23);
             this.label1.TabIndex = 2;
+            this.label1.Click += new System.EventHandler(this.label1_Click);
             // 
             // label2
             // 
@@ -89,10 +90,6 @@
             this.createTopic_button.UseVisualStyleBackColor = true;
             this.createTopic_button.Click += new System.EventHandler(this.createTopic_button_Click);
             // 
-            // CreateTopicWorker
-            // 
-            this.CreateTopicWorker.DoWork += new System.ComponentModel.DoWorkEventHandler(this.CreateTopicWorker_DoWork);
-            // 
             // label3
             // 
             this.label3.AutoSize = true;
@@ -101,6 +98,10 @@
             this.label3.Size = new System.Drawing.Size(137, 13);
             this.label3.TabIndex = 6;
             this.label3.Text = "Enter your chatroom name :";
+            // 
+            // CreateTopicWorker
+            // 
+            this.CreateTopicWorker.DoWork += new System.ComponentModel.DoWorkEventHandler(this.CreateTopicWorker_DoWork);
             // 
             // Form2
             // 
@@ -131,7 +132,7 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox createTopic_textbox;
         private System.Windows.Forms.Button createTopic_button;
-        private System.ComponentModel.BackgroundWorker CreateTopicWorker;
         private System.Windows.Forms.Label label3;
+        private System.ComponentModel.BackgroundWorker CreateTopicWorker;
     }
 }

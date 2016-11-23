@@ -62,10 +62,6 @@
             this.Send.UseVisualStyleBackColor = true;
             this.Send.Click += new System.EventHandler(this.Send_Click);
             // 
-            // OutputDisplay
-            // 
-            this.OutputDisplay.DoWork += new System.ComponentModel.DoWorkEventHandler(this.OutputDisplay_DoWork);
-            // 
             // checkBox1
             // 
             this.checkBox1.AutoSize = true;
