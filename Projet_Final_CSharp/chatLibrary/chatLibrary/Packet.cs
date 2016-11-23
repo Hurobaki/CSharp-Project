@@ -18,6 +18,7 @@ namespace chatLibrary
         CreateChatRoomValidation,
         Message,
         MessageBroadcast,
+        WhisperMessage,
         QuitChatRoom,
         QuitChatRoomValidation
     }

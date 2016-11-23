@@ -20,7 +20,7 @@ namespace CSharp_server.Server
         public static void StartServer()
         {
             ServerSocket.Start();
-            Console.WriteLine("Server started");
+            Console.WriteLine("[SERVER]Server started");
         }
 
         public static void StartListening()
@@ -28,7 +28,7 @@ namespace CSharp_server.Server
             while (true)
             {
                 TcpClient clientSocket = ServerSocket.AcceptTcpClient();
-                Console.WriteLine("New client");
+                Console.WriteLine("[SERVER]A user is logging in ...");
                 handleClient client = new handleClient();
                 client.startClient(clientSocket);
             }
@@ -39,7 +39,7 @@ namespace CSharp_server.Server
             if (chattingUsers.Contains(u))
                 chattingUsers.Remove(u);
             else
-                Console.WriteLine("Not in there");
+                Console.WriteLine("[SERVER]User "+u.login+" is not registered");
         }
         public static User getUser(string login)
         {
@@ -56,7 +56,7 @@ namespace CSharp_server.Server
             if (!chattingUsers.Contains(u))
                 chattingUsers.Add(u);
             else
-                Console.WriteLine("Already logged");
+                Console.WriteLine("[SERVER]User "+u.login+" is already logged");
         }
     }
 
@@ -98,32 +98,37 @@ namespace CSharp_server.Server
                     if (packet is AuthPacket)
                     {
                         AuthPacket ap = (AuthPacket)packet;
-
-                        Console.WriteLine(ap.login);
-                        Console.WriteLine(ap.password);
+                        Console.WriteLine("[AUTHENTIFICATION]User "+ap.login +" attempting to connect");
                         int flag = am.authentify(ap.login, ap.password);
                         LoginPacket bp = new LoginPacket(flag);
                         if (flag == 1)
                         {
                             /*User logged in*/
-                            Console.WriteLine("Connecting user");
+                            Console.WriteLine("[AUTHENTIFICATION]User "+ap.login+" connected");
                             User u = new User(ap.login, ap.password, ns);
                             u.chatter = new Chatter(ap.login);
                             ChatServer.addUser(u);
                             Packet.Send(bp, ns);
 
                             /*Displaying topics to user*/
+                            Console.Write("[SERVER]Sending topics : ");
                             Console.Write("[");
-                            foreach (String s in tm.getRooms())
-                                Console.Write(s + ", ");
+                            // à modifier pour virer la vigule
+                            for(int i=0;i<tm.getRooms().Capacity;++i)
+                            {
+                                if (i == tm.getRooms().Capacity)
+                                    Console.Write(tm.getRooms()[i]);
+                                else
+                                    Console.Write(tm.getRooms()[i]+", ");
+                            }
                             Console.Write("]");
-                            Console.WriteLine("Sending topics ... ");
+                            
                             TopicsPacket tp = new TopicsPacket(tm.getRooms());
                             Packet.Send(tp, ns);
                         }
                         else
                         {
-                            Console.WriteLine("Error, unable to connect the user " + ap.login + ", error code : " + flag);
+                            Console.WriteLine("[AUTHENTIFICATION]Error, unable to connect the user " + ap.login + ", error code : " + flag);
                             Packet.Send(bp, ns);
                             this.Auth();
                         }
@@ -132,9 +137,11 @@ namespace CSharp_server.Server
                     {
                         /* sending the subscribe packet */
                         SubscribePacket sb = (SubscribePacket)packet;
-                        Console.WriteLine("Trying to create user " + sb.login + " subscribe validation packet ...");
                         SubscribeValidation sv = new SubscribeValidation(am.addUser(sb.login, sb.password));
-                        Console.WriteLine("Sending subscribe validation packet : " + sv.value);
+                        if (sv.value)
+                            Console.WriteLine("[REGISTER]User "+ sb.login+" successfully created");
+                        else
+                            Console.WriteLine("[REGISTER]Error during "+sb.login+" account creation");
                         Packet.Send(sv, ns);
                     }
                     if (packet is JoinChatRoomPacket)
@@ -146,11 +153,11 @@ namespace CSharp_server.Server
                             bool flag = tm.joinTopic(jcp.chatRoom, ChatServer.getUser(jcp.user));
                             if (flag)
                             {
-                                Console.WriteLine("User " + jcp.user + " joined chatroom : " + jcp.chatRoom);
+                                Console.WriteLine("[TOPICS]User " + jcp.user + " joined chatroom : " + jcp.chatRoom);
                                 
                             }
                             else
-                                Console.WriteLine("Error, user " + jcp.user + " already in the chatroom : " + jcp.chatRoom);
+                                Console.WriteLine("[TOPICS]Cannont connect user to the chatroom, user : " + jcp.user + " is already in the chatroom : " + jcp.chatRoom);
                             JoinChatRoomValidationPacket jcvp = new JoinChatRoomValidationPacket(flag);
                             //Packet.Send(jcvp, ns);
                         }
@@ -169,7 +176,7 @@ namespace CSharp_server.Server
                             flag = tm.createTopic(ccp.chatRoom);
                             if (flag)
                             {
-                                Console.WriteLine("User " + ccp.user + " created chatroom : " + ccp.chatRoom);
+                                Console.WriteLine("[TOPICS]User " + ccp.user + " created chatroom : " + ccp.chatRoom);
                                 TopicsPacket tp = new TopicsPacket(tm.getRooms());
                                 foreach (User u in ChatServer.chattingUsers)
                                     Packet.Send(tp, u.ns);
@@ -181,7 +188,7 @@ namespace CSharp_server.Server
                         else
                         {
                             flag = false;
-                            Console.WriteLine("Error, chatroom :" + ccp.chatRoom + " already exists");
+                            Console.WriteLine("[TOPICS]Chatroom creation failed, chatroom : " + ccp.chatRoom + " already exists");
                             ccvp = new CreateChatRoomValidationPacket(flag, ccp.chatRoom);
                         }
                         Packet.Send(ccvp, ns);
@@ -189,7 +196,7 @@ namespace CSharp_server.Server
                     if (packet is MessagePacket)
                     {
                         MessagePacket mp = (MessagePacket)packet;
-                        Console.WriteLine("Posting message : [" +mp.message+ "] in chatroom "+ mp.chatroom);
+                        Console.WriteLine("[CHATROOM]Posting message : [" + mp.message+ "] in chatroom :"+ mp.chatroom+ " by user : "+mp.user);
                         Chatroom cible = (Chatroom)tm.topics[mp.chatroom];
                         cible.post(mp.message, ChatServer.getUser(mp.user));
                     }
@@ -199,7 +206,7 @@ namespace CSharp_server.Server
                         Object thisLock = new Object();
                         LeaveChatRoomPacket lcrp = (LeaveChatRoomPacket) packet;
                         Chatroom cible = (Chatroom)tm.topics[lcrp.chatRoom];
-                        Console.WriteLine("User : " + lcrp.user + " is leaving chatroom : " + lcrp.chatRoom);
+                        Console.WriteLine("[CHATROOM]User : " + lcrp.user + " is leaving chatroom : " + lcrp.chatRoom);
                         lock (thisLock)
                         {
                             cible.quit(ChatServer.getUser(lcrp.user));
@@ -212,14 +219,13 @@ namespace CSharp_server.Server
             }
             catch (IOException e)
             {
-                Console.WriteLine("Un client a déconnecté");
-                //Closing thread
+                Console.WriteLine("[SERVER]A user disconnected");
                 ctThread.Join();
 
             }
             catch (NullReferenceException ex)
             {
-                Console.WriteLine("Impossible de retirer le client, celui-ci n'existe pas dans la chatroom");
+                Console.WriteLine("[TOPICS]Impossible de retirer le client, celui-ci n'existe pas dans la chatroom");
             }
 
         }

@@ -31,22 +31,14 @@ namespace CSharp_server.Authentification
             public bool addUser(String login, String password)
             {
                     foreach (User u in _users)
-                    {
-                    // Pas deux utilisateurs avec le même pseudo ??? 
-                    // Si on passe ensuite par des Chatter avec alias on peut laisser deux users avec le meme login
-                    // Mais pas deux fois le meme alias lorsqu'il sera dans le chat 
-
                         if (u.login.Equals(login) && u.password.Equals(password) || u.login.Equals(login))
-                        {
-                        return false;
-                        }
-                    }
+                           return false;
 
                     User temp = new User(login, password);
                     _users.Add(temp);
 
                     TextInfo ti = CultureInfo.CurrentCulture.TextInfo;
-                    Console.WriteLine("{1} has been added !", temp.login, ti.ToTitleCase(temp.login));
+                    Console.WriteLine("[AUTHENTIFICATION]{1} has been added !", temp.login, ti.ToTitleCase(temp.login));
                 this.save(PATH);
                 return true;
             }
@@ -65,7 +57,7 @@ namespace CSharp_server.Authentification
                     {
 
                         TextInfo ti = CultureInfo.CurrentCulture.TextInfo;
-                        Console.WriteLine("{1} has been removed !", _users[i].login, ti.ToTitleCase(_users[i].login));
+                        Console.WriteLine("[AUTHENTIFICATION]{1} has been removed !", _users[i].login, ti.ToTitleCase(_users[i].login));
 
                         _users.Remove(_users[i]);
                         this.save(PATH);
@@ -75,18 +67,16 @@ namespace CSharp_server.Authentification
 
                 if(!flag)
                 {
-                    Console.WriteLine("Unknown User");
+                    Console.WriteLine("[AUTHENTIFICATION]Unknown User");
                 }
             }
 
             public void checkRegistredUsers()
             {
-                Console.WriteLine("Users already registrered : ");
+                Console.WriteLine("[AUTHENTIFICATION]Users already registrered : ");
 
                 foreach (User u in _users)
-                {
                     Console.WriteLine(u);
-                }
             }
 
             public int authentify(String login, String password)
@@ -99,17 +89,17 @@ namespace CSharp_server.Authentification
                     {
                         if(u.password.Equals(password))
                         {
-                            Console.WriteLine("Authentification OK !");
+                            Console.WriteLine("[AUTHENTIFICATION]User successfuly authentified");
                             return 1;
                         }
                         else
                         {
-                            Console.WriteLine("Wrong password");
+                            Console.WriteLine("[AUTHENTIFICATION]User not authentified : Wrong password");
                             return 2;
                         }
                     }           
                 }
-                Console.WriteLine("User not found");
+                Console.WriteLine("[AUTHENTIFICATION]User not found");
                 return 3;
             }
 
