@@ -47,8 +47,7 @@ namespace chatLibrary
             Packet p = null;
             BinaryFormatter bf = new BinaryFormatter();
             p = (Packet)bf.Deserialize(stream);
-            
-
+          
             return p;
         }
         public static Packet ReceiveList(NetworkStream stream)

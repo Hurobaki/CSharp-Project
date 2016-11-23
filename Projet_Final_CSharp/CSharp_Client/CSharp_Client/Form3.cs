@@ -4,6 +4,7 @@ using System.Windows.Forms;
 
 using chatLibrary;
 using System.Threading;
+using System.Diagnostics;
 
 namespace CSharp_Client
 {
@@ -12,7 +13,9 @@ namespace CSharp_Client
         public Form3()
         {
             InitializeComponent();
-            OutputDisplay.RunWorkerAsync();
+            CheckForIllegalCrossThreadCalls = false;
+            //OutputDisplay.RunWorkerAsync();
+
         }
 
         private void Form3_FormClosing(object sender, FormClosingEventArgs e)
@@ -38,27 +41,35 @@ namespace CSharp_Client
         private void Send_Click(object sender, EventArgs e)
         {
             MessagePacket message = new MessagePacket(Form1.login, this.Text, input_text.Text);
-
+   
             Packet.Send(message, Form1.stream);
 
             Thread.Sleep(100);
 
             input_text.Text = "";
-
         }
 
-        private void OutputDisplay_DoWork(object sender, DoWorkEventArgs e)
+        /*private void OutputDisplay_DoWork(object sender, DoWorkEventArgs e)
         {
+            Debug.WriteLine("flag");
             while (true)
             {
+                Debug.WriteLine("flag2");
                 Packet paquet = Packet.Receive(Form1.stream);
-
+                Debug.WriteLine("flag3");
                 if (paquet is MessageBroadcastPacket)
                 {
                     MessageBroadcastPacket mb = (MessageBroadcastPacket)paquet;
                     output_text.Text += mb.user + " says : " + mb.message + "\r\n";
                 }
             }
+        }*/
+        
+        
+
+        public void displayMessage(String user, String msg)
+        {
+            output_text.Text += user + " says : " + msg + "\r\n";
         }
 
         private void checkBox1_CheckedChanged(object sender, EventArgs e)
@@ -85,10 +96,14 @@ namespace CSharp_Client
                 case (Keys.Shift | Keys.Enter):
                     e.Handled = true;
                     e.SuppressKeyPress = true;
-                    break; 
+                    input_text.Text += "\r\n";
+                    break;
             }
         }
 
-        
+        private void output_text_TextChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }
