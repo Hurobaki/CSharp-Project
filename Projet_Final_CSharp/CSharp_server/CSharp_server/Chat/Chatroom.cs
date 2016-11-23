@@ -31,6 +31,17 @@ namespace CSharp_server.Chat
                 get;
                 set;
             }
+
+            public User getChatter(User s)
+            {
+                foreach (User u in _chatters)
+                {
+                    if (u.Equals(s))
+                        return u;
+                }
+                return null;
+            }
+
             public void post(String msg, User u)
             {
                 //Console.WriteLine(this._topic +" : "+ u.chatter.alias + " : " + msg);
@@ -40,6 +51,17 @@ namespace CSharp_server.Chat
                     MessageBroadcastPacket mbp = new MessageBroadcastPacket(u.login, msg, this._topic);
                     Packet.Send(mbp, user.ns);
                 }
+            }
+            public void whisper(String msg, User u, User t)
+            {
+                User chatter = this.getChatter(t);
+                if (chatter != null)
+                {
+                    WhisperMessagePacket wbp = new WhisperMessagePacket(u.login, this._topic, msg, chatter.login);
+                    Packet.Send(wbp, chatter.ns);
+                }
+                else
+                    Console.WriteLine("[CHATROOM]Error while sending the whisp " + u.login + "/" + t.login + " message : " + msg + " in chatroom" + this._topic);
             }
 
             public void quit(User c)

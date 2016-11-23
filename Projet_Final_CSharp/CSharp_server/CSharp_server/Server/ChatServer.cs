@@ -212,8 +212,13 @@ namespace CSharp_server.Server
                             cible.quit(ChatServer.getUser(lcrp.user));
                             ChatServer.removeUser(ChatServer.getUser(lcrp.user));
                         }
-
-                        //Verif si dans aucune chatrrom => quitte l'application ? ou lors d'une erreur de IOE verifier si déco ou pas et enlever de la iste chatterUsers
+                    }
+                    if(packet is WhisperMessagePacket)
+                    {
+                        WhisperMessagePacket wmp = (WhisperMessagePacket)packet;
+                        Console.WriteLine("[CHATROOM]Whipering message : [" + wmp.message + "] from user " + wmp.user + " to user " + wmp.target + " on chatroom " + wmp.chatroom);
+                        Chatroom cible = (Chatroom)tm.topics[wmp.chatroom];
+                        cible.whisper(wmp.message, ChatServer.getUser(wmp.user), ChatServer.getUser(wmp.target));
                     }
                 }
             }
