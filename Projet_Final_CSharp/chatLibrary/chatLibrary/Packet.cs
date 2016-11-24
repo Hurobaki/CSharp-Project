@@ -48,6 +48,13 @@ namespace chatLibrary
             Packet p = null;
             BinaryFormatter bf = new BinaryFormatter();
             p = (Packet)bf.Deserialize(stream);
+
+            if (p is TopicsPacket)
+            {
+                TopicsPacket tp = (TopicsPacket)p;
+                List<string> objects = tp.topics as List<string>;
+                return tp;
+            }
           
             return p;
         }
@@ -62,6 +69,5 @@ namespace chatLibrary
 
             return tp;
         }
-
     }
 }
