@@ -19,6 +19,7 @@ namespace chatLibrary
         Message,
         MessageBroadcast,
         WhisperMessage,
+        ChatterList,
         QuitChatRoom,
         QuitChatRoomValidation
     }
@@ -55,19 +56,13 @@ namespace chatLibrary
                 List<string> objects = tp.topics as List<string>;
                 return tp;
             }
-          
+            if(p is ListChatterPacket)
+            {
+                ListChatterPacket lcp = (ListChatterPacket)p;
+                List<string> objects = lcp.chatters as List<string>;
+                return lcp;
+            }
             return p;
-        }
-        public static Packet ReceiveList(NetworkStream stream)
-        {
-            Packet p = null;
-
-            BinaryFormatter bf = new BinaryFormatter();
-            p = (Packet)bf.Deserialize(stream);
-            TopicsPacket tp = (TopicsPacket) p;
-            List<string> objects = tp.topics as List<string>;
-
-            return tp;
         }
     }
 }

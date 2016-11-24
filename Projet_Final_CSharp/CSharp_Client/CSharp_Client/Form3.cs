@@ -5,6 +5,7 @@ using System.Windows.Forms;
 using chatLibrary;
 using System.Threading;
 using System.Diagnostics;
+using System.Collections.Generic;
 
 namespace CSharp_Client
 {
@@ -72,6 +73,15 @@ namespace CSharp_Client
             output_text.Text += user + " says : " + msg + "\r\n";
         }
 
+        public void updateChatters(List<string> c)
+        {
+            foreach (string s in c)
+            {
+                Debug.WriteLine(s);
+                //chatters.Text += s + "\n";
+            }
+        }
+
         private void checkBox1_CheckedChanged(object sender, EventArgs e)
         {
             if(checkBox1.Checked)
@@ -105,5 +115,7 @@ namespace CSharp_Client
         {
 
         }
+
+
     }
 }

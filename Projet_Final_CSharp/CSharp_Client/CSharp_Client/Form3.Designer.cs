@@ -32,21 +32,24 @@
             this.Send = new System.Windows.Forms.Button();
             this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.output_text = new System.Windows.Forms.TextBox();
+            this.chatters = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // input_text
             // 
-            this.input_text.Location = new System.Drawing.Point(5, 259);
+            this.input_text.Location = new System.Drawing.Point(16, 319);
+            this.input_text.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.input_text.Multiline = true;
             this.input_text.Name = "input_text";
-            this.input_text.Size = new System.Drawing.Size(581, 77);
+            this.input_text.Size = new System.Drawing.Size(764, 94);
             this.input_text.TabIndex = 1;
             // 
             // Send
             // 
-            this.Send.Location = new System.Drawing.Point(609, 259);
+            this.Send.Location = new System.Drawing.Point(810, 319);
+            this.Send.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.Send.Name = "Send";
-            this.Send.Size = new System.Drawing.Size(122, 77);
+            this.Send.Size = new System.Drawing.Size(163, 95);
             this.Send.TabIndex = 2;
             this.Send.Text = "Send";
             this.Send.UseVisualStyleBackColor = true;
@@ -55,9 +58,10 @@
             // checkBox1
             // 
             this.checkBox1.AutoSize = true;
-            this.checkBox1.Location = new System.Drawing.Point(57, 343);
+            this.checkBox1.Location = new System.Drawing.Point(810, 422);
+            this.checkBox1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(117, 17);
+            this.checkBox1.Size = new System.Drawing.Size(154, 21);
             this.checkBox1.TabIndex = 3;
             this.checkBox1.Text = "Press enter to send";
             this.checkBox1.UseVisualStyleBackColor = true;
@@ -65,23 +69,34 @@
             // 
             // output_text
             // 
-            this.output_text.Location = new System.Drawing.Point(12, 32);
+            this.output_text.Location = new System.Drawing.Point(16, 39);
+            this.output_text.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.output_text.Multiline = true;
             this.output_text.Name = "output_text";
             this.output_text.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.output_text.Size = new System.Drawing.Size(719, 205);
+            this.output_text.Size = new System.Drawing.Size(957, 251);
             this.output_text.TabIndex = 4;
             this.output_text.WordWrap = false;
             // 
+            // chatters
+            // 
+            this.chatters.Location = new System.Drawing.Point(1003, 39);
+            this.chatters.Multiline = true;
+            this.chatters.Name = "chatters";
+            this.chatters.Size = new System.Drawing.Size(166, 412);
+            this.chatters.TabIndex = 5;
+            // 
             // Form3
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(886, 376);
+            this.ClientSize = new System.Drawing.Size(1181, 463);
+            this.Controls.Add(this.chatters);
             this.Controls.Add(this.output_text);
             this.Controls.Add(this.checkBox1);
             this.Controls.Add(this.Send);
             this.Controls.Add(this.input_text);
+            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.Name = "Form3";
             this.Text = "Form3";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form3_FormClosing);
@@ -96,5 +111,6 @@
         private System.Windows.Forms.Button Send;
         private System.Windows.Forms.CheckBox checkBox1;
         private System.Windows.Forms.TextBox output_text;
+        private System.Windows.Forms.TextBox chatters;
     }
 }

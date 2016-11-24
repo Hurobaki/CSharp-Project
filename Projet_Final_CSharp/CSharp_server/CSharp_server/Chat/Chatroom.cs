@@ -41,6 +41,13 @@ namespace CSharp_server.Chat
                 }
                 return null;
             }
+            public List<string> getChatters()
+            {
+                List<string> chatters = new List<string>();
+                foreach (User u in _chatters)
+                    chatters.Add(u.login);
+                return chatters;
+            }
 
             public void post(String msg, User u)
             {
@@ -68,7 +75,7 @@ namespace CSharp_server.Chat
             {
                 c.ns.Flush();
                 _chatters.Remove(c);
-                Console.WriteLine("[CHATROOM]" + c.chatter + " has left the chat" + this.topic);
+                Console.WriteLine("[CHATROOM]" + c.chatter.alias + " has left the chat" + this.topic);
             }
 
             public bool join(User c)

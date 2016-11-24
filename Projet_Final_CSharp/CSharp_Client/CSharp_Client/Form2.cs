@@ -19,7 +19,7 @@ namespace CSharp_Client
 
             
 
-            Packet paquet = Packet.ReceiveList(Form1.stream);
+            Packet paquet = Packet.Receive(Form1.stream);
 
             if (paquet is TopicsPacket)
             {
@@ -92,6 +92,18 @@ namespace CSharp_Client
                         if (f3.Text.Equals(mb.chatroom))
                         {
                             f3.displayMessage(mb.user, mb.message);
+                        }
+                    }
+                }
+                if (paquet is ListChatterPacket)
+                {
+                    ListChatterPacket lcp = (ListChatterPacket)paquet;
+                    foreach (Form3 f3 in _forms)
+                    {
+                        if (f3.Text.Equals(lcp.chatRoom))
+                        {
+                            Debug.WriteLine("chatroom found");
+                            f3.updateChatters(lcp.chatters);
                         }
                     }
                 }

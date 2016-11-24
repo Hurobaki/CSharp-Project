@@ -114,9 +114,9 @@ namespace CSharp_server.Server
                             Console.Write("[SERVER]Sending topics : ");
                             Console.Write("[");
                             // à modifier pour virer la vigule
-                            for(int i=0;i<tm.getRooms().Capacity;++i)
+                            for(int i=0;i<tm.getRooms().Count;++i)
                             {
-                                if (i == tm.getRooms().Capacity)
+                                if (i == tm.getRooms().Count)
                                     Console.Write(tm.getRooms()[i]);
                                 else
                                     Console.Write(tm.getRooms()[i]+", ");
@@ -152,18 +152,20 @@ namespace CSharp_server.Server
                         {
                             bool flag = tm.joinTopic(jcp.chatRoom, ChatServer.getUser(jcp.user));
                             if (flag)
-                            {
                                 Console.WriteLine("[TOPICS]User " + jcp.user + " joined chatroom : " + jcp.chatRoom);
-                                
-                            }
                             else
                                 Console.WriteLine("[TOPICS]Cannont connect user to the chatroom, user : " + jcp.user + " is already in the chatroom : " + jcp.chatRoom);
-                            JoinChatRoomValidationPacket jcvp = new JoinChatRoomValidationPacket(flag);
-                            //Packet.Send(jcvp, ns);
+                            Chatroom ct = tm.getRoom(jcp.chatRoom);
+                            foreach (User u in ct.chatters)
+                                Console.WriteLine(u.login);
+                            ListChatterPacket lcp = new ListChatterPacket(ct.getChatters(), jcp.chatRoom);
+                            Packet.Send(lcp, ns);
+                            /*foreach (User u in ct.catters)
+                            {
+                                Console.WriteLine("Sending user list from " + jcp.chatRoom + " to user " + u.login);
+                                
+                            }*/
                         }
-
-                        Console.WriteLine(jcp.chatRoom);
-                        Console.WriteLine(jcp.user);
                     }
 
                     if (packet is CreateChatRoomPacket)
@@ -231,8 +233,8 @@ namespace CSharp_server.Server
             catch (NullReferenceException ex)
             {
                 Console.WriteLine("[TOPICS]Impossible de retirer le client, celui-ci n'existe pas dans la chatroom");
+                Console.WriteLine(ex);
             }
-
         }
     }
 }

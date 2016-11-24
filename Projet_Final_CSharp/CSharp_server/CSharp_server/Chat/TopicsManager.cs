@@ -59,6 +59,13 @@ namespace CSharp_server.Chat
                 }
                 return res;
             }
+            public Chatroom getRoom(string s)
+            {
+                if (_topics.Contains(s))
+                    return (Chatroom)_topics[s];
+                else
+                    return null;
+            }
         }
     }
 }
