@@ -210,7 +210,7 @@ namespace CSharp_server.Server
                         lock (thisLock)
                         {
                             cible.quit(ChatServer.getUser(lcrp.user));
-                            ChatServer.removeUser(ChatServer.getUser(lcrp.user));
+                            //ChatServer.removeUser(ChatServer.getUser(lcrp.user));
                         }
                     }
                     if(packet is WhisperMessagePacket)

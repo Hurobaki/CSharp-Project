@@ -15,6 +15,7 @@ namespace CSharp_Client
             InitializeComponent();
             CheckForIllegalCrossThreadCalls = false;
             //OutputDisplay.RunWorkerAsync();
+
         }
 
         private void Form3_FormClosing(object sender, FormClosingEventArgs e)
@@ -100,6 +101,9 @@ namespace CSharp_Client
             }
         }
 
-        
+        private void output_text_TextChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }
