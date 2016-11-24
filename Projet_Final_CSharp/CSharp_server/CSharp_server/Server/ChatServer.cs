@@ -207,7 +207,7 @@ namespace CSharp_server.Server
                         LeaveChatRoomPacket lcrp = (LeaveChatRoomPacket) packet;
                         Chatroom cible = (Chatroom)tm.topics[lcrp.chatRoom];
                         Console.WriteLine("[CHATROOM]User : " + lcrp.user + " is leaving chatroom : " + lcrp.chatRoom);
-                        lock (thisLock)
+                        lock (thisLock) 
                         {  
                             cible.quit(ChatServer.getUser(lcrp.user));
                             Chatroom ct = (Chatroom)tm.getRoom(lcrp.chatRoom);
