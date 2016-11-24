@@ -30,7 +30,7 @@ namespace CSharp_server.Chat
                 }
             }
 
-            public bool joinTopic(String topic, User u)
+            public bool joinTopic(string topic, User u)
             {
                 if (_topics.Contains(topic))
                 {
@@ -41,12 +41,16 @@ namespace CSharp_server.Chat
                     return false;
             }
 
-            public bool createTopic(String topic)
+            public bool createTopic(string topic)
             {
                 if (_topics.Contains(topic))
                     return false;
                 else
-                    _topics.Add(topic,new Chatroom(topic));
+                {
+                    Chatroom ct = new Chatroom(topic);
+                    _topics.Add(topic, ct);
+                    Console.WriteLine(ct.topic);
+                }
                 return true;
             }
 
@@ -61,10 +65,21 @@ namespace CSharp_server.Chat
             }
             public Chatroom getRoom(string s)
             {
-                if (_topics.Contains(s))
-                    return (Chatroom)_topics[s];
+                if (_topics.ContainsKey(s))
+                {
+                    Chatroom cr = (Chatroom)_topics[s];
+                    Console.WriteLine(cr.topic);
+                    return cr;
+                }
                 else
+                {
+                    Console.WriteLine("Not in there");
+                    Console.Write(s + ": [");
+                    foreach (string str in _topics.Keys)
+                        Console.Write(str+" ");
+                    Console.Write("]");
                     return null;
+                }
             }
         }
     }

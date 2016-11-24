@@ -155,16 +155,14 @@ namespace CSharp_server.Server
                                 Console.WriteLine("[TOPICS]User " + jcp.user + " joined chatroom : " + jcp.chatRoom);
                             else
                                 Console.WriteLine("[TOPICS]Cannont connect user to the chatroom, user : " + jcp.user + " is already in the chatroom : " + jcp.chatRoom);
-                            Chatroom ct = tm.getRoom(jcp.chatRoom);
-                            foreach (User u in ct.chatters)
-                                Console.WriteLine(u.login);
+                            Chatroom ct = (Chatroom)tm.getRoom(jcp.chatRoom);
                             ListChatterPacket lcp = new ListChatterPacket(ct.getChatters(), jcp.chatRoom);
-                            Packet.Send(lcp, ns);
-                            /*foreach (User u in ct.catters)
+                            Thread.Sleep(1000);
+                            foreach (User u in ct.chatters)
                             {
-                                Console.WriteLine("Sending user list from " + jcp.chatRoom + " to user " + u.login);
-                                
-                            }*/
+                                Console.WriteLine("[TOPICS]Sending user list from " + jcp.chatRoom + " to user " + u.login);
+                                Packet.Send(lcp, u.ns);
+                            }
                         }
                     }
 
@@ -212,6 +210,14 @@ namespace CSharp_server.Server
                         lock (thisLock)
                         {
                             cible.quit(ChatServer.getUser(lcrp.user));
+                            Chatroom ct = (Chatroom)tm.getRoom(lcrp.chatRoom);
+                            ListChatterPacket lcp = new ListChatterPacket(ct.getChatters(), lcrp.chatRoom);
+                            Thread.Sleep(1000);
+                            foreach (User u in ct.chatters)
+                            {
+                                Console.WriteLine("[TOPICS]Sending user list from " + lcrp.chatRoom + " to user " + u.login);
+                                Packet.Send(lcp, u.ns);
+                            }
                             //ChatServer.removeUser(ChatServer.getUser(lcrp.user));
                         }
                     }

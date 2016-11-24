@@ -75,10 +75,10 @@ namespace CSharp_Client
 
         public void updateChatters(List<string> c)
         {
+            chatters.Text = "";
             foreach (string s in c)
             {
-                Debug.WriteLine(s);
-                //chatters.Text += s + "\n";
+                chatters.Text += s + "\r\n";
             }
         }
 

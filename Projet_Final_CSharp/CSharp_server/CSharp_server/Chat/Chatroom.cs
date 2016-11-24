@@ -16,20 +16,20 @@ namespace CSharp_server.Chat
             private string _topic;
             private List<User> _chatters = new List<User>();
 
-            public Chatroom(String topic)
+            public Chatroom(string topic)
             {
-                _topic = topic;
+                this._topic = topic;
             }
 
-            public String topic
+            public string topic
             {
-                get;
-                set;
+                get { return _topic; }
+                set { this.topic = value; }
             }
             public List<User> chatters
             {
-                get;
-                set;
+                get { return _chatters; }
+                set { this._chatters=value; }
             }
 
             public User getChatter(User s)
@@ -49,7 +49,7 @@ namespace CSharp_server.Chat
                 return chatters;
             }
 
-            public void post(String msg, User u)
+            public void post(string msg, User u)
             {
                 //Console.WriteLine(this._topic +" : "+ u.chatter.alias + " : " + msg);
                 foreach (User user in this._chatters)
@@ -59,7 +59,7 @@ namespace CSharp_server.Chat
                     Packet.Send(mbp, user.ns);
                 }
             }
-            public void whisper(String msg, User u, User t)
+            public void whisper(string msg, User u, User t)
             {
                 User chatter = this.getChatter(t);
                 if (chatter != null)

@@ -65,7 +65,7 @@ namespace CSharp_Client
             while(true)
             {
                 Packet paquet = Packet.Receive(Form1.stream);
-
+                Debug.WriteLine("packet received");
                 if (paquet is CreateChatRoomValidationPacket)
                 {
                     CreateChatRoomValidationPacket cc = (CreateChatRoomValidationPacket)paquet;
@@ -101,10 +101,7 @@ namespace CSharp_Client
                     foreach (Form3 f3 in _forms)
                     {
                         if (f3.Text.Equals(lcp.chatRoom))
-                        {
-                            Debug.WriteLine("chatroom found");
                             f3.updateChatters(lcp.chatters);
-                        }
                     }
                 }
             }
