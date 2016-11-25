@@ -86,14 +86,24 @@ namespace CSharp_Client
                 output_text.Text += user + " says : " + msg + "\r\n";
             }
         }
+        delegate void UpdateCallBack(List<string> c);
 
         public void updateChatters(List<string> c)
         {
-            chatters.Text = "";
-            foreach (string s in c)
+            if (this.output_text.InvokeRequired)
             {
-                chatters.Text += s + "\r\n";
+                UpdateCallBack d = new UpdateCallBack(updateChatters);
+                this.Invoke(d, new object[] { c });
             }
+            else
+            {
+                chatters.Text = "";
+                foreach (string s in c)
+                {
+                    chatters.Text += s + "\r\n";
+                }
+            }
+            
         }
 
         private void checkBox1_CheckedChanged(object sender, EventArgs e)
