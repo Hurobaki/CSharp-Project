@@ -90,12 +90,7 @@ namespace CSharp_server.Server
                     PingPacket pp = new PingPacket();
                     Packet.Send(pp, ns);
                     if (!(clientSocket.Connected))
-                    {
                         return;
-                    }
-
-                    if (!(clientSocket.Connected))
-                    { return; }
 
                     Packet packet = null;
                     try
