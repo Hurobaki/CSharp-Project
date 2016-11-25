@@ -20,7 +20,7 @@ namespace CSharp_Client
             checkBox1.Checked = true;
             //Comment pour modifier
 
-            CheckForIllegalCrossThreadCalls = false;
+            
             //OutputDisplay.RunWorkerAsync();
 
         }
@@ -71,12 +71,20 @@ namespace CSharp_Client
                 }
             }
         }*/
-        
-        
+
+        delegate void SetTextCallback(string user, string msg);
 
         public void displayMessage(String user, String msg)
         {
-            output_text.Text += user + " says : " + msg + "\r\n";
+            if (this.output_text.InvokeRequired)
+            {
+                SetTextCallback d = new SetTextCallback(displayMessage);
+                this.Invoke(d, new string[] { user, msg });
+            }
+            else
+            {
+                output_text.Text += user + " says : " + msg + "\r\n";
+            }
         }
 
         public void updateChatters(List<string> c)

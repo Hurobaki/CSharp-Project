@@ -38,7 +38,6 @@ namespace CSharp_Client
                 Application.Exit();
             }
            
-            
         }
 
         private void connect_Click(object sender, EventArgs e)
