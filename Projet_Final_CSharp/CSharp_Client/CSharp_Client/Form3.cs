@@ -17,6 +17,9 @@ namespace CSharp_Client
             output_text.BackColor = System.Drawing.Color.White;
             chatters.BackColor = System.Drawing.Color.White;
 
+            checkBox1.Checked = true;
+            //Comment pour modifier
+
             CheckForIllegalCrossThreadCalls = false;
             //OutputDisplay.RunWorkerAsync();
 
