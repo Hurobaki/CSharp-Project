@@ -32,7 +32,6 @@
             this.Send = new System.Windows.Forms.Button();
             this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.output_text = new System.Windows.Forms.TextBox();
-            this.chatters = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // input_text
@@ -79,21 +78,11 @@
             this.output_text.TabIndex = 4;
             this.output_text.WordWrap = false;
             // 
-            // chatters
-            // 
-            this.chatters.Location = new System.Drawing.Point(1337, 48);
-            this.chatters.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            this.chatters.Multiline = true;
-            this.chatters.Name = "chatters";
-            this.chatters.Size = new System.Drawing.Size(220, 506);
-            this.chatters.TabIndex = 5;
-            // 
             // Form3
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1181, 463);
-            this.Controls.Add(this.chatters);
             this.Controls.Add(this.output_text);
             this.Controls.Add(this.checkBox1);
             this.Controls.Add(this.Send);
@@ -118,6 +107,5 @@
         private System.Windows.Forms.Button Send;
         private System.Windows.Forms.CheckBox checkBox1;
         private System.Windows.Forms.TextBox output_text;
-        private System.Windows.Forms.TextBox chatters;
     }
 }
