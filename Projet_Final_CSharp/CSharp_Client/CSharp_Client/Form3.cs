@@ -118,7 +118,5 @@ namespace CSharp_Client
         {
 
         }
-
-
     }
 }

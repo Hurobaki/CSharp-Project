@@ -37,17 +37,19 @@
             // 
             // input_text
             // 
-            this.input_text.Location = new System.Drawing.Point(12, 259);
+            this.input_text.Location = new System.Drawing.Point(16, 319);
+            this.input_text.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.input_text.Multiline = true;
             this.input_text.Name = "input_text";
-            this.input_text.Size = new System.Drawing.Size(574, 77);
+            this.input_text.Size = new System.Drawing.Size(764, 94);
             this.input_text.TabIndex = 1;
             // 
             // Send
             // 
-            this.Send.Location = new System.Drawing.Point(608, 259);
+            this.Send.Location = new System.Drawing.Point(811, 319);
+            this.Send.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.Send.Name = "Send";
-            this.Send.Size = new System.Drawing.Size(122, 77);
+            this.Send.Size = new System.Drawing.Size(163, 95);
             this.Send.TabIndex = 2;
             this.Send.Text = "Send";
             this.Send.UseVisualStyleBackColor = true;
@@ -56,9 +58,10 @@
             // checkBox1
             // 
             this.checkBox1.AutoSize = true;
-            this.checkBox1.Location = new System.Drawing.Point(608, 343);
+            this.checkBox1.Location = new System.Drawing.Point(811, 422);
+            this.checkBox1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(117, 17);
+            this.checkBox1.Size = new System.Drawing.Size(154, 21);
             this.checkBox1.TabIndex = 3;
             this.checkBox1.Text = "Press enter to send";
             this.checkBox1.UseVisualStyleBackColor = true;
@@ -66,33 +69,36 @@
             // 
             // output_text
             // 
-            this.output_text.Location = new System.Drawing.Point(12, 32);
+            this.output_text.Location = new System.Drawing.Point(16, 39);
+            this.output_text.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.output_text.Multiline = true;
             this.output_text.Name = "output_text";
             this.output_text.ReadOnly = true;
             this.output_text.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.output_text.Size = new System.Drawing.Size(719, 205);
+            this.output_text.Size = new System.Drawing.Size(957, 251);
             this.output_text.TabIndex = 4;
             this.output_text.WordWrap = false;
             // 
             // chatters
             // 
-            this.chatters.Location = new System.Drawing.Point(1003, 39);
+            this.chatters.Location = new System.Drawing.Point(1337, 48);
+            this.chatters.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.chatters.Multiline = true;
             this.chatters.Name = "chatters";
-            this.chatters.Size = new System.Drawing.Size(166, 412);
+            this.chatters.Size = new System.Drawing.Size(220, 506);
             this.chatters.TabIndex = 5;
             // 
             // Form3
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(886, 376);
+            this.ClientSize = new System.Drawing.Size(1181, 463);
             this.Controls.Add(this.chatters);
             this.Controls.Add(this.output_text);
             this.Controls.Add(this.checkBox1);
             this.Controls.Add(this.Send);
             this.Controls.Add(this.input_text);
+            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.Name = "Form3";
             this.Text = "Form3";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form3_FormClosing);
