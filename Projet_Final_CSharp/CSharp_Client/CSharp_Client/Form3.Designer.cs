@@ -80,10 +80,11 @@
             // 
             // chatters
             // 
-            this.chatters.Location = new System.Drawing.Point(1003, 39);
+            this.chatters.Location = new System.Drawing.Point(996, 39);
             this.chatters.Multiline = true;
             this.chatters.Name = "chatters";
-            this.chatters.Size = new System.Drawing.Size(166, 412);
+            this.chatters.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.chatters.Size = new System.Drawing.Size(173, 412);
             this.chatters.TabIndex = 5;
             // 
             // Form3

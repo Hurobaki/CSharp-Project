@@ -75,7 +75,7 @@ namespace CSharp_server.Chat
             {
                 c.ns.Flush();
                 _chatters.Remove(c);
-                Console.WriteLine("[CHATROOM]" + c.chatter.alias + " has left the chat" + this.topic);
+                Console.WriteLine("[CHATROOM]" + c.chatter.alias + " has left the chat " + this.topic);
             }
 
             public bool join(User c)
@@ -85,7 +85,7 @@ namespace CSharp_server.Chat
                 else
                 {
                     _chatters.Add(c);
-                    Console.WriteLine("[CHATROOM]" + c.chatter + " joined the chat" + this.topic);
+                    Console.WriteLine("[CHATROOM]" + c.chatter + " joined the chat " + this.topic);
                     return true;
                 }
             }

@@ -49,7 +49,6 @@ namespace CSharp_server.Chat
                 {
                     Chatroom ct = new Chatroom(topic);
                     _topics.Add(topic, ct);
-                    Console.WriteLine(ct.topic);
                 }
                 return true;
             }
@@ -68,16 +67,10 @@ namespace CSharp_server.Chat
                 if (_topics.ContainsKey(s))
                 {
                     Chatroom cr = (Chatroom)_topics[s];
-                    Console.WriteLine(cr.topic);
                     return cr;
                 }
                 else
                 {
-                    Console.WriteLine("Not in there");
-                    Console.Write(s + ": [");
-                    foreach (string str in _topics.Keys)
-                        Console.Write(str+" ");
-                    Console.Write("]");
                     return null;
                 }
             }

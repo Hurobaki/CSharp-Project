@@ -116,7 +116,7 @@ namespace CSharp_server.Server
                             // à modifier pour virer la vigule
                             for(int i=0;i<tm.getRooms().Count;++i)
                             {
-                                if (i == tm.getRooms().Count)
+                                if (i == tm.getRooms().Count-1)
                                     Console.Write(tm.getRooms()[i]);
                                 else
                                     Console.Write(tm.getRooms()[i]+", ");
