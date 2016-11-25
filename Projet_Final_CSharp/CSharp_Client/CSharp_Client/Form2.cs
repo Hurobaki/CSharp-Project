@@ -62,8 +62,6 @@ namespace CSharp_Client
 
             Thread.Sleep(100);
 
-            //Form1.stream.Close();
-            //Form1.client.Close();
             Application.Exit();
         }
 
