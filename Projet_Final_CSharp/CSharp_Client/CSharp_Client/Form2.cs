@@ -90,18 +90,17 @@ namespace CSharp_Client
 
                     if (paquet is MessageBroadcastPacket)
                     {
-                        Debug.WriteLine("flag");
                         MessageBroadcastPacket mb = (MessageBroadcastPacket)paquet;
                         Debug.WriteLine(mb.message);
                         foreach (Form3 f3 in _forms)
                         {
-                            Debug.WriteLine("flag2");
                             if (f3.Text.Equals(mb.chatroom))
                             {
                                 f3.displayMessage(mb.user, mb.message);
                             }
                         }
                     }
+                    
                     if (paquet is ListChatterPacket)
                     {
                         ListChatterPacket lcp = (ListChatterPacket)paquet;
@@ -109,6 +108,15 @@ namespace CSharp_Client
                         {
                             if (f3.Text.Equals(lcp.chatRoom))
                                 f3.updateChatters(lcp.chatters);
+                        }
+                    }
+                    if (paquet is TopicsPacket)
+                    {
+                        TopicsPacket bp = (TopicsPacket)paquet;
+
+                        foreach (string s in bp.topics)
+                        {
+                            comboBox1.Items.Add(s);
                         }
                     }
                 }
