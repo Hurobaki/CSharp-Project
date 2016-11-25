@@ -57,54 +57,69 @@ namespace CSharp_Client
 
         private void Form2_FormClosing(object sender, FormClosingEventArgs e)
         {
-                Application.Exit();
+            DisconnectPacket dc = new DisconnectPacket(Form1.login);
+            Packet.Send(dc, Form1.stream);
+
+            Thread.Sleep(100);
+
+            //Form1.stream.Close();
+            //Form1.client.Close();
+            Application.Exit();
         }
 
         private void CreateTopicWorker_DoWork(object sender, System.ComponentModel.DoWorkEventArgs e)
         {
-            while(true)
+            try
             {
-                Packet paquet = Packet.Receive(Form1.stream);
-                Debug.WriteLine("packet received");
-                if (paquet is CreateChatRoomValidationPacket)
+                while (true)
                 {
-                    CreateChatRoomValidationPacket cc = (CreateChatRoomValidationPacket)paquet;
+                    Packet paquet = Packet.Receive(Form1.stream);
+                    Debug.WriteLine("packet received");
+                    if (paquet is CreateChatRoomValidationPacket)
+                    {
+                        CreateChatRoomValidationPacket cc = (CreateChatRoomValidationPacket)paquet;
 
-                    if(cc.value)
-                    {
-                        MessageBox.Show("Topic created", "Success", MessageBoxButtons.OK);
-                        comboBox1.Items.Add(cc.chatRoom);
-                    }
-                    else
-                    {
-                        MessageBox.Show("Error", "Error", MessageBoxButtons.OK);
-                    }
-                }
-
-                if (paquet is MessageBroadcastPacket)
-                {
-                    Debug.WriteLine("flag");
-                    MessageBroadcastPacket mb = (MessageBroadcastPacket)paquet;
-                    Debug.WriteLine(mb.message);
-                    foreach(Form3 f3 in _forms)
-                    {
-                        Debug.WriteLine("flag2");
-                        if (f3.Text.Equals(mb.chatroom))
+                        if (cc.value)
                         {
-                            f3.displayMessage(mb.user, mb.message);
+                            MessageBox.Show("Topic created", "Success", MessageBoxButtons.OK);
+                            comboBox1.Items.Add(cc.chatRoom);
+                        }
+                        else
+                        {
+                            MessageBox.Show("Error", "Error", MessageBoxButtons.OK);
+                        }
+                    }
+
+                    if (paquet is MessageBroadcastPacket)
+                    {
+                        Debug.WriteLine("flag");
+                        MessageBroadcastPacket mb = (MessageBroadcastPacket)paquet;
+                        Debug.WriteLine(mb.message);
+                        foreach (Form3 f3 in _forms)
+                        {
+                            Debug.WriteLine("flag2");
+                            if (f3.Text.Equals(mb.chatroom))
+                            {
+                                f3.displayMessage(mb.user, mb.message);
+                            }
+                        }
+                    }
+                    if (paquet is ListChatterPacket)
+                    {
+                        ListChatterPacket lcp = (ListChatterPacket)paquet;
+                        foreach (Form3 f3 in _forms)
+                        {
+                            if (f3.Text.Equals(lcp.chatRoom))
+                                f3.updateChatters(lcp.chatters);
                         }
                     }
                 }
-                if (paquet is ListChatterPacket)
-                {
-                    ListChatterPacket lcp = (ListChatterPacket)paquet;
-                    foreach (Form3 f3 in _forms)
-                    {
-                        if (f3.Text.Equals(lcp.chatRoom))
-                            f3.updateChatters(lcp.chatters);
-                    }
-                }
             }
+            catch(Exception ex)
+            {
+                //MessageBox.Show("Disconnected","");
+            }
+            
         }
 
         private void createTopic_button_Click(object sender, EventArgs e)
