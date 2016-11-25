@@ -87,6 +87,13 @@ namespace CSharp_server.Server
                      * PENSER A FAIRE UN PACKET UNIQUE AVEC UN ATTRIBUT DE TYPE (TROP SALE/PAS ASSEZ CLAIRE ?)
                      */
 
+                    PingPacket pp = new PingPacket();
+                    Packet.Send(pp, ns);
+                    if (!(clientSocket.Connected))
+                    {
+                        return;
+                    }
+
                     if (!(clientSocket.Connected))
                     { return; }
 
@@ -162,7 +169,7 @@ namespace CSharp_server.Server
                                 Console.WriteLine("[TOPICS]Cannont connect user to the chatroom, user : " + jcp.user + " is already in the chatroom : " + jcp.chatRoom);
                             Chatroom ct = (Chatroom)tm.getRoom(jcp.chatRoom);
                             ListChatterPacket lcp = new ListChatterPacket(ct.getChatters(), jcp.chatRoom);
-                            Thread.Sleep(1000);
+                            Thread.Sleep(500);
                             foreach (User u in ct.chatters)
                             {
                                 Console.WriteLine("[TOPICS]Sending user list from " + jcp.chatRoom + " to user " + u.login);

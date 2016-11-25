@@ -54,6 +54,7 @@
     <Compile Include="MessageBroadcastPacket.cs" />
     <Compile Include="MessagePacket.cs" />
     <Compile Include="Packet.cs" />
+    <Compile Include="PingPacket.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SubscribePacket.cs" />
     <Compile Include="SubscribeValidation.cs" />

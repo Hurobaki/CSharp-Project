@@ -22,7 +22,8 @@ namespace chatLibrary
         ChatterList,
         QuitChatRoom,
         QuitChatRoomValidation,
-        Disconnect
+        Disconnect,
+        Ping
     }
 
     [Serializable()] // Pour que la classe soit sérialisable
