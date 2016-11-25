@@ -114,6 +114,8 @@ namespace CSharp_Client
                     {
                         TopicsPacket bp = (TopicsPacket)paquet;
 
+                        comboBox1.Items.Clear();
+
                         foreach (string s in bp.topics)
                         {
                             comboBox1.Items.Add(s);
