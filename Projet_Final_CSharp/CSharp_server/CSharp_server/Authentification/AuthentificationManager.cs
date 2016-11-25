@@ -89,7 +89,7 @@ namespace CSharp_server.Authentification
                     {
                         if(u.password.Equals(password))
                         {
-                            Console.WriteLine("[AUTHENTIFICATION]User successfuly authentified");
+                            Console.Write(" ...");
                             return 1;
                         }
                         else
