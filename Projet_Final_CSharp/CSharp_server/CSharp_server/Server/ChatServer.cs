@@ -39,11 +39,11 @@ namespace CSharp_server.Server
             if (chattingUsers.Contains(u))
                 chattingUsers.Remove(u);
             else
-                Console.WriteLine("[SERVER]User "+u.login+" is not registered");
+                Console.WriteLine("[SERVER]User " + u.login + " is not registered");
         }
         public static User getUser(string login)
         {
-            foreach(User u in chattingUsers)
+            foreach (User u in chattingUsers)
             {
                 if (u.login.Equals(login))
                     return u;
@@ -56,7 +56,7 @@ namespace CSharp_server.Server
             if (!chattingUsers.Contains(u))
                 chattingUsers.Add(u);
             else
-                Console.WriteLine("[SERVER]User "+u.login+" is already logged");
+                Console.WriteLine("[SERVER]User " + u.login + " is already logged");
         }
     }
 
@@ -72,6 +72,7 @@ namespace CSharp_server.Server
             ctThread = new Thread(Auth);
             ns = clientSocket.GetStream();
             ctThread.Start();
+            ctThread.Join();
         }
         private void Auth()
         {
@@ -85,12 +86,16 @@ namespace CSharp_server.Server
                     /*
                      * PENSER A FAIRE UN PACKET UNIQUE AVEC UN ATTRIBUT DE TYPE (TROP SALE/PAS ASSEZ CLAIRE ?)
                      */
+
+                    if (!(clientSocket.Connected))
+                    { return; }
+
                     Packet packet = null;
                     try
                     {
                         packet = Packet.Receive(ns);
                     }
-                    catch(SerializationException e)
+                    catch (SerializationException e)
                     {
                         Console.WriteLine(e);
                     }
@@ -98,13 +103,13 @@ namespace CSharp_server.Server
                     if (packet is AuthPacket)
                     {
                         AuthPacket ap = (AuthPacket)packet;
-                        Console.WriteLine("[AUTHENTIFICATION]User "+ap.login +" attempting to connect");
+                        Console.WriteLine("[AUTHENTIFICATION]User " + ap.login + " attempting to connect");
                         int flag = am.authentify(ap.login, ap.password);
                         LoginPacket bp = new LoginPacket(flag);
                         if (flag == 1)
                         {
                             /*User logged in*/
-                            Console.WriteLine("[AUTHENTIFICATION]User "+ap.login+" connected");
+                            Console.WriteLine("[AUTHENTIFICATION]User " + ap.login + " connected");
                             User u = new User(ap.login, ap.password, ns);
                             u.chatter = new Chatter(ap.login);
                             ChatServer.addUser(u);
@@ -114,15 +119,15 @@ namespace CSharp_server.Server
                             Console.Write("[SERVER]Sending topics : ");
                             Console.Write("[");
                             // à modifier pour virer la vigule
-                            for(int i=0;i<tm.getRooms().Count;++i)
+                            for (int i = 0; i < tm.getRooms().Count; ++i)
                             {
-                                if (i == tm.getRooms().Count-1)
+                                if (i == tm.getRooms().Count - 1)
                                     Console.Write(tm.getRooms()[i]);
                                 else
-                                    Console.Write(tm.getRooms()[i]+", ");
+                                    Console.Write(tm.getRooms()[i] + ", ");
                             }
                             Console.WriteLine("]");
-                            
+
                             TopicsPacket tp = new TopicsPacket(tm.getRooms());
                             Packet.Send(tp, ns);
                         }
@@ -139,15 +144,15 @@ namespace CSharp_server.Server
                         SubscribePacket sb = (SubscribePacket)packet;
                         SubscribeValidation sv = new SubscribeValidation(am.addUser(sb.login, sb.password));
                         if (sv.value)
-                            Console.WriteLine("[REGISTER]User "+ sb.login+" successfully created");
+                            Console.WriteLine("[REGISTER]User " + sb.login + " successfully created");
                         else
-                            Console.WriteLine("[REGISTER]Error during "+sb.login+" account creation");
+                            Console.WriteLine("[REGISTER]Error during " + sb.login + " account creation");
                         Packet.Send(sv, ns);
                     }
                     if (packet is JoinChatRoomPacket)
                     {
                         JoinChatRoomPacket jcp = (JoinChatRoomPacket)packet;
-                        
+
                         if (tm.getRooms().Contains(jcp.chatRoom))
                         {
                             bool flag = tm.joinTopic(jcp.chatRoom, ChatServer.getUser(jcp.user));
@@ -196,7 +201,7 @@ namespace CSharp_server.Server
                     if (packet is MessagePacket)
                     {
                         MessagePacket mp = (MessagePacket)packet;
-                        Console.WriteLine("[CHATROOM]Posting message : [" + mp.message+ "] in chatroom :"+ mp.chatroom+ " by user : "+mp.user);
+                        Console.WriteLine("[CHATROOM]Posting message : [" + mp.message + "] in chatroom :" + mp.chatroom + " by user : " + mp.user);
                         Chatroom cible = (Chatroom)tm.topics[mp.chatroom];
                         cible.post(mp.message, ChatServer.getUser(mp.user));
                     }
@@ -204,11 +209,11 @@ namespace CSharp_server.Server
                     if (packet is LeaveChatRoomPacket)
                     {
                         Object thisLock = new Object();
-                        LeaveChatRoomPacket lcrp = (LeaveChatRoomPacket) packet;
+                        LeaveChatRoomPacket lcrp = (LeaveChatRoomPacket)packet;
                         Chatroom cible = (Chatroom)tm.topics[lcrp.chatRoom];
                         Console.WriteLine("[CHATROOM]User : " + lcrp.user + " is leaving chatroom : " + lcrp.chatRoom);
-                        lock (thisLock) 
-                        {  
+                        lock (thisLock)
+                        {
                             cible.quit(ChatServer.getUser(lcrp.user));
                             Chatroom ct = (Chatroom)tm.getRoom(lcrp.chatRoom);
                             ListChatterPacket lcp = new ListChatterPacket(ct.getChatters(), lcrp.chatRoom);
@@ -221,18 +226,29 @@ namespace CSharp_server.Server
                             //ChatServer.removeUser(ChatServer.getUser(lcrp.user));
                         }
                     }
-                    if(packet is WhisperMessagePacket)
+                    if (packet is WhisperMessagePacket)
                     {
                         WhisperMessagePacket wmp = (WhisperMessagePacket)packet;
                         Console.WriteLine("[CHATROOM]Whipering message : [" + wmp.message + "] from user " + wmp.user + " to user " + wmp.target + " on chatroom " + wmp.chatroom);
                         Chatroom cible = (Chatroom)tm.topics[wmp.chatroom];
                         cible.whisper(wmp.message, ChatServer.getUser(wmp.user), ChatServer.getUser(wmp.target));
                     }
+
+                    if (packet is DisconnectPacket)
+                    {
+                        DisconnectPacket dp = (DisconnectPacket)packet;
+                        Thread.Sleep(100);
+                        User u = ChatServer.getUser(dp.user);
+                        u.ns.Close();
+                        ChatServer.removeUser(u);
+                        this.clientSocket.Close();
+                        Console.WriteLine("[SERVER]A user disconnected properly");
+                    }
                 }
             }
             catch (IOException e)
             {
-                Console.WriteLine("[SERVER]A user disconnected");
+                Console.WriteLine("[SERVER]A user crashed");
                 ctThread.Join();
 
             }
@@ -244,3 +260,4 @@ namespace CSharp_server.Server
         }
     }
 }
+
