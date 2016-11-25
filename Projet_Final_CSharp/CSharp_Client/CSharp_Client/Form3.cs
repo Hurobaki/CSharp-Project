@@ -14,6 +14,8 @@ namespace CSharp_Client
         public Form3()
         {
             InitializeComponent();
+            output_text.BackColor = System.Drawing.Color.White;
+            chatters.BackColor = System.Drawing.Color.White;
             CheckForIllegalCrossThreadCalls = false;
             //OutputDisplay.RunWorkerAsync();
 
