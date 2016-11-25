@@ -10,9 +10,8 @@ namespace chatLibrary
     [Serializable()]
     public class PingPacket : Packet
     {
-        public PingPacket(string u) : base(TypePacket.Ping)
+        public PingPacket() : base(TypePacket.Ping)
         {
-            this.user = u;
         }
     }
 }
