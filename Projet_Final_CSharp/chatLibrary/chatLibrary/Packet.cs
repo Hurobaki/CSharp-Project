@@ -21,7 +21,8 @@ namespace chatLibrary
         WhisperMessage,
         ChatterList,
         QuitChatRoom,
-        QuitChatRoomValidation
+        QuitChatRoomValidation,
+        Disconnect
     }
 
     [Serializable()] // Pour que la classe soit sérialisable

@@ -121,7 +121,7 @@ namespace CSharp_server.Server
                                 else
                                     Console.Write(tm.getRooms()[i]+", ");
                             }
-                            Console.Write("]");
+                            Console.WriteLine("]");
                             
                             TopicsPacket tp = new TopicsPacket(tm.getRooms());
                             Packet.Send(tp, ns);
