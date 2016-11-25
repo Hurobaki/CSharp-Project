@@ -83,12 +83,7 @@ namespace CSharp_server.Server
             {
                 while (true)
                 {
-                    /*
-                     * PENSER A FAIRE UN PACKET UNIQUE AVEC UN ATTRIBUT DE TYPE (TROP SALE/PAS ASSEZ CLAIRE ?)
-                     */
-
-                    PingPacket pp = new PingPacket();
-                    Packet.Send(pp, ns);
+                    /*penser à faire une thread ping*/
                     if (!(clientSocket.Connected))
                         return;
 
@@ -105,13 +100,13 @@ namespace CSharp_server.Server
                     if (packet is AuthPacket)
                     {
                         AuthPacket ap = (AuthPacket)packet;
-                        Console.WriteLine("[AUTHENTIFICATION]User " + ap.login + " attempting to connect");
+                        Console.Write("[AUTHENTIFICATION]User " + ap.login + " attempting to connect");
                         int flag = am.authentify(ap.login, ap.password);
                         LoginPacket bp = new LoginPacket(flag);
                         if (flag == 1)
                         {
                             /*User logged in*/
-                            Console.WriteLine("[AUTHENTIFICATION]User " + ap.login + " connected");
+                            Console.WriteLine(" SUCCESS");
                             User u = new User(ap.login, ap.password, ns);
                             u.chatter = new Chatter(ap.login);
                             ChatServer.addUser(u);
