@@ -69,10 +69,9 @@ namespace CSharp_server.Server
         public void startClient(TcpClient inClientSocket)
         {
             this.clientSocket = inClientSocket;
-            ctThread = new Thread(Auth);
             ns = clientSocket.GetStream();
+            ctThread = new Thread(Auth);
             ctThread.Start();
-            ctThread.Join();
         }
         private void Auth()
         {
@@ -85,7 +84,7 @@ namespace CSharp_server.Server
                 {
                     /*penser à faire une thread ping*/
                     if (!(clientSocket.Connected))
-                        return;
+                        ctThread.Abort();
 
                     Packet packet = null;
                     try
