@@ -80,7 +80,7 @@ namespace CSharp_Client
                         if (cc.value)
                         {
                             MessageBox.Show("Topic created", "Success", MessageBoxButtons.OK);
-                            comboBox1.Items.Add(cc.chatRoom);
+                            //comboBox1.Items.Add(cc.chatRoom);
                         }
                         else
                         {
