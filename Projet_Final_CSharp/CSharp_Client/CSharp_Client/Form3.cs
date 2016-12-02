@@ -111,5 +111,11 @@ namespace CSharp_Client
                     break;
             }
         }
+
+        private void output_text_TextChanged(object sender, EventArgs e)
+        {
+            output_text.SelectionStart = output_text.Text.Length;
+            output_text.ScrollToCaret();
+        }
     }
 }

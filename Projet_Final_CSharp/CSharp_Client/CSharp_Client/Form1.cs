@@ -76,6 +76,8 @@ namespace CSharp_Client
                 MessageBox.Show("Le serveur distant n'est pas connecté. \n\rVeuillez réessayer dans quelques instants.","Error", MessageBoxButtons.OK);
                 Application.Exit();
             }
+
+            this.KeyPreview = true;
            
         }
 
@@ -118,6 +120,7 @@ namespace CSharp_Client
             if(flag)
             {
                 Form2 f2 = new Form2();
+                f2.Text = "Connected as " + login;
                 f2.Show();
                 this.Hide();
             }
@@ -146,11 +149,19 @@ namespace CSharp_Client
 
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
-            DisconnectPacket dc = new DisconnectPacket(Form1.login);
-            Packet.Send(dc, Form1.stream);
-
-            Thread.Sleep(100);
             Application.Exit();
+        }
+
+        private void Form1_KeyDown(object sender, KeyEventArgs e)
+        {
+            switch(e.KeyCode)
+            {
+                case Keys.Enter:
+                    e.Handled = true;
+                    e.SuppressKeyPress = true;
+                    connect.PerformClick();
+                    break;
+            }
         }
     }
 }
