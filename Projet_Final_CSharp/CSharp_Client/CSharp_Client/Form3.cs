@@ -109,11 +109,6 @@ namespace CSharp_Client
                     e.SuppressKeyPress = true;
                     Send.PerformClick();
                     break;
-                case (Keys.Shift | Keys.Enter):
-                    e.Handled = true;
-                    e.SuppressKeyPress = true;
-                    input_text.Text += "\r\n";
-                    break;
             }
         }
     }

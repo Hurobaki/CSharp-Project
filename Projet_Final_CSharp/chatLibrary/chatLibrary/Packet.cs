@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Net.Sockets;
 using System.Runtime.Serialization.Formatters.Binary;
 
@@ -40,10 +41,18 @@ namespace chatLibrary
         //Méthode statique pour l'envoi et la réception
         public static void Send(Packet paquet, NetworkStream stream)
         {
-            BinaryFormatter bf = new BinaryFormatter();
+            try
+            {
+                BinaryFormatter bf = new BinaryFormatter();
 
-            bf.Serialize(stream, paquet);
-            stream.Flush();
+                bf.Serialize(stream, paquet);
+                stream.Flush();
+            }
+            catch(Exception e)
+            {
+                Debug.WriteLine("Serveur distant non connecté");
+            }
+            
         }
 
         public static Packet Receive(NetworkStream stream)
