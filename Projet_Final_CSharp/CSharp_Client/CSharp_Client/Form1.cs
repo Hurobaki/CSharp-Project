@@ -6,19 +6,58 @@ using System.Windows.Forms;
 using chatLibrary;
 using System.Threading;
 using System.Diagnostics;
+using System.Drawing;
 
 namespace CSharp_Client
 {
     public partial class Form1 : Form
     {
-
-        public static NetworkStream stream;
-        public static TcpClient client;
-        public static string login;
+        private static NetworkStream _stream;
+        private static TcpClient _client;
+        private static string _login;
 
         public Form1()
         {
             InitializeComponent();   
+        }
+
+        public static NetworkStream stream
+        {
+            get
+            {
+                return _stream;
+            }
+
+            set
+            {
+                _stream = value;
+            }
+        }
+
+        public static TcpClient tcpclient
+        {
+            get
+            {
+                return _client;
+            }
+
+            set
+            {
+                _client = value;
+            }
+        }
+
+        public static string login
+        {
+            get
+            {
+                return _login;
+            }
+            
+            set
+            {
+                _login = value;
+            }
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -26,11 +65,11 @@ namespace CSharp_Client
             try
             {
                 /* Alex IPv4 */
-                //client = new TcpClient("192.168.43.95", 25565);
+                tcpclient = new TcpClient("192.168.43.95", 25565);
                 /* Théo IPv4 */
-                client = new TcpClient("192.168.43.134", 25565);
+                //client = new TcpClient("192.168.1.23", 25565);
                 //client = new TcpClient("192.168.137.129", 25565);
-                stream = client.GetStream();
+                stream = tcpclient.GetStream();
             }
             catch(Exception ex)
             {
@@ -64,9 +103,16 @@ namespace CSharp_Client
                     flag = true;
                 }
                 else if(bp.value == 2)
-                    MessageBox.Show("Wrong password ", "Connexion failed !", MessageBoxButtons.OK);
+                {
+                    label_log.ForeColor = Color.Red;
+                    label_log.Text = "Wrong password, try again.";
+                } 
                 else
-                    MessageBox.Show("User Unknown", "Connexion failed !", MessageBoxButtons.OK);
+                {
+                    label_log.ForeColor = Color.Red;
+                    label_log.Text = "User not found, try again.";
+                }
+                    
             }
 
             if(flag)
@@ -98,13 +144,12 @@ namespace CSharp_Client
 
         }
 
-        private void backgroundWorker1_DoWork(object sender, DoWorkEventArgs e)
-        {
-
-        }
-
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
+            DisconnectPacket dc = new DisconnectPacket(Form1.login);
+            Packet.Send(dc, Form1.stream);
+
+            Thread.Sleep(100);
             Application.Exit();
         }
     }

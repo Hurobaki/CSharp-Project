@@ -10,11 +10,7 @@ namespace CSharp_server.Authentification
     {
         public class AuthentificationManager
         {
-            // Si on créé une classe User, il suffit de passer en paramètre un User
-            // Du coup est-ce qu'il faut créer une classe User ?
-            //Ou du coup on créé une instance de User ici et ensuite on fait une liste d'User ? 
-
-            
+                     
             private static List<User> _users = new List<User>();
             private const string PATH = "SaveUsers.xml";
 
@@ -44,10 +40,6 @@ namespace CSharp_server.Authentification
 
             public void removeUser(String login)
             {
-                //Du coup si on laisse deux Users avoir le meme login
-                //Faut supprimer en sachant le mdp ?
-                //Je pense qu'il faut pas leur laisser le même login du coup
-
                 bool flag = false;
 
                 for(int i = 0; i < _users.Count; i++)
@@ -114,10 +106,6 @@ namespace CSharp_server.Authentification
 
             public void save(string path)
             {
-                // Utiliser la sérialisation
-                // En binaire ou en XML ? 
-                //Binaire mieux pour du réseau car moins de paquets
-
                 XmlSerializer serializer = new XmlSerializer(typeof(AuthentificationManager));
                 StreamWriter writer = new StreamWriter(path);
                 serializer.Serialize(writer, this);

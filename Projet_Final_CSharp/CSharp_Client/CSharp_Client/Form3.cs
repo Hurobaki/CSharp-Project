@@ -1,11 +1,9 @@
 ﻿using System;
-using System.ComponentModel;
 using System.Windows.Forms;
+using System.Threading;
+using System.Collections.Generic;
 
 using chatLibrary;
-using System.Threading;
-using System.Diagnostics;
-using System.Collections.Generic;
 
 namespace CSharp_Client
 {
@@ -14,15 +12,14 @@ namespace CSharp_Client
         public Form3()
         {
             InitializeComponent();
+        }
+
+        private void Form3_Load(object sender, EventArgs e)
+        {
             output_text.BackColor = System.Drawing.Color.White;
             chatters.BackColor = System.Drawing.Color.White;
 
             checkBox1.Checked = true;
-            //Comment pour modifier
-
-            
-            //OutputDisplay.RunWorkerAsync();
-
         }
 
         private void Form3_FormClosing(object sender, FormClosingEventArgs e)
@@ -56,22 +53,6 @@ namespace CSharp_Client
             input_text.Text = "";
         }
 
-        /*private void OutputDisplay_DoWork(object sender, DoWorkEventArgs e)
-        {
-            Debug.WriteLine("flag");
-            while (true)
-            {
-                Debug.WriteLine("flag2");
-                Packet paquet = Packet.Receive(Form1.stream);
-                Debug.WriteLine("flag3");
-                if (paquet is MessageBroadcastPacket)
-                {
-                    MessageBroadcastPacket mb = (MessageBroadcastPacket)paquet;
-                    output_text.Text += mb.user + " says : " + mb.message + "\r\n";
-                }
-            }
-        }*/
-
         delegate void SetTextCallback(string user, string msg);
 
         public void displayMessage(String user, String msg)
@@ -86,6 +67,7 @@ namespace CSharp_Client
                 output_text.Text += user + " says : " + msg + "\r\n";
             }
         }
+
         delegate void UpdateCallBack(List<string> c);
 
         public void updateChatters(List<string> c)
@@ -133,11 +115,6 @@ namespace CSharp_Client
                     input_text.Text += "\r\n";
                     break;
             }
-        }
-
-        private void output_text_TextChanged(object sender, EventArgs e)
-        {
-
         }
     }
 }

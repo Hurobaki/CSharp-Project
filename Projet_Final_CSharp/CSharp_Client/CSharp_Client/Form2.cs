@@ -11,13 +11,11 @@ namespace CSharp_Client
 {
     public partial class Form2 : Form
     {
-        public static HashSet<Form3> _forms = new HashSet<Form3>();
+        private static HashSet<Form3> _forms = new HashSet<Form3>();
 
         public Form2()
         {
             InitializeComponent();
-
-            
 
             Packet paquet = Packet.Receive(Form1.stream);
 
@@ -34,7 +32,15 @@ namespace CSharp_Client
             CreateTopicWorker.RunWorkerAsync();
         }
 
-        public delegate void ran(string user, string message);
+        public static HashSet<Form3> forms
+        {
+            get
+            {
+                return _forms;
+            }
+        }
+
+        //public delegate void ran(string user, string message);
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -80,11 +86,10 @@ namespace CSharp_Client
                         if (cc.value)
                         {
                             MessageBox.Show("Topic created", "Success", MessageBoxButtons.OK);
-                            comboBox1.Items.Add(cc.chatRoom);
                         }
                         else
                         {
-                            MessageBox.Show("Error", "Error", MessageBoxButtons.OK);
+                            MessageBox.Show("Topic was not created", "Error", MessageBoxButtons.OK);
                         }
                     }
 
@@ -137,16 +142,6 @@ namespace CSharp_Client
             Thread.Sleep(100);
 
             createTopic_textbox.Text = "";
-        }
-
-        private void Form2_Load(object sender, EventArgs e)
-        {
-            
-        }
-
-        private void label1_Click(object sender, EventArgs e)
-        {
-
         }
     }
 }
