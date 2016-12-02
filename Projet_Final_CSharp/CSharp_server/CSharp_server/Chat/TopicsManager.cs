@@ -15,7 +15,7 @@ namespace CSharp_server.Chat
         [Serializable]
         public class TopicsManager
         {
-
+            private static string path = "Topics.xml";
             private static Hashtable _topics = new Hashtable();
 
             public Hashtable topics
@@ -49,6 +49,7 @@ namespace CSharp_server.Chat
                 {
                     Chatroom ct = new Chatroom(topic);
                     _topics.Add(topic, ct);
+                    this.save(path);
                 }
                 return true;
             }
@@ -92,7 +93,7 @@ namespace CSharp_server.Chat
 
             public void save(string path)
             {
-                List<DataItem> tempdataitems = new List<DataItem>(topics.Count);
+                List<DataItem> tempdataitems = new List<DataItem>();
                 foreach (string key in topics.Keys)
                 {
                     tempdataitems.Add(new DataItem(key));

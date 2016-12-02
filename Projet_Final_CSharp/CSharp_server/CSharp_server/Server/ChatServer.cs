@@ -245,7 +245,7 @@ namespace CSharp_server.Server
                     if (packet is DisconnectPacket)
                     {
                         DisconnectPacket dp = (DisconnectPacket)packet;
-                        Thread.Sleep(100);
+                        Thread.Sleep(200);
                         User u = ChatServer.getUser(dp.user);
                         u.ns.Close();
                         ChatServer.removeUser(u);

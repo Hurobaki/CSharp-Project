@@ -26,8 +26,6 @@ namespace CSharp_server
 
             AuthentificationManager am = new AuthentificationManager();
             TopicsManager tm = new TopicsManager();
-            
-            tm.save(PATH_TOPICS);
 
             try
             {
