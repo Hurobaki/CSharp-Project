@@ -74,6 +74,7 @@
             this.output_text.Size = new System.Drawing.Size(719, 205);
             this.output_text.TabIndex = 4;
             this.output_text.WordWrap = false;
+            this.output_text.TextChanged += new System.EventHandler(this.output_text_TextChanged);
             // 
             // chatters
             // 

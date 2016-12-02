@@ -53,6 +53,7 @@ namespace CSharp_server.Server
             else
                 Console.WriteLine("[SERVER]User " + u.login + " is not registered");
         }
+
         public static User getUser(string login)
         {
             foreach (User u in chattingUsers)
@@ -85,6 +86,7 @@ namespace CSharp_server.Server
             ctThread = new Thread(Auth);
             ctThread.Start();
         }
+
         private void Auth()
         {
             AuthentificationManager am = new AuthentificationManager();

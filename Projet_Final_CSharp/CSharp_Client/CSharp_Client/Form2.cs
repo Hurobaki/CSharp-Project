@@ -40,8 +40,6 @@ namespace CSharp_Client
             }
         }
 
-        //public delegate void ran(string user, string message);
-
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
             label1.Text = comboBox1.SelectedItem.ToString();
