@@ -5,18 +5,18 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using CSharp_server.Authentification.Authentification;
+using System.Xml.Serialization;
+using System.IO;
 
 namespace CSharp_server.Chat
 {
     namespace Chat
     {
-        class TopicsManager
+        [Serializable]
+        public class TopicsManager
         {
-            private static Hashtable _topics = new Hashtable();
 
-            public TopicsManager()
-            {
-            }
+            private static Hashtable _topics = new Hashtable();
 
             public Hashtable topics
             {
@@ -74,6 +74,45 @@ namespace CSharp_server.Chat
                     return null;
                 }
             }
+            public static Hashtable load(string path)
+            {
+                Hashtable tops = new Hashtable();
+
+
+                XmlSerializer deserializer = new XmlSerializer(typeof(List<DataItem>));
+                StreamReader reader = new StreamReader(path);
+                List<DataItem> templist = (List<DataItem>)deserializer.Deserialize(reader);
+
+                foreach (DataItem di in templist)
+                    tops.Add(di.Key, new Chatroom(di.Key));
+
+                reader.Close();
+                return tops;
+            }
+
+            public void save(string path)
+            {
+                List<DataItem> tempdataitems = new List<DataItem>(topics.Count);
+                foreach (string key in topics.Keys)
+                {
+                    tempdataitems.Add(new DataItem(key));
+                }
+
+                XmlSerializer serializer = new XmlSerializer(typeof(List<DataItem>));
+                StreamWriter writer = new StreamWriter(path);
+                serializer.Serialize(writer, tempdataitems);
+                writer.Close();
+            }
+        }
+    }
+    public class DataItem
+    {
+        public string Key;
+
+        public DataItem() { }
+        public DataItem(string key)
+        {
+            Key = key;
         }
     }
 }

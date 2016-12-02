@@ -12,10 +12,22 @@ using System.Runtime.Serialization;
 
 namespace CSharp_server.Server
 {
-    class ChatServer
+    public class ChatServer
     {
-        public static List<User> chattingUsers = new List<User>();
-        public static TcpListener ServerSocket = new TcpListener(IPAddress.Any, 25565);
+        private static List<User> _chattingUsers = new List<User>();
+        private static TcpListener _ServerSocket = new TcpListener(IPAddress.Any, 25565);
+
+        public static List<User> chattingUsers
+        {
+            get { return _chattingUsers; }
+            set { _chattingUsers = value; }
+        }
+
+        public static TcpListener ServerSocket
+        {
+            get { return _ServerSocket; }
+            set { _ServerSocket = value; }
+        }
 
         public static void StartServer()
         {

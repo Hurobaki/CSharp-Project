@@ -10,7 +10,8 @@ namespace CSharp_server
 {
     static class Program
     {
-        private static String PATH = "SaveUsers.xml";
+        private static string PATH = "SaveUsers.xml";
+        private static string PATH_TOPICS = "Topics.xml";
         /// <summary>
         /// The main entry point for the application.
         /// </summary>
@@ -23,25 +24,28 @@ namespace CSharp_server
             Application.Run(new Form1());
             */
 
-            AuthentificationManager test = new AuthentificationManager();
+            AuthentificationManager am = new AuthentificationManager();
             TopicsManager tm = new TopicsManager();
-
-
-            tm.createTopic("C#");
-            tm.createTopic("PA8");
-            tm.createTopic("Slack");
-            tm.createTopic("Audio Visuel");
-            tm.createTopic("XML");
+            
+            tm.save(PATH_TOPICS);
 
             try
             {
                 if (File.Exists(PATH))
                 {
-                    test = AuthentificationManager.load(PATH);
+                    am = AuthentificationManager.load(PATH);
                 }
                 else
                 {
-                    test = new AuthentificationManager();
+                    am = new AuthentificationManager();
+                }
+                if (File.Exists(PATH_TOPICS))
+                {
+                    tm.topics = TopicsManager.load(PATH_TOPICS);
+                }
+                else
+                {
+                    tm = new TopicsManager();
                 }
             }
             catch (IOException e)

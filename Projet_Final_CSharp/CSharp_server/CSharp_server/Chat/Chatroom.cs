@@ -11,7 +11,7 @@ namespace CSharp_server.Chat
 {
     namespace Chat
     {
-        class Chatroom
+        public class Chatroom
         {
             private string _topic;
             private List<User> _chatters = new List<User>();

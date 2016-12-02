@@ -11,9 +11,9 @@ namespace CSharp_server.Chat
     {
         public class Chatter
         {
-            private String _alias;
+            private string _alias;
 
-            public Chatter(String alias)
+            public Chatter(string alias)
             {
                 _alias = alias;
             }
@@ -21,14 +21,10 @@ namespace CSharp_server.Chat
             public Chatter()
             { }
 
-            public String alias
+            public string alias
             {
                 get{return _alias;}
                 set{_alias=value;}
-            }
-
-            public void receiveAMessage(String msg, Chatter c)
-            {
             }
         }
     }

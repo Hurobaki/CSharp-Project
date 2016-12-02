@@ -8,7 +8,6 @@ namespace CSharp_server.Authentification
 {
     namespace Authentification
     {
-        [Serializable()]
         public class AuthentificationManager
         {
             // Si on créé une classe User, il suffit de passer en paramètre un User
@@ -103,7 +102,7 @@ namespace CSharp_server.Authentification
                 return 3;
             }
 
-            public static AuthentificationManager load(String path)
+            public static AuthentificationManager load(string path)
             {
                 XmlSerializer deserializer = new XmlSerializer(typeof(AuthentificationManager));
                 StreamReader reader = new StreamReader(path);
@@ -113,7 +112,7 @@ namespace CSharp_server.Authentification
                 return aut;
             }
 
-            public void save(String path)
+            public void save(string path)
             {
                 // Utiliser la sérialisation
                 // En binaire ou en XML ? 

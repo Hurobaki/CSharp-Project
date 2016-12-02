@@ -12,77 +12,48 @@ namespace CSharp_server.Authentification
     {
         public class User
         {
-            String _login;
-            String _password;
-            // à implémenter
-            Chatter _chatter;
-            NetworkStream _ns;
+            private string _login;
+            private string _password;
+            private Chatter _chatter;
+            private NetworkStream _ns;
             
+            public string login
+            {
+                get { return _login; }
+                set { _login=value; }
+            }
+
+            public string password
+            {
+                get { return _password; }
+                set { _password = value; }
+            }
+
+            public Chatter chatter
+            {
+                get { return _chatter; }
+                set { _chatter = value; }
+            }
+
+            public NetworkStream ns
+            {
+                get { return _ns; }
+                set { _ns = value; }
+            }
+
             public User() { }
 
-            public User(String login, String password, NetworkStream ns)
+            public User(string login, string password, NetworkStream ns)
             {
                 _login = login;
                 _password = password;
                 _ns = ns;
             }
 
-            public User(String login, String password)
+            public User(string login, string password)
             {
                 _login = login;
                 _password = password;
-            }
-
-            public String login
-            {
-                get
-                {
-                    return _login;
-                }
-
-                set
-                {
-                    _login = value;
-                }
-            }
-
-            public String password
-            {
-                get
-                {
-                    return _password;
-                }
-
-                set
-                {
-                    _password = value;
-                }
-            }
-
-            public NetworkStream ns
-            {
-                get
-                {
-                    return _ns;
-                }
-
-                set
-                {
-                    _ns = value;
-                }
-            }
-
-            public Chatter chatter
-            {
-                get
-                {
-                    return _chatter;
-                }
-
-                set
-                {
-                    _chatter = value;
-                }
             }
 
             public override string ToString()
