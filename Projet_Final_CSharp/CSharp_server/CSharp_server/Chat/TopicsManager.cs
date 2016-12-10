@@ -12,10 +12,12 @@ namespace CSharp_server.Chat
 {
     namespace Chat
     {
+        /* Classe de gestion des utilisateurs/chatroom */
         [Serializable]
         public class TopicsManager
         {
             private static string path = "Topics.xml";
+            // Liste des chatrooms
             private static Hashtable _topics = new Hashtable();
 
             public Hashtable topics
@@ -30,6 +32,7 @@ namespace CSharp_server.Chat
                 }
             }
 
+            /* Fonction d'ajout d'un utilisateur dans une chatroom */
             public bool joinTopic(string topic, User u)
             {
                 if (_topics.Contains(topic))
@@ -41,6 +44,7 @@ namespace CSharp_server.Chat
                     return false;
             }
 
+            /* Fonction de création d'une noouvelle chatroom */
             public bool createTopic(string topic)
             {
                 if (_topics.Contains(topic))
@@ -63,6 +67,7 @@ namespace CSharp_server.Chat
                 }
                 return res;
             }
+
             public Chatroom getRoom(string s)
             {
                 if (_topics.ContainsKey(s))
@@ -75,6 +80,8 @@ namespace CSharp_server.Chat
                     return null;
                 }
             }
+
+            /* Fonction de deserialization du fichier xml de chatrooms */
             public static Hashtable load(string path)
             {
                 Hashtable tops = new Hashtable();
@@ -91,6 +98,7 @@ namespace CSharp_server.Chat
                 return tops;
             }
 
+            /* Fonction de serialization des chatrooms dans un fichier xml */
             public void save(string path)
             {
                 List<DataItem> tempdataitems = new List<DataItem>();
@@ -106,6 +114,8 @@ namespace CSharp_server.Chat
             }
         }
     }
+
+    /* Classe anonyme pour la serialization  */
     public class DataItem
     {
         public string Key;

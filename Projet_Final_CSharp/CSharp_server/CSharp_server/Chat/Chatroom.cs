@@ -11,9 +11,12 @@ namespace CSharp_server.Chat
 {
     namespace Chat
     {
+        /* Classe regroupant les fonctionnalités des chatroom */
         public class Chatroom
         {
+            // Nom de la chatroom
             private string _topic;
+            // Liste des User connectés à cette chatroom
             private List<User> _chatters = new List<User>();
 
             public Chatroom(string topic)
@@ -49,16 +52,17 @@ namespace CSharp_server.Chat
                 return chatters;
             }
 
+            /* Fonction d'envoie de message à tous les utilisateurs connectés à cette chatroom */
             public void post(string msg, User u)
             {
-                //Console.WriteLine(this._topic +" : "+ u.chatter.alias + " : " + msg);
                 foreach (User user in this._chatters)
                 {
-                    //Console.WriteLine("Sending message : " + msg + " from user : " + u.chatter.alias + " in chatroom : " + this._topic + " to user : " + user.chatter.alias);
                     MessageBroadcastPacket mbp = new MessageBroadcastPacket(u.login, msg, this._topic);
                     Packet.Send(mbp, user.ns);
                 }
             }
+
+            /* PAS IMPLEMENTÉ CÔTÉ CLIENT */
             public void whisper(string msg, User u, User t)
             {
                 User chatter = this.getChatter(t);
@@ -71,6 +75,7 @@ namespace CSharp_server.Chat
                     Console.WriteLine("[CHATROOM]Error while sending the whisp " + u.login + "/" + t.login + " message : " + msg + " in chatroom" + this._topic);
             }
 
+            /* Fonction de retrait d'un utilisateur de la chatroom */
             public void quit(User c)
             {
                 c.ns.Flush();
@@ -78,6 +83,7 @@ namespace CSharp_server.Chat
                 Console.WriteLine("[CHATROOM]" + c.chatter.alias + " has left the chat " + this.topic);
             }
 
+            /* Fonction d'ajout d'un utilisateur de la chatroom */
             public bool join(User c)
             {
                 if (_chatters.Contains(c))

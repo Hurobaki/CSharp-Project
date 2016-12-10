@@ -9,6 +9,7 @@ namespace CSharp_server.Chat
 {
     namespace Chat
     {
+        /* Classe représentant un utilisateur dans la chatroom (pas encore exploité) */
         public class Chatter
         {
             private string _alias;

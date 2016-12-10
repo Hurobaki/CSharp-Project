@@ -8,9 +8,10 @@ namespace CSharp_server.Authentification
 {
     namespace Authentification
     {
+        /* Classe regroupant les fonctions d'authentification des users ainsi que la liste des utilisateurs authentifiés */
         public class AuthentificationManager
         {
-                     
+            /* Liste des utilisateurs authentifié*/
             private static List<User> _users = new List<User>();
             private const string PATH = "SaveUsers.xml";
 
@@ -23,6 +24,7 @@ namespace CSharp_server.Authentification
                 }
             }
             
+            /* Fonction d'ajout d'utilisateur dans la liste */
             public bool addUser(String login, String password)
             {
                     foreach (User u in _users)
@@ -34,10 +36,12 @@ namespace CSharp_server.Authentification
 
                     TextInfo ti = CultureInfo.CurrentCulture.TextInfo;
                     Console.WriteLine("[AUTHENTIFICATION]{1} has been added !", temp.login, ti.ToTitleCase(temp.login));
+                // Serialization dans un fichier xml
                 this.save(PATH);
                 return true;
             }
 
+            /* Fonction de retrait d'utilisateur dans la liste */
             public void removeUser(String login)
             {
                 bool flag = false;
@@ -51,6 +55,7 @@ namespace CSharp_server.Authentification
                         Console.WriteLine("[AUTHENTIFICATION]{1} has been removed !", _users[i].login, ti.ToTitleCase(_users[i].login));
 
                         _users.Remove(_users[i]);
+                        // Serialization dans un fichier xml
                         this.save(PATH);
                         flag = true; 
                     }
@@ -62,6 +67,7 @@ namespace CSharp_server.Authentification
                 }
             }
 
+            /* ?? */
             public void checkRegistredUsers()
             {
                 Console.WriteLine("[AUTHENTIFICATION]Users already registrered : ");
@@ -70,10 +76,9 @@ namespace CSharp_server.Authentification
                     Console.WriteLine(u);
             }
 
+            /* Fonction de procédure d'authentification, renvoit un int pour identifiaction de l'erreur */
             public int authentify(String login, String password)
             {
-                // throw new UserExistsException("Authentify method flag, UserExistsException raised", login);
-                // Si l'utilisateur est déjà connecté ??
                 foreach(User u in _users)
                 {
                     if(u.login.Equals(login))
@@ -94,6 +99,7 @@ namespace CSharp_server.Authentification
                 return 3;
             }
 
+            /* Deserialization du fichier xml */
             public static AuthentificationManager load(string path)
             {
                 XmlSerializer deserializer = new XmlSerializer(typeof(AuthentificationManager));
@@ -104,6 +110,7 @@ namespace CSharp_server.Authentification
                 return aut;
             }
 
+            /* Serialization du fichier xml */
             public void save(string path)
             {
                 XmlSerializer serializer = new XmlSerializer(typeof(AuthentificationManager));
