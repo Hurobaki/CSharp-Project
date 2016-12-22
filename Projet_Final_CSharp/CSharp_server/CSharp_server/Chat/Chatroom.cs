@@ -62,19 +62,6 @@ namespace CSharp_server.Chat
                 }
             }
 
-            /* PAS IMPLEMENTÉ CÔTÉ CLIENT */
-            public void whisper(string msg, User u, User t)
-            {
-                User chatter = this.getChatter(t);
-                if (chatter != null)
-                {
-                    WhisperMessagePacket wbp = new WhisperMessagePacket(u.login, this._topic, msg, chatter.login);
-                    Packet.Send(wbp, chatter.ns);
-                }
-                else
-                    Console.WriteLine("[CHATROOM]Error while sending the whisp " + u.login + "/" + t.login + " message : " + msg + " in chatroom" + this._topic);
-            }
-
             /* Fonction de retrait d'un utilisateur de la chatroom */
             public void quit(User c)
             {

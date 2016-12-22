@@ -255,15 +255,6 @@ namespace CSharp_server.Server
                         }
                     }
 
-                    /* PAS IMPLÉMENTÉ CÔTÉ CLIENT */
-                    if (packet is WhisperMessagePacket)
-                    {
-                        WhisperMessagePacket wmp = (WhisperMessagePacket)packet;
-                        Console.WriteLine("[CHATROOM]Whipering message : [" + wmp.message + "] from user " + wmp.user + " to user " + wmp.target + " on chatroom " + wmp.chatroom);
-                        Chatroom cible = (Chatroom)tm.topics[wmp.chatroom];
-                        cible.whisper(wmp.message, ChatServer.getUser(wmp.user), ChatServer.getUser(wmp.target));
-                    }
-
                     /* Paquet de déconnexion d'un utilisateur */
                     if (packet is DisconnectPacket)
                     {
